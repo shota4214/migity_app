@@ -1,0 +1,26 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      question: Ｑ＆Ａ
+      favorite: クリップ
+      label: タグ
+      comment: コメント
+    attributes:
+      user:
+        name: 名前
+        pharmacy: 薬局名
+        email: メールアドレス
+        image: 写真
+        pharmacist: 専門薬剤師
+        admin: サイト管理者
+        position: 役職
+      question:
+        title: タイトル
+        content: 内容
+        resolved: 解決済み
+        draft: 下書き
+      label:
+        name: 名前
+      comment:
+        content: 内容
