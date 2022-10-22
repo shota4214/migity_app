@@ -4,3 +4,32 @@
 <p>薬局名 : <%= @user.pharmacy %></p>
 
 <%= link_to "ユーザー情報編集", edit_user_registration_path(@user) %>
+
+<% if user_signed_in? %>
+  <% if @user.id == current_user.id %>
+    <h2>投稿Q&A一覧</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>タイトル</th>
+          <th>内容</th>
+          <th>解決済み</th>
+          <th>下書き</th>
+        </tr>
+      <thead>
+      <tbody>
+        <% @questions.each do |question| %>
+          <tr>
+            <td><%= question.title %></td>
+            <td><%= question.content %></td>
+            <td><%= question.resolved %></td>
+            <td><%= question.draft %></td>
+            <td><%= link_to "詳細", question_path(question.id) %></td>
+            <td><%= link_to "編集", edit_question_path(question.id) %></td>
+            <td><%= link_to "削除", question_path(question.id), method: :delete, data: { confirm: "本当に削除してもいいですか？" } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+<% end %>

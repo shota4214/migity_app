@@ -1,0 +1,31 @@
+<% if params[:draft] %>
+  <p>以下の内容で、下書き保存します</p>
+<% else %>
+  <p>以下の内容で、Q&Aを投稿します</p>
+<% end %>
+<br>
+<%= form_with(model: @question, local: true, url: questions_path ) do |f| %>
+  <br>
+  <div class="field">
+    <%= f.label :title %>
+    <%= @question.title %></p>
+    <%= f.hidden_field :title %>
+  </div>
+  <br>
+  <div class="field">
+    <%= f.label :content %>
+    <%= @question.content %>
+    <%= f.hidden_field :content %>
+    </div>
+  </div>
+  <br>
+  <div class="field">
+    <% if params[:draft] %>
+      <%= f.submit "下書き保存", name: "draft" %>
+    <% else %>
+      <%= f.submit "投稿する" %>
+    <% end %>
+  </div>
+    <%= f.submit "戻る", name: "back" %>
+  </div>
+<% end %>

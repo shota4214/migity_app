@@ -1,0 +1,17 @@
+<h2>Q＆A詳細</h2>
+
+<% if @question.draft %>
+  <p>このQ＆Aは現在下書きのため非公開です</p>
+<% end %>
+
+<% if @question.resolved %>
+  <p>状態：解決済み</p>
+  <%= link_to "回答受付中にする", change_resolved_question_path(@question.id) %>
+<% else %>
+  <p>状態：回答受付中</p>
+  <%= link_to "解決済みにする", change_resolved_question_path(@question.id) %>
+<% end %>
+
+<p>タイトル: <%= @question.title %></p>
+<p>内容: <%= @question.content %></p>
+
