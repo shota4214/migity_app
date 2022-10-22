@@ -1,0 +1,6 @@
+<h1>ユーザー詳細</h1>
+<p>名前 : <%= @user.name %></p>
+<p>メールアドレス : <%= @user.email %></p>
+<p>薬局名 : <%= @user.pharmacy %></p>
+
+<%= link_to "ユーザー情報編集", edit_user_registration_path(@user) %>
