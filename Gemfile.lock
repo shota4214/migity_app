@@ -250,12 +250,14 @@ PLATFORMS
   x86_64-darwin-21
 
 DEPENDENCIES
+  actiontext
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
   carrierwave
   devise
   devise-i18n
+  image_processing (~> 1.2)
   jbuilder (~> 2.7)
   letter_opener_web
   listen (~> 3.2)
