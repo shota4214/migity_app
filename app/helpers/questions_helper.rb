@@ -6,4 +6,18 @@ module QuestionsHelper
       question_path
     end
   end
+
+  def resolved_text(question)
+    if question.resolved
+      "解決済み"
+    else
+      "回答受付中"
+    end
+  end
+
+  def comment_count(question)
+    all_comment = question.comments.count.to_i
+    my_comment = question.comments.where(user_id: question.user.id).count.to_i
+    all_comment - my_comment
+  end
 end
