@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create edit update destroy]
-  before_action :set_question, only:%i[show edit update destroy change_resolved]
+  before_action :set_question, only: %i[show edit update destroy change_resolved]
 
   def index
     @questions = Question.where(draft: false)
@@ -30,6 +30,8 @@ class QuestionsController < ApplicationController
   end
 
   def show
+    @comments = @question.comments
+    @comment = @question.comments.build
   end
 
   def edit

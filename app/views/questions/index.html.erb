@@ -9,6 +9,8 @@
 <table>
   <thead>
     <tr>
+      <th>状態</th>
+      <th>回答数</th>
       <th>タイトル</th>
       <th>内容</th>
       <th>投稿者</th>
@@ -18,13 +20,19 @@
   <tbody>
     <% @questions.each do |question| %>
       <tr>
+        <td><%= resolved_text(question) %></td>
+        <td><%= comment_count(question) %></td>
         <td><%= question.title %></td>
         <td><%= question.content %></td>
         <td><%= question.user.name %></td>
         <td><%= question.created_at.strftime('%Y/%m/%d') %></td>
         <td><%= link_to "詳細", question_path(question.id) %></td>
-        <td><%= link_to "編集", edit_question_path(question.id) %></td>
-        <td><%= link_to "削除", question_path(question.id), method: :delete, data: { confirm: "本当に削除してもいいですか？" } %></td>
+        <% if user_signed_in? %>
+          <% if question.user_id == current_user.id %>
+            <td><%= link_to "編集", edit_question_path(question.id) %></td>
+            <td><%= link_to "削除", question_path(question.id), method: :delete, data: { confirm: "本当に削除してもいいですか？" } %></td>
+          <% end %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

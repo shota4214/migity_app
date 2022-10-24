@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   }
   resources :users, only: %i[show]
   resources :questions do
+    resources :comments
     collection do
       post :confirm
     end
