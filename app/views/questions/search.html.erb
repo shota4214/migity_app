@@ -1,4 +1,4 @@
-<p>【Q&A一覧】</p>
+<p>【Q&A検索結果一覧】</p>
 <%= link_to "質問する", new_question_path %>
 <br>
 <%= search_form_for @q, url: search_questions_path do |f| %>
@@ -24,7 +24,7 @@
     </tr>
   <thead>
   <tbody>
-    <% @questions.each do |question| %>
+    <% @results.each do |question| %>
       <tr>
         <td><%= resolved_text(question) %></td>
         <td><%= comment_count(question) %></td>

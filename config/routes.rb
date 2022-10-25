@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :comments
     collection do
       post :confirm
+      get :search
     end
     member do
       get :change_resolved

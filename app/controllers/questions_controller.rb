@@ -1,9 +1,10 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create edit update destroy]
   before_action :set_question, only: %i[show edit update destroy change_resolved]
+  before_action :set_q, only: %i[index search]
+  before_action :other_than_drafts, only: %i[index search]
 
   def index
-    @questions = Question.where(draft: false)
     @questions = @questions.where(resolved: true) if params[:resolved]
     @questions = @questions.where(resolved: false) if params[:unresolved]
   end
@@ -75,6 +76,12 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def search
+    search_words = params[:q][:title_or_content_body_cont].split(/[\p{blank}\s]+/)
+    grouping_hash = search_words.reduce({}){|hash, word| hash.merge(word => { title_or_content_body_cont: word})}
+    @results = @questions.ransack({ combinator: 'or', groupings: grouping_hash, s: 'created_at desc'}).result
+  end
+
   private
 
   def question_params
@@ -85,4 +92,11 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
   end
 
+  def set_q
+    @q = Question.ransack(params[:q])
+  end
+
+  def other_than_drafts
+    @questions = Question.where(draft: false)
+  end
 end
