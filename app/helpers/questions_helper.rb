@@ -15,6 +15,14 @@ module QuestionsHelper
     end
   end
 
+  def draft_text(question)
+    if question.draft
+      "下書き保存中"
+    else
+      "投稿済み"
+    end
+  end
+
   def comment_count(question)
     all_comment = question.comments.count.to_i
     my_comment = question.comments.where(user_id: question.user.id).count.to_i
