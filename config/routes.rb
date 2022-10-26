@@ -15,4 +15,5 @@ Rails.application.routes.draw do
       get :change_resolved
     end
   end
+  resources :favorites, only: %i[create destroy index]
 end

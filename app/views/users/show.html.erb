@@ -4,6 +4,7 @@
 <p>薬局名 : <%= @user.pharmacy %></p>
 
 <%= link_to "ユーザー情報編集", edit_user_registration_path(@user) %>
+<%= link_to "クリップ一覧", favorites_path(@user) %>
 
 <% if user_signed_in? %>
   <% if @user.id == current_user.id %>
