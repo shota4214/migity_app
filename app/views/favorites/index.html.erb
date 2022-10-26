@@ -1,22 +1,10 @@
-<p>【Q&A一覧】</p>
-<%= link_to "質問する", new_question_path %>
-<br>
-<%= search_form_for @q, url: search_questions_path do |f| %>
-  <%= f.search_field :title_or_content_body_cont, placeholder: "薬の名前 副作用" %>
-  <%= f.submit '検索' %>
-<% end %>
+<p>【クリップQ&A一覧】</p>
 
-<p>
-  <%= link_to "すべて", questions_path %>
-  <%= link_to "解決済み", questions_path(resolved: true) %>
-  <%= link_to "回答受付中", questions_path(unresolved: true) %>
-</p>
 <table>
   <thead>
     <tr>
       <th>状態</th>
       <th>回答数</th>
-      <th>クリップ</th>
       <th>タイトル</th>
       <th>内容</th>
       <th>投稿者</th>
@@ -24,11 +12,10 @@
     </tr>
   <thead>
   <tbody>
-    <% @questions.each do |question| %>
+    <% @favorite_questions.each do |question| %>
       <tr>
         <td><%= resolved_text(question) %></td>
         <td><%= comment_count(question) %></td>
-        <td><%= question.favorites.count %></td>
         <td><%= question.title %></td>
         <td><%= question.content %></td>
         <td><%= question.user.name %></td>

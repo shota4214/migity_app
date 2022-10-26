@@ -33,6 +33,7 @@ class QuestionsController < ApplicationController
   def show
     @comments = @question.comments
     @comment = @question.comments.build
+    @favorite = current_user.favorites.find_by(question_id: @question.id)
   end
 
   def edit

@@ -4,6 +4,10 @@
   <p>このQ＆Aは現在下書きのため非公開です</p>
 <% end %>
 
+<div class="favorite-link" id="favorite-link-<%= @question.id %>">
+  <%= render partial: 'favorites/favorite', locals: { question: @question } %>
+</div>
+
 <p>状態：<%= resolved_text(@question) %></p>
   <% if user_signed_in? && @question.user_id == current_user.id %>
     <% if @question.resolved %>
