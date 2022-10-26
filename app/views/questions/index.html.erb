@@ -16,6 +16,7 @@
     <tr>
       <th>状態</th>
       <th>回答数</th>
+      <th>クリップ</th>
       <th>タイトル</th>
       <th>内容</th>
       <th>投稿者</th>
@@ -27,6 +28,7 @@
       <tr>
         <td><%= resolved_text(question) %></td>
         <td><%= comment_count(question) %></td>
+        <td><%= question.favorites.count %></td>
         <td><%= question.title %></td>
         <td><%= question.content %></td>
         <td><%= question.user.name %></td>
