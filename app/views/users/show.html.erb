@@ -23,8 +23,8 @@
           <tr>
             <td><%= question.title %></td>
             <td><%= question.content %></td>
-            <td><%= question.resolved %></td>
-            <td><%= question.draft %></td>
+            <td><%= resolved_text(question) %></td>
+            <td><%= draft_text(question) %></td>
             <td><%= link_to "詳細", question_path(question.id) %></td>
             <td><%= link_to "編集", edit_question_path(question.id) %></td>
             <td><%= link_to "削除", question_path(question.id), method: :delete, data: { confirm: "本当に削除してもいいですか？" } %></td>

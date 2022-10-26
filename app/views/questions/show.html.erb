@@ -20,7 +20,7 @@
 <p>タイトル: <%= @question.title %></p>
 <p>内容: <%= @question.content %></p>
 
-<p>コメント一覧</p>
+<h2>コメント一覧</h2>
   <div id="comments_area">
     <%= render partial: 'comments/index', locals: { comments: @comments, question: @question } %>
   </div>
