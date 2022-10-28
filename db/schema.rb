@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_23_085211) do
+ActiveRecord::Schema.define(version: 2022_10_27_142916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,14 @@ ActiveRecord::Schema.define(version: 2022_10_23_085211) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["question_id"], name: "index_favorites_on_question_id"
     t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "label_details", force: :cascade do |t|
+    t.string "content", null: false
+    t.bigint "label_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["label_id"], name: "index_label_details_on_label_id"
   end
 
   create_table "labellings", force: :cascade do |t|
@@ -136,6 +144,7 @@ ActiveRecord::Schema.define(version: 2022_10_23_085211) do
   add_foreign_key "comments", "users"
   add_foreign_key "favorites", "questions"
   add_foreign_key "favorites", "users"
+  add_foreign_key "label_details", "labels"
   add_foreign_key "labellings", "labels"
   add_foreign_key "labellings", "questions"
   add_foreign_key "notes", "users"

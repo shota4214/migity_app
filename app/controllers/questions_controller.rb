@@ -10,7 +10,8 @@ class QuestionsController < ApplicationController
   end
 
   def new
-    @question = Question.new
+    @question = current_user.questions.build
+    @labels = Label.all
   end
 
   def create
@@ -64,6 +65,7 @@ class QuestionsController < ApplicationController
 
   def confirm
     @question = current_user.questions.build(question_params)
+    binding.pry
     render :new if @question.invalid?
   end
 
@@ -80,13 +82,13 @@ class QuestionsController < ApplicationController
   def search
     search_words = params[:q][:title_or_content_body_cont].split(/[\p{blank}\s]+/)
     grouping_hash = search_words.reduce({}){|hash, word| hash.merge(word => { title_or_content_body_cont: word})}
-    @results = @questions.ransack({ combinator: 'or', groupings: grouping_hash, s: 'created_at desc'}).result
+    @results = @questions.ransack({ combinator: 'and', groupings: grouping_hash, s: 'created_at desc'}).result
   end
 
   private
 
   def question_params
-    params.require(:question).permit(:title, :content, :resolved, :draft)
+    params.require(:question).permit(:title, :content, :resolved, :draft, { label_ids: [] }, :label_detail_ids )
   end
 
   def set_question

@@ -9,17 +9,81 @@
     </ul>
   </div>
   <% end %>
-  <br>
+
 <div class="field">
-  <%= f.label :title %></label>
+  <%= f.label :title %>
   <%= f.text_field :title, placeholder: 'タイトルを入力' %>
 </div>
+
 <div class="field">
-  <%= f.label :content %></label>
+  <%= f.label :label %>
+  <%= f.collection_select(:label_id, @labels, :id, :name, { include_blank: "タグを選択", prompt: false }) %>
+</div>
+
+<div id="label_detail_insert_point"></div>
+
+<div id="label_detail">
+  <div class="field">
+    <% if @label_details.blank? %>
+      <%= f.label :label_detail %>
+      <%= f.select :label_detail_id, [], include_blank: "---" %>
+    <% else %>
+      <%= f.label :label_detail %>
+      <%= f.collection_select(:label_detail_id, @label_details, :id, :content, { include_blank: "---", prompt: false }) %>
+    <% end %>
+  </div>
+</div>
+
+<% @labels.each do |label|  %>
+  <template id="label_detail_<%= label.id %>">
+    <div id="selected_label_detail">
+      <div class="field" >
+        <%= f.label :label_detail %>
+        <%= f.collection_select(:label_detail_id, label.label_details, :id, :content, { include_blank: "---", prompt: false }) %>
+      </div>
+    </div>
+  </template>
+<% end %>
+
+<div class="field">
+  <%= f.label :content %>
   <%= f.rich_text_area :content, placeholder: '記事の内容を入力' %>
 </div>
+
 <div class="field">
   <%= f.submit '記事投稿' %>
   <%= f.submit '下書き保存', name: 'draft' %>
 </div>
 <% end %>
+
+<script>
+$(document).on('turbolinks:load', function() {
+  //復活させるダミーの中カテゴリのセレクトボックス
+  let default_label_detail_select = `<div id="label_detail"><div class="field"><div class="form-group"><label for="question_label_id">中カテゴリ</label><select name="label_detail", class="form-control">
+  <option value>---</option>
+  </select></div></div></div>`;
+
+    //中カテゴリの処理
+  $(document).on('change', '#question_label_id', function() {
+    let category_val = $('#question_label_id').val();
+
+    //大カテゴリが変更されてvalueに値が入った場合の処理
+    if (category_val !== "") {
+    let selected_template = $(`#label_detail_${category_val}`); //呼び出すtamplateのidセット
+
+    $('#label_detail').remove(); //デフォルト表示用の中カテゴリを削除
+    $('#selected_label_detail').remove(); //前に選択した中カテゴリがある場合に削除
+    $('#label_detail_insert_point').after(selected_template.html());　//大カテゴリに紐づいた中カテゴリセレクトを追加
+    console.log(selected_template);
+
+    }else {
+
+    //親要素のセレクトボックスが変更されてvalueに値が入っていない場合（include_blankの部分を選択している場合）
+    $("#selected_label_detail").remove();//前に選択した中カテゴリがある場合に削除
+    $('#label_detail').remove();//デフォルト表示用の中カテゴリを削除
+    $('#label_detail_insert_point').after(default_label_detail_select); //デフォルト表示の中カテゴリを追加
+
+    };
+  });
+}); 
+</script>
