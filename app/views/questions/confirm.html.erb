@@ -13,11 +13,15 @@
   </div>
 
   <div class="field">
-    <%= f.label :label %>
-    <% @question.labels.each do |label| %>
-      <%= label.name%>
-      <%= f.hidden_field :label_ids, multiple: true, value: label.id %>
-    <% end %>
+    <%= f.label :disease %>
+    <%= @disease.name %>
+    <%= f.hidden_field :disease_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :disease_detail %>
+    <%= @disease_detail.content %>
+    <%= f.hidden_field :disease_detail_id %>
   </div>
 
   <div class="field">

@@ -3,6 +3,7 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: %i[show edit update destroy change_resolved]
   before_action :set_q, only: %i[index search]
   before_action :other_than_drafts, only: %i[index search]
+  before_action :diseases, only: %i[new edit]
 
   def index
     @questions = @questions.where(resolved: true) if params[:resolved]
@@ -11,7 +12,6 @@ class QuestionsController < ApplicationController
 
   def new
     @question = current_user.questions.build
-    @labels = Label.all
   end
 
   def create
@@ -35,9 +35,12 @@ class QuestionsController < ApplicationController
     @comments = @question.comments
     @comment = @question.comments.build
     @favorite = current_user.favorites.find_by(question_id: @question.id) if user_signed_in?
+    @disease = Disease.find(@question.disease_id)
+    @disease_detail = DiseaseDetail.find(@question.disease_detail_id)
   end
 
   def edit
+    @disease_details = DiseaseDetail.all
   end
 
   def update
@@ -65,7 +68,8 @@ class QuestionsController < ApplicationController
 
   def confirm
     @question = current_user.questions.build(question_params)
-    binding.pry
+    @disease = Disease.find(params[:question][:disease_id])
+    @disease_detail = DiseaseDetail.find(params[:question][:disease_detail_id])
     render :new if @question.invalid?
   end
 
@@ -88,7 +92,7 @@ class QuestionsController < ApplicationController
   private
 
   def question_params
-    params.require(:question).permit(:title, :content, :resolved, :draft, { label_ids: [] }, :label_detail_ids )
+    params.require(:question).permit(:title, :content, :resolved, :draft, :disease_id, :disease_detail_id)
   end
 
   def set_question
@@ -101,5 +105,9 @@ class QuestionsController < ApplicationController
 
   def other_than_drafts
     @questions = Question.where(draft: false)
+  end
+
+  def diseases
+    @diseases = Disease.all
   end
 end

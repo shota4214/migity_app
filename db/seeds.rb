@@ -9,54 +9,81 @@ User.create!(name: "みぎたか", pharmacy: "migity", email: "migitaka@test.com
     { name: name, pharmacy: pharmacy, email: email, password: password, position: position, image: image})
 end
 
+diseases = ["脳腫瘍", "頭頸部癌", "唾液線がん", "甲状腺がん", "肺がん", "乳がん", "小細胞肺がん", "中皮腫", "膵臓がん", "胃がん", "GIST", "小腸がん", "大腸がん", "食道がん", "腎臓がん", "腎盂・尿管がん", "膀胱がん", "前立腺がん", "子宮頸がん", "卵巣がん", "子宮肉腫", "悪性リンパ腫", "白血病", "慢性リンパ性白血病", "多発性骨髄腫", "皮膚がん", "メラノーマ", "肉腫", "原発不明がん"]
+diseases.each do |disease|
+  Disease.create!(name: disease)
+end
+
+Disease.all.each do |disease|
+  disease.disease_details.create!(content: "ステージ0" )
+  disease.disease_details.create!(content: "ステージⅠ" )
+  disease.disease_details.create!(content: "ステージⅡ" )
+  disease.disease_details.create!(content: "ステージⅢ" )
+  disease.disease_details.create!(content: "ステージⅣ" )
+end
+
 Question.create!(
   title: "肺がんの薬使用について",
   content: "オプシーボの使用方法について考えました",
   resolved: true,
   draft: false,
-  user_id: 5
+  user_id: 5,
+  disease_id: 5,
+  disease_detail_id: 1
 )
 Question.create!(
   title: "胃がんの薬使用について",
   content: "オキサリプラチンの使用方法について考えました",
   resolved: false,
   draft: true,
-  user_id: 5
+  user_id: 5,
+  disease_id: 10,
+  disease_detail_id: 2
 )
 Question.create!(
   title: "膵臓がんの薬使用について",
   content: "ギメラシルの使用方法について考えました",
   resolved: false,
   draft: true,
-  user_id: 5
+  user_id: 5,
+  disease_id: 9,
+  disease_detail_id: 3
 )
 Question.create!(
-  title: "咽頭がんの薬使用について",
+  title: "食道がんの薬使用について",
   content: "ブリプラチンの使用方法について考えました",
   resolved: false,
   draft: false,
-  user_id: 2
+  user_id: 2,
+  disease_id: 14,
+  disease_detail_id: 1
 )
 Question.create!(
   title: "皮膚がんの薬使用について",
   content: "シスプラチンの使用方法について考えました",
   resolved: false,
   draft: false,
-  user_id: 3
+  user_id: 3,
+  disease_id: 25,
+  disease_detail_id: 1
 )
 Question.create!(
   title: "大腸がんの薬使用について",
   content: "イリノテカンの使用方法について考えました",
   resolved: false,
   draft: false,
-  user_id: 4
+  user_id: 4,
+  disease_id: 13,
+  disease_detail_id: 1
 )
 Question.create!(
   title: "白血病の薬使用について",
   content: "ビンクリスチンの使用方法について考えました",
   resolved: false,
   draft: false,
-  user_id: 1
+  user_id: 1,
+  disease_id: 23,
+  disease_detail_id: 1
 )
 
 Favorite.create!(user_id: 2, question_id: 1)
@@ -76,23 +103,3 @@ Comment.create!(user_id: 1, question_id: 1, content: "コメントありがと�
 Comment.create!(user_id: 2, question_id: 2, content: "コメントさせていただきます")
 Comment.create!(user_id: 3, question_id: 2, content: "私もコメントさせていただきます")
 Comment.create!(user_id: 5, question_id: 2, content: "コメントありがとうございます")
-
-
-labels = ["消化器内科", "呼吸器内科", "呼吸器外科", "血液内科", "泌尿器科", "婦人科", "脳神経外科", "耳鼻咽喉科", "歯科口腔外科", "内分泌外科", "皮膚科", "整形外科", "放射線腫瘍科", "麻酔科", "神経精神科", "化学療法・緩和ケア科", "ゲノム診療科",]
-labels.each do |label|
-  Label.create!(name: label)
-end
-
-Label.all.each do |label|
-  label.label_details.create!(label_id: label.id, content: "クスリ名#{label.id}" )
-  label.label_details.create!(label_id: label.id, content: "クスリ名#{label.id + 1}" )
-  label.label_details.create!(label_id: label.id, content: "クスリ名#{label.id + 2}" )
-end
-
-Labelling.create!(question_id: 1, label_id: 2)
-Labelling.create!(question_id: 2, label_id: 1)
-Labelling.create!(question_id: 3, label_id: 10)
-Labelling.create!(question_id: 4, label_id: 1)
-Labelling.create!(question_id: 5, label_id: 11)
-Labelling.create!(question_id: 6, label_id: 1)
-Labelling.create!(question_id: 7, label_id: 4)

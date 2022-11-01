@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class LabelTest < ActiveSupport::TestCase
+class DiseaseDetailTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
