@@ -16,30 +16,30 @@
 </div>
 
 <div class="field">
-  <%= f.label :label %>
-  <%= f.collection_select(:label_id, @labels, :id, :name, { include_blank: "タグを選択", prompt: false }) %>
+  <%= f.label :disease %>
+  <%= f.collection_select(:disease_id, @diseases, :id, :name, { include_blank: "タグを選択", prompt: false }) %>
 </div>
 
-<div id="label_detail_insert_point"></div>
+<div id="disease_detail_insert_point"></div>
 
-<div id="label_detail">
+<div id="disease_detail">
   <div class="field">
-    <% if @label_details.blank? %>
-      <%= f.label :label_detail %>
-      <%= f.select :label_detail_id, [], include_blank: "---" %>
+    <% if @disease_details.blank? %>
+      <%= f.label :disease_detail %>
+      <%= f.select :disease_detail_id, [], include_blank: "---" %>
     <% else %>
-      <%= f.label :label_detail %>
-      <%= f.collection_select(:label_detail_id, @label_details, :id, :content, { include_blank: "---", prompt: false }) %>
+      <%= f.label :disease_detail %>
+      <%= f.collection_select(:disease_detail_id, @disease_details, :id, :content, { include_blank: "---", prompt: false }) %>
     <% end %>
   </div>
 </div>
 
-<% @labels.each do |label|  %>
-  <template id="label_detail_<%= label.id %>">
-    <div id="selected_label_detail">
+<% @diseases.each do |disease|  %>
+  <template id="disease_detail_<%= disease.id %>">
+    <div id="selected_disease_detail">
       <div class="field" >
-        <%= f.label :label_detail %>
-        <%= f.collection_select(:label_detail_id, label.label_details, :id, :content, { include_blank: "---", prompt: false }) %>
+        <%= f.label :disease_detail %>
+        <%= f.collection_select(:disease_detail_id, disease.disease_details, :id, :content, { include_blank: "---", prompt: false }) %>
       </div>
     </div>
   </template>
@@ -59,29 +59,29 @@
 <script>
 $(document).on('turbolinks:load', function() {
   //復活させるダミーの中カテゴリのセレクトボックス
-  let default_label_detail_select = `<div id="label_detail"><div class="field"><div class="form-group"><label for="question_label_id">中カテゴリ</label><select name="label_detail", class="form-control">
+  let default_disease_detail_select = `<div id="disease_detail"><div class="field"><div class="form-group"><disease for="question_disease_id">中カテゴリ</disease><select name="disease_detail", class="form-control">
   <option value>---</option>
   </select></div></div></div>`;
 
     //中カテゴリの処理
-  $(document).on('change', '#question_label_id', function() {
-    let category_val = $('#question_label_id').val();
+  $(document).on('change', '#question_disease_id', function() {
+    let category_val = $('#question_disease_id').val();
 
     //大カテゴリが変更されてvalueに値が入った場合の処理
     if (category_val !== "") {
-    let selected_template = $(`#label_detail_${category_val}`); //呼び出すtamplateのidセット
+    let selected_template = $(`#disease_detail_${category_val}`); //呼び出すtamplateのidセット
 
-    $('#label_detail').remove(); //デフォルト表示用の中カテゴリを削除
-    $('#selected_label_detail').remove(); //前に選択した中カテゴリがある場合に削除
-    $('#label_detail_insert_point').after(selected_template.html());　//大カテゴリに紐づいた中カテゴリセレクトを追加
+    $('#disease_detail').remove(); //デフォルト表示用の中カテゴリを削除
+    $('#selected_disease_detail').remove(); //前に選択した中カテゴリがある場合に削除
+    $('#disease_detail_insert_point').after(selected_template.html());　//大カテゴリに紐づいた中カテゴリセレクトを追加
     console.log(selected_template);
 
     }else {
 
     //親要素のセレクトボックスが変更されてvalueに値が入っていない場合（include_blankの部分を選択している場合）
-    $("#selected_label_detail").remove();//前に選択した中カテゴリがある場合に削除
-    $('#label_detail').remove();//デフォルト表示用の中カテゴリを削除
-    $('#label_detail_insert_point').after(default_label_detail_select); //デフォルト表示の中カテゴリを追加
+    $("#selected_disease_detail").remove();//前に選択した中カテゴリがある場合に削除
+    $('#disease_detail').remove();//デフォルト表示用の中カテゴリを削除
+    $('#disease_detail_insert_point').after(default_disease_detail_select); //デフォルト表示の中カテゴリを追加
 
     };
   });

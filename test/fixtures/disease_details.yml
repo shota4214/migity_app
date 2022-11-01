@@ -2,8 +2,6 @@
 
 one:
   content: MyString
-  label: one
 
 two:
   content: MyString
-  label: two
