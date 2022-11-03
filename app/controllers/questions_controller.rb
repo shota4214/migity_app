@@ -3,7 +3,8 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: %i[show edit update destroy change_resolved]
   before_action :set_q, only: %i[index search]
   before_action :other_than_drafts, only: %i[index search]
-  before_action :diseases, only: %i[new edit]
+  before_action :diseases, only: %i[new edit create]
+  before_action :disease_details, only: %i[edit create]
 
   def index
     @questions = @questions.where(resolved: true) if params[:resolved]
@@ -40,7 +41,6 @@ class QuestionsController < ApplicationController
   end
 
   def edit
-    @disease_details = DiseaseDetail.all
   end
 
   def update
@@ -109,5 +109,9 @@ class QuestionsController < ApplicationController
 
   def diseases
     @diseases = Disease.all
+  end
+
+  def disease_details
+    @disease_details = DiseaseDetail.all
   end
 end
