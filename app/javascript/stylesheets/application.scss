@@ -1,0 +1,43 @@
+@import '~bootstrap/scss/bootstrap';
+
+// all
+.mgr-10 {
+  margin-right: 10px;
+}
+
+.mgr-20 {
+  margin-right: 20px;
+}
+
+// question
+.question-index {
+  text-decoration: none;
+  color: black;
+}
+
+.question-index:hover {
+  text-decoration: none;
+  color: black;
+}
+
+.question-card:hover {
+  box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
+  transform: translateY(-10px);
+  transition-duration: 0.5s;
+}
+
+.resolved-true {
+  background-color: pink;
+}
+
+.resolved-false {
+  color: white;
+  background-color: red;
+}
+
+// footer
+.footer {
+  background-color: rgb(95, 95, 95);
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}

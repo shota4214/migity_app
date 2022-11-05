@@ -1,10 +1,5 @@
 <p>【Q&A検索結果一覧】</p>
 <%= link_to "質問する", new_question_path %>
-<br>
-<%= search_form_for @q, url: search_questions_path do |f| %>
-  <%= f.search_field :title_or_content_body_cont, placeholder: "薬の名前 副作用で検索" %>
-  <%= f.submit '検索' %>
-<% end %>
 
 <p>
   <%= link_to "すべて", questions_path %>

@@ -1,6 +1,15 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :authenticate_user!
+  before_action :set_search
+  before_action :diseases_count
+
+  def set_search
+    @search = Question.where(draft: false).ransack(params[:q])
+  end
+
+  def diseases_count
+    @question_diseases = Question.joins(:disease).group("diseases.name").order('count_all DESC').count
+  end
 
   protected
 
