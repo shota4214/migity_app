@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     collection do
       post :confirm
       get :search
+      get :by_disease
     end
     member do
       get :change_resolved

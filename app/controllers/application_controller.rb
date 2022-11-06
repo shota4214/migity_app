@@ -8,7 +8,8 @@ class ApplicationController < ActionController::Base
   end
 
   def diseases_count
-    @question_diseases = Question.joins(:disease).group("diseases.name").order('count_all DESC').count
+    questions = Question.where(draft: false)
+    @question_diseases = questions.joins(:disease).group("diseases.id").order('count_all DESC').count
   end
 
   protected

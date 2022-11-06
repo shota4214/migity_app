@@ -88,10 +88,15 @@ class QuestionsController < ApplicationController
     @results = @questions.ransack({ combinator: 'and', groupings: grouping_hash, s: 'created_at desc'}).result
   end
 
+  def by_disease
+    disease_id = params[:format].to_i
+    @questions_by_disease = Question.where(draft: false, disease_id: disease_id)
+  end
+
   private
 
   def question_params
-    params.require(:question).permit(:title, :content, :resolved, :draft, :disease_id, :disease_detail_id)
+    params.require(:question).permit(:title, :content, :resolved, :draft, :disease_id, :disease_detail_id, :format)
   end
 
   def set_question

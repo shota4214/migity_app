@@ -1,0 +1,40 @@
+<h3>疾患別Q&A一覧</h3>
+
+<% @questions_by_disease.each do |question| %>
+  <div class="card mb-3 question-card">
+    <div class="row no-gutters">
+      <div class="col-md-2">
+        <div class="bd-placeholder">
+          <br>
+          <% if question.resolved %>
+            <p class="resolved-true text-center"><%= resolved_text(question) %></p>
+          <% else %>
+            <p class="resolved-false text-center"><%= resolved_text(question) %></p>
+          <% end %>
+          <p class="text-center">回答数 <strong><%= comment_count(question) %></strong></p>
+          <p class="text-center">クリップ数 <strong><%= question.favorites.count %></strong></p>
+        </div>
+      </div>
+      <div class="col-md-10">
+        <%= link_to question_path(question.id), class: "card-body question-index" do %>
+          <h5 class="card-title"><%= question.title %></h5>
+          <p class="card-text"><%= question.content %></p>
+          <div class="container">
+            <div class="row">
+              <span class="col-5 card-text text-left question-index">
+                <small class="text-muted"><%= disease_text(question) %></small>
+                <small class="text-muted"><%= disease_detail_text(question) %></small>
+              </span>
+              <span class="col-4 card-text text-right">
+                <small class="text-muted"><%= question.user.name %></small>
+              </span>
+              <span class="col-3 card-text text-right">
+                <small class="text-muted"><%= question.created_at.strftime('%Y/%m/%d') %></small>
+              </span>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
