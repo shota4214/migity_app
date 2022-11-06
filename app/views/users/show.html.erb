@@ -1,68 +1,75 @@
 <h1>ユーザー詳細</h1>
+
+<% if @user.image? %>
+  <%= image_tag @user.image.url %>
+<% else %>
+  <%= image_tag (asset_path'no_image.png') %>
+<% end %>
 <p>名前 : <%= @user.name %></p>
 <p>メールアドレス : <%= @user.email %></p>
 <p>薬局名 : <%= @user.pharmacy %></p>
+<% if @user.pharmacist? %>
+  <p>役職 : <%= @user.position %></p>
+<% end %>
 
 <%= link_to "ユーザー情報編集", edit_user_registration_path(@user) %>
 <%= link_to "クリップ一覧", favorites_path(@user) %>
 
 <br>
-<% if user_signed_in? %>
-  <% if @user.id == current_user.id %>
-  <h3>投稿Q&A一覧</h3>
-    <% @questions.each do |question| %>
-      <% if question.draft %><div class="card mb-3 question-card draft-true">
-      <% else %><div class="card mb-3 question-card draft-false">
-      <% end %>
-        <div class="row no-gutters">
-          <div class="col-md-2">
-            <div class="bd-placeholder">
-              <br>
-              <% if question.draft %>
-                <p class="draft-true text-center"><%= draft_text(question) %></p>
-              <% else %>
-                <p class="draft-false text-center"><%= draft_text(question) %></p>
-              <% end %>
-              <% if question.resolved %>
-                <p class="resolved-true text-center"><%= resolved_text(question) %></p>
-              <% else %>
-                <p class="resolved-false text-center"><%= resolved_text(question) %></p>
-              <% end %>
-              <p class="text-center">回答数 <strong><%= comment_count(question) %></strong></p>
-              <p class="text-center">クリップ数 <strong><%= question.favorites.count %></strong></p>
-            </div>
-          </div>
-          <div class="col-md-10">
-            <%= link_to question_path(question.id), class: "card-body question-index" do %>
-              <h5 class="card-title"><%= question.title %></h5>
-              <p class="card-text"><%= question.content %></p>
-              <div class="container">
-                <div class="row">
-                  <span class="col-5 card-text text-left question-index">
-                    <small class="text-muted"><%= disease_text(question) %></small>
-                    <small class="text-muted"><%= disease_detail_text(question) %></small>
-                  </span>
-                  <span class="col-4 card-text text-right">
-                    <small class="text-muted"><%= question.user.name %></small>
-                  </span>
-                  <span class="col-3 card-text text-right">
-                    <small class="text-muted"><%= question.created_at.strftime('%Y/%m/%d') %></small>
-                  </span>
-                </div>
-              </div>
-            <% end %>
-          </div>
+<h3>投稿Q&A一覧</h3>
+<% @questions.each do |question| %>
+  <% if question.draft %><div class="card mb-3 question-card draft-true">
+  <% else %><div class="card mb-3 question-card draft-false">
+  <% end %>
+    <div class="row no-gutters">
+      <div class="col-md-2">
+        <div class="bd-placeholder">
+          <br>
+          <% if question.draft %>
+            <p class="draft-true text-center bottom-mgr-5"><%= draft_text(question) %></p>
+          <% else %>
+            <p class="draft-false text-center bottom-mgr-5"><%= draft_text(question) %></p>
+          <% end %>
+          <% if question.resolved %>
+            <p class="resolved-true text-center bottom-mgr-5"><%= resolved_text(question) %></p>
+          <% else %>
+            <p class="resolved-false text-center bottom-mgr-5"><%= resolved_text(question) %></p>
+          <% end %>
+          <p class="text-center bottom-mgr-5">回答数 <strong><%= comment_count(question) %></strong></p>
+          <p class="text-center bottom-mgr-5">クリップ数 <strong><%= question.favorites.count %></strong></p>
         </div>
-        <div class="card-footer">
-          <div class="row">
-            <div class="d-grid gap-2 col-6 mx-auto">
-              <%= link_to "編集", edit_question_path(question.id), class: "btn btn-warning btn-block" %>
+      </div>
+      <div class="col-md-10">
+        <%= link_to question_path(question.id), class: "card-body question-index" do %>
+          <h5 class="card-title"><%= question.title %></h5>
+          <p class="card-text"><%= question.content %></p>
+          <div class="container">
+            <div class="row">
+              <span class="col-5 card-text text-left question-index">
+                <small class="text-muted"><%= disease_text(question) %></small>
+                <small class="text-muted"><%= disease_detail_text(question) %></small>
+              </span>
+              <span class="col-4 card-text text-right">
+                <small class="text-muted"><%= question.user.name %></small>
+              </span>
+              <span class="col-3 card-text text-right">
+                <small class="text-muted"><%= question.created_at.strftime('%Y/%m/%d') %></small>
+              </span>
             </div>
-            <div class="d-grid gap-2 col-6 mx-auto">
-              <%= link_to "削除", question_path(question.id), method: :delete, data: { confirm: "本当に削除してもいいですか？" }, class: "btn btn-danger btn-block" %>        </div>
           </div>
+        <% end %>
+      </div>
+    </div>
+    <% if @user.id == current_user.id %>
+      <div class="card-footer">
+        <div class="row">
+          <div class="d-grid gap-2 col-6 mx-auto">
+            <%= link_to "編集", edit_question_path(question.id), class: "btn btn-warning btn-block" %>
+          </div>
+          <div class="d-grid gap-2 col-6 mx-auto">
+            <%= link_to "削除", question_path(question.id), method: :delete, data: { confirm: "本当に削除してもいいですか？" }, class: "btn btn-danger btn-block" %>        </div>
         </div>
       </div>
     <% end %>
-  <% end %>
+  </div>
 <% end %>
