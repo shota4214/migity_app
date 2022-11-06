@@ -9,6 +9,11 @@
   margin-right: 20px;
 }
 
+// navbar
+.nav-item {
+  margin-right: 10px;
+}
+
 // question
 .question-index {
   text-decoration: none;
@@ -33,6 +38,20 @@
 .resolved-false {
   color: white;
   background-color: red;
+}
+
+.draft-true {
+  background-color: rgb(200, 200, 200);
+}
+
+#trix-toolbar-1 {
+  white-space: normal;
+}
+
+trix-editor {
+  min-height: 20em;
+  max-height: 20em;
+  overflow-y: auto;
 }
 
 // footer
