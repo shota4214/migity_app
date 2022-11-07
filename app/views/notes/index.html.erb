@@ -1,0 +1,22 @@
+<h2>ノート一覧</h2>
+<%= link_to "新しくノートを作成する", new_note_path %>
+
+<table>
+  <thead>
+    <tr>
+      <th>タイトル</th>
+      <th>内容</th>
+    </tr>
+  <thead>
+  <tbody>
+    <% @notes.each do |note| %>
+      <tr>
+        <td><%= note.title %></td>
+        <td><%= note.content %></td>
+        <td><%= link_to "詳細", note_path(note.id) %></td>
+        <td><%= link_to "編集", edit_note_path(note.id) %></td>
+        <td><%= link_to "削除", note_path(note.id), method: :delete, data: { confirm: "本当に削除してもいいですか？" } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
