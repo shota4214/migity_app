@@ -1,19 +1,45 @@
-<h1>ユーザー詳細</h1>
-
-<% if @user.image? %>
-  <%= image_tag @user.image.url %>
-<% else %>
-  <%= image_tag (asset_path'no_image.png') %>
-<% end %>
-<p>名前 : <%= @user.name %></p>
-<p>メールアドレス : <%= @user.email %></p>
-<p>薬局名 : <%= @user.pharmacy %></p>
-<% if @user.pharmacist? %>
-  <p>役職 : <%= @user.position %></p>
-<% end %>
-
-<%= link_to "ユーザー情報編集", edit_user_registration_path(@user) %>
-<%= link_to "クリップ一覧", favorites_path(@user) %>
+<h3>ユーザー詳細</h3>
+<div class="container mb-12 d-flex justify-content-center">
+  <div class="card p-4">
+    <div class="image d-flex flex-column justify-content-center align-items-center">
+      <button class="btn btn-secondary">
+        <% if @user.image? %>
+          <%= image_tag @user.image.url %>
+        <% else %>
+          <%= image_tag (asset_path'no_image.png') %>
+        <% end %>
+      </button>
+      <p class="user-name mt-3"><i class="fa fa-solid fa-user"></i><%= @user.name %></p>
+      <p class="user-email"><i class="fa fa-solid fa-envelope"></i><%= @user.email %></p>
+      <p class="idd1"><i class="fa fa-solid fa-hospital"></i><%= @user.pharmacy %></p>
+      <div class="d-flex flex-row justify-content-center align-items-center mt-3">
+        <% if @user.pharmacist? %>
+          <p><i class="fa fa-solid fa-file-powerpoint"></i><%= @user.position %></p>
+        <% end %>
+      </div>
+      <% if user_signed_in? && @user.id == current_user.id %>
+        <div class=" d-flex mt-2">
+          <%= link_to "ユーザー情報編集", edit_user_registration_path(@user), class: "btn btn-warning mgr-10" %>
+          <%= link_to "クリップ一覧", favorites_path(@user), class: "btn btn-primary mgr-10" %>
+        </div>
+      <% end %>
+      <%# コメントやSNSリンクが貼れる %>
+        <%# <div class="text mt-3">
+          <span>comment</span>
+        </div> %>
+        <%# <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center">
+          <span><i class="fab fa-twitter"></i></span>
+          <span><i class="fab fa-facebook-f"></i></span>
+          <span><i class="fab fa-instagram"></i></span>
+          <span><i class="fab fa-linkedin"></i></span>
+        </div> %>
+      <%# ここまで %>
+      <div class=" px-2 rounded mt-4 date ">
+        <span class="join">joined <%= @user.created_at.strftime('%Y,%m') %></span>
+      </div>
+    </div>
+  </div>
+</div>
 
 <br>
 <h3>投稿Q&A一覧</h3>
