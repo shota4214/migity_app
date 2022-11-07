@@ -25,6 +25,7 @@ class QuestionsController < ApplicationController
         render :new
       end
     elsif @question.save
+      binding.pry
       redirect_to questions_path, notice: "Q&Aを投稿しました"
     else
       render :new
