@@ -13,10 +13,10 @@
   <body>
     <header class="sticky-top">
       <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <a><%= link_to 'ミギティー', root_path, data: {"turbolinks" => false} %></a>
-        <a>Q&A</a>
-        <a>ノート</a>
-        <a>コラム</a>
+        <a class="mgr-10"><%= link_to 'ミギティー', root_path, data: {"turbolinks" => false} %></a>
+        <a class="mgr-10"><%= link_to questions_path, class: "content-link" do %><i class="fas fa-comments"></i>Q&A</a><% end %>
+        <a class="mgr-10"><%= link_to notes_path, class: "content-link" do %><i class="far fa-file-alt"></i>note</a><% end %>
+        <a class="mgr-10"><i class="far fa-newspaper"></i>コラム</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
