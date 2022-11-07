@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
   resources :users, only: %i[show]
+  resources :notes
   resources :questions do
     resources :comments
     collection do

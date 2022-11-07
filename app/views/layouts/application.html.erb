@@ -12,6 +12,7 @@
   <body>
     <% if user_signed_in? %>
       <%= link_to "トップページ", questions_path %>
+      <%= link_to "ノート", notes_path %>
       <%= link_to "マイページ", user_path(current_user.id) %>
       <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
     <% else %>
