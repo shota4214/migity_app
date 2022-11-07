@@ -1,36 +1,101 @@
-<h1>ユーザー詳細</h1>
-<p>名前 : <%= @user.name %></p>
-<p>メールアドレス : <%= @user.email %></p>
-<p>薬局名 : <%= @user.pharmacy %></p>
-
-<%= link_to "ユーザー情報編集", edit_user_registration_path(@user) %>
-<%= link_to "クリップ一覧", favorites_path(@user) %>
-
-<% if user_signed_in? %>
-  <% if @user.id == current_user.id %>
-    <h2>投稿Q&A一覧</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>タイトル</th>
-          <th>内容</th>
-          <th>解決済み</th>
-          <th>下書き</th>
-        </tr>
-      <thead>
-      <tbody>
-        <% @questions.each do |question| %>
-          <tr>
-            <td><%= question.title %></td>
-            <td><%= question.content %></td>
-            <td><%= resolved_text(question) %></td>
-            <td><%= draft_text(question) %></td>
-            <td><%= link_to "詳細", question_path(question.id) %></td>
-            <td><%= link_to "編集", edit_question_path(question.id) %></td>
-            <td><%= link_to "削除", question_path(question.id), method: :delete, data: { confirm: "本当に削除してもいいですか？" } %></td>
-          </tr>
+<h3>ユーザー詳細</h3>
+<div class="container mb-12 d-flex justify-content-center">
+  <div class="card p-4">
+    <div class="image d-flex flex-column justify-content-center align-items-center">
+      <button class="btn btn-secondary">
+        <% if @user.image? %>
+          <%= image_tag @user.image.url %>
+        <% else %>
+          <%= image_tag (asset_path'no_image.png') %>
         <% end %>
-      </tbody>
-    </table>
+      </button>
+      <p class="user-name mt-3"><i class="fa fa-solid fa-user"></i><%= @user.name %></p>
+      <p class="user-email"><i class="fa fa-solid fa-envelope"></i><%= @user.email %></p>
+      <p class="idd1"><i class="fa fa-solid fa-hospital"></i><%= @user.pharmacy %></p>
+      <div class="d-flex flex-row justify-content-center align-items-center mt-3">
+        <% if @user.pharmacist? %>
+          <p><i class="fa fa-solid fa-file-powerpoint"></i><%= @user.position %></p>
+        <% end %>
+      </div>
+      <% if user_signed_in? && @user.id == current_user.id %>
+        <div class=" d-flex mt-2">
+          <%= link_to "ユーザー情報編集", edit_user_registration_path(@user), class: "btn btn-warning mgr-10" %>
+          <%= link_to "クリップ一覧", favorites_path(@user), class: "btn btn-primary mgr-10" %>
+        </div>
+      <% end %>
+      <%# コメントやSNSリンクが貼れる %>
+        <%# <div class="text mt-3">
+          <span>comment</span>
+        </div> %>
+        <%# <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center">
+          <span><i class="fab fa-twitter"></i></span>
+          <span><i class="fab fa-facebook-f"></i></span>
+          <span><i class="fab fa-instagram"></i></span>
+          <span><i class="fab fa-linkedin"></i></span>
+        </div> %>
+      <%# ここまで %>
+      <div class=" px-2 rounded mt-4 date ">
+        <span class="join">joined <%= @user.created_at.strftime('%Y,%m') %></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+<h3>投稿Q&A一覧</h3>
+<% @questions.each do |question| %>
+  <% if question.draft %><div class="card mb-3 question-card draft-true">
+  <% else %><div class="card mb-3 question-card draft-false">
   <% end %>
+    <div class="row no-gutters">
+      <div class="col-md-2">
+        <div class="bd-placeholder">
+          <br>
+          <% if question.draft %>
+            <p class="draft-true text-center bottom-mgr-5"><%= draft_text(question) %></p>
+          <% else %>
+            <p class="draft-false text-center bottom-mgr-5"><%= draft_text(question) %></p>
+          <% end %>
+          <% if question.resolved %>
+            <p class="resolved-true text-center bottom-mgr-5"><%= resolved_text(question) %></p>
+          <% else %>
+            <p class="resolved-false text-center bottom-mgr-5"><%= resolved_text(question) %></p>
+          <% end %>
+          <p class="text-center bottom-mgr-5">回答数 <strong><%= comment_count(question) %></strong></p>
+          <p class="text-center bottom-mgr-5">クリップ数 <strong><%= question.favorites.count %></strong></p>
+        </div>
+      </div>
+      <div class="col-md-10">
+        <%= link_to question_path(question.id), class: "card-body question-index" do %>
+          <h5 class="card-title"><%= question.title %></h5>
+          <p class="card-text"><%= question.content %></p>
+          <div class="container">
+            <div class="row">
+              <span class="col-5 card-text text-left question-index">
+                <small class="text-muted"><%= disease_text(question) %></small>
+                <small class="text-muted"><%= disease_detail_text(question) %></small>
+              </span>
+              <span class="col-4 card-text text-right">
+                <small class="text-muted"><%= question.user.name %></small>
+              </span>
+              <span class="col-3 card-text text-right">
+                <small class="text-muted"><%= question.created_at.strftime('%Y/%m/%d') %></small>
+              </span>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <% if @user.id == current_user.id %>
+      <div class="card-footer">
+        <div class="row">
+          <div class="d-grid gap-2 col-6 mx-auto">
+            <%= link_to "編集", edit_question_path(question.id), class: "btn btn-warning btn-block" %>
+          </div>
+          <div class="d-grid gap-2 col-6 mx-auto">
+            <%= link_to "削除", question_path(question.id), method: :delete, data: { confirm: "本当に削除してもいいですか？" }, class: "btn btn-danger btn-block" %>        </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 <% end %>

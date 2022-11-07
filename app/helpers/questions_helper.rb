@@ -28,4 +28,14 @@ module QuestionsHelper
     my_comment = question.comments.where(user_id: question.user.id).count.to_i
     all_comment - my_comment
   end
+
+  def disease_text(question)
+    disease = Disease.find(question.disease_id)
+    disease.name
+  end
+
+  def disease_detail_text(question)
+    disease_detail= DiseaseDetail.find(question.disease_detail_id)
+    disease_detail.content
+  end
 end

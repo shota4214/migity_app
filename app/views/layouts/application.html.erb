@@ -5,21 +5,71 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
   </head>
 
   <body>
-    <% if user_signed_in? %>
-      <%= link_to "トップページ", questions_path %>
-      <%= link_to "ノート", notes_path %>
-      <%= link_to "マイページ", user_path(current_user.id) %>
-      <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-    <% else %>
-      <%= link_to "トップページ", questions_path %>
-      <%= link_to "新規登録", new_user_registration_path %>
-      <%= link_to "ログイン", new_user_session_path %>
-    <% end %>
+    <header class="sticky-top">
+      <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a><%= link_to 'ミギティー', root_path, data: {"turbolinks" => false} %></a>
+        <a>Q&A</a>
+        <a>ノート</a>
+        <a>コラム</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ml-auto">
+            <% if user_signed_in? %>
+              <li class="nav-item d-flex align-items-center">
+                <%= link_to "トップページ", questions_path %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "マイページ", user_path(current_user.id), class: "btn btn-primary" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-outline-secondary" %>
+              </li>
+            <% else %>
+              <li class="nav-item d-flex align-items-center">
+                <%= link_to "はじめての方へ", questions_path %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-primary" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "新規登録", new_user_registration_path, class: "btn btn-primary" %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h3 class="lead text-center">がん治療に特化した</h3>
+        <h1 class="display-6 text-center">専門薬剤師と一般薬剤師をつなぐ</h1>
+        <div class="lead text-center">
+          <%= search_form_for @search, url: search_questions_path do |f| %>
+            <%= f.search_field :title_or_content_body_cont, placeholder: "薬の名前 副作用" %>
+            <%= f.submit '検索' %>
+          <% end %>
+        </div>
+        <br>
+        <p class="lead text-center mgr-10">よく見られるキーワード
+          <small>
+            <% @question_diseases.each.with_index(1) do |disease, i| %>
+              <span class="mgr-10"><%= link_to "#{find_name(disease.first)}", by_disease_questions_path(disease.first) %><%= "(#{disease.second})" %></span>
+              <% break if i == 3 %>
+            <% end %>
+          </small>
+        </p>
+      </div>
+    </div>
 
     <% if notice %>
       <p class="alert alert-notice"><%= notice %></p>
@@ -27,7 +77,70 @@
     <% if alert %>
       <p class="alert alert-error"><%= alert %></p>
     <% end %>
-    
-    <%= yield %>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-8 col-lg-8">
+          <%= yield %>
+        </div>
+        <div class="col-xs-4 col-lg-4">
+          <div class="card">
+            <h5 class="card-header">がんの種類で調べる</h5>
+            <div class="card-body">
+              <p class="card-text">
+                <% @question_diseases.each.with_index(1) do |disease, i| %>
+                  <span class="mgr-10"><%= link_to "#{find_name(disease.first)}", by_disease_questions_path(disease.first) %><%= "(#{disease.second})" %></span>
+                  <% break if i == 10 %>
+                <% end %>
+              </p>
+            </div>
+            <div class="card-body text-right">
+              <a href="#" class="primary">がんのQ&A一覧を見る＞</a>
+            </div>
+          </div>
+          <br>
+          <div class="card">
+            <h5 class="card-header">がん専門薬剤師</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">佐々木 三郎先生</li>
+              <li class="list-group-item">みつお先生</li>
+              <li class="list-group-item">山本先生</li>
+            </ul>
+            <div class="card-body text-right">
+              <a href="#" class="card-link">がん専門薬剤師一覧ページ＞</a>
+            </div>
+          </div>
+          <br>
+          <%= link_to "質問する", new_question_path, class: "btn btn-outline-primary btn-block btn-lg" %>
+          <br>
+          <%= link_to "はじめての方へ", root_path, class: "btn btn-outline-secondary btn-block btn-lg" %>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <p class="text-muted">Migity</p>
+          </div>
+          <div class="col-md-6 text-right">
+            <span class="mgr-20">運営</span>
+            <span class="mgr-20">コミュニティガイドライン</span>
+            <span class="mgr-20">利用規約</span>
+            <span class="mgr-20">プライバシーポリシー</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-center">
+            <p class="text-muted">copyright.~</p>
+          </div>
+      </div>
+    </footer>
   </body>
 </html>
+
+<style type="text/css">
+.jumbotron {
+  background:url(<%= asset_path 'jumbotron.jpeg' %>) center no-repeat;
+  background-size: cover;
+}
+</style>

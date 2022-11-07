@@ -1,44 +1,44 @@
-<p>【Q&A検索結果一覧】</p>
-<%= link_to "質問する", new_question_path %>
-<br>
-<%= search_form_for @q, url: search_questions_path do |f| %>
-  <%= f.search_field :title_or_content_body_cont, placeholder: "薬の名前 副作用で検索" %>
-  <%= f.submit '検索' %>
+<h3>Q&A検索結果一覧</h3>
+
+<% if @results.empty? %>
+  <br><strong>検索結果はありませんでした。</strong>
 <% end %>
 
-<p>
-  <%= link_to "すべて", questions_path %>
-  <%= link_to "解決済み", questions_path(resolved: true) %>
-  <%= link_to "回答受付中", questions_path(unresolved: true) %>
-</p>
-<table>
-  <thead>
-    <tr>
-      <th>状態</th>
-      <th>回答数</th>
-      <th>タイトル</th>
-      <th>内容</th>
-      <th>投稿者</th>
-      <th>投稿日</th>
-    </tr>
-  <thead>
-  <tbody>
-    <% @results.each do |question| %>
-      <tr>
-        <td><%= resolved_text(question) %></td>
-        <td><%= comment_count(question) %></td>
-        <td><%= question.title %></td>
-        <td><%= question.content %></td>
-        <td><%= question.user.name %></td>
-        <td><%= question.created_at.strftime('%Y/%m/%d') %></td>
-        <td><%= link_to "詳細", question_path(question.id) %></td>
-        <% if user_signed_in? %>
-          <% if question.user_id == current_user.id %>
-            <td><%= link_to "編集", edit_question_path(question.id) %></td>
-            <td><%= link_to "削除", question_path(question.id), method: :delete, data: { confirm: "本当に削除してもいいですか？" } %></td>
+<% @results.each do |question| %>
+  <div class="card mb-3 question-card">
+    <div class="row no-gutters">
+      <div class="col-md-2">
+        <div class="bd-placeholder">
+          <br>
+          <% if question.resolved %>
+            <p class="resolved-true text-center"><%= resolved_text(question) %></p>
+          <% else %>
+            <p class="resolved-false text-center"><%= resolved_text(question) %></p>
           <% end %>
+          <p class="text-center">回答数 <strong><%= comment_count(question) %></strong></p>
+          <p class="text-center">クリップ数 <strong><%= question.favorites.count %></strong></p>
+        </div>
+      </div>
+      <div class="col-md-10">
+        <%= link_to question_path(question.id), class: "card-body question-index" do %>
+          <h5 class="card-title"><%= question.title %></h5>
+          <p class="card-text"><%= question.content %></p>
+          <div class="container">
+            <div class="row">
+              <span class="col-5 card-text text-left question-index">
+                <small class="text-muted"><%= disease_text(question) %></small>
+                <small class="text-muted"><%= disease_detail_text(question) %></small>
+              </span>
+              <span class="col-4 card-text text-right">
+                <small class="text-muted"><%= question.user.name %></small>
+              </span>
+              <span class="col-3 card-text text-right">
+                <small class="text-muted"><%= question.created_at.strftime('%Y/%m/%d') %></small>
+              </span>
+            </div>
+          </div>
         <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      </div>
+    </div>
+  </div>
+<% end %>

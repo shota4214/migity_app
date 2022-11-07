@@ -1,7 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create edit update destroy]
   before_action :set_question, only: %i[show edit update destroy change_resolved]
-  before_action :set_q, only: %i[index search]
   before_action :other_than_drafts, only: %i[index search]
   before_action :diseases, only: %i[new edit create]
   before_action :disease_details, only: %i[edit create]
@@ -90,18 +89,19 @@ class QuestionsController < ApplicationController
     @results = @questions.ransack({ combinator: 'and', groupings: grouping_hash, s: 'created_at desc'}).result
   end
 
+  def by_disease
+    disease_id = params[:format].to_i
+    @questions_by_disease = Question.where(draft: false, disease_id: disease_id)
+  end
+
   private
 
   def question_params
-    params.require(:question).permit(:title, :content, :resolved, :draft, :disease_id, :disease_detail_id)
+    params.require(:question).permit(:title, :content, :resolved, :draft, :disease_id, :disease_detail_id, :format)
   end
 
   def set_question
     @question = Question.find(params[:id])
-  end
-
-  def set_q
-    @q = Question.ransack(params[:q])
   end
 
   def other_than_drafts

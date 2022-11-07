@@ -4,7 +4,8 @@ ja:
       user: ユーザー
       question: Ｑ＆Ａ
       favorite: クリップ
-      label: タグ
+      disease: タグ
+      disease_detail: タグ詳細
       comment: コメント
     attributes:
       user:
@@ -20,7 +21,11 @@ ja:
         content: 内容
         resolved: 解決済み
         draft: 下書き
-      label:
-        name: 名前
+        disease: タグ
+        disease_detail: タグ詳細
+      disease:
+        name: タグ
+      disease_detail:
+        content: タグ詳細
       comment:
         content: 内容
