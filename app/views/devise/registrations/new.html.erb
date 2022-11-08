@@ -5,36 +5,46 @@
 
   <div class="field">
     <%= f.label :name %><br />
-    <%= f.text_field :name, autocomplete: "name", placeholder: "名前" %>
+    <%= f.text_field :name, autocomplete: "name", placeholder: "名前", class: "form-control" %>
+    <small id="nameHelp" class="form-text text-muted">本名でなくても登録できます</small>
   </div>
+  <br>
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autocomplete: "email", placeholder: "メールアドレス" %>
+    <%= f.email_field :email, autocomplete: "email", placeholder: "メールアドレス", class: "form-control" %>
+    <small id="emailHelp" class="form-text text-muted">使用するメールアドレスを入力してください</small>
   </div>
+  <br>
 
   <div class="field">
     <%= f.label :pharmacy %><br />
-    <%= f.text_field :pharmacy, autocomplete: "pharmacy", placeholder: "薬局名" %>
+    <%= f.text_field :pharmacy, autocomplete: "pharmacy", placeholder: "薬局名", class: "form-control" %>
+    <small id="pharmacyHelp" class="form-text text-muted">お勤めの薬局名を入力してください</small>
   </div>
-
+  <br>
 
   <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワード" %>
+    <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワード", class: "form-control"  %>
+    <small id="passwordHelp" class="form-text text-muted">6文字以上で入力してください</small>
   </div>
+  <br>
 
   <div class="field">
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "再パスワード" %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "再パスワード", class: "form-control"  %>
+    <small id="password-confirmationHelp" class="form-text text-muted">パスワードを再度入力してください</small>
   </div>
+  <br>
 
   <div class="actions">
-    <%= f.submit t('.sign_up') %>
+    <%= f.submit t('.sign_up'), class: "btn btn-primary"  %>
   </div>
+  <br>
 <% end %>
 
 <%= render "devise/shared/links" %>
