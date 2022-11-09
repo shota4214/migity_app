@@ -4,14 +4,41 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autocomplete: "name", placeholder: "名前" %>
+    <%= f.label :image %><br />
+    <%= image_tag(resource.image.url, size: "100x100") if resource.image && resource.image.url %>
+    <%= f.file_field :image %>
   </div>
+  <br>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autocomplete: "name", placeholder: "名前", class: "form-control" %>
+    <small id="nameHelp" class="form-text text-muted">名前を変更する場合は入力してください</small>
+  </div>
+  <br>
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autocomplete: "email", placeholder: "メールアドレス" %>
+    <%= f.email_field :email, autocomplete: "email", placeholder: "メールアドレス", class: "form-control" %>
+    <small id="emailHelp" class="form-text text-muted">メールアドレス変更する場合は入力してください</small>
   </div>
+  <br>
+
+  <div class="field">
+    <%= f.label :pharmacy %><br />
+    <%= f.text_field :pharmacy, autocomplete: "pharmacy", placeholder: "薬局名", class: "form-control" %>
+    <small id="pharmacyHelp" class="form-text text-muted">薬局名変更する場合は入力してください</small>
+  </div>
+  <br>
+
+  <% if resource.pharmacist? %>
+    <div class="field">
+      <%= f.label :position %><br />
+      <%= f.text_field :position, placeholder: "役職", class: "form-control" %>
+      <small id="positionHelp" class="form-text text-muted">役職等を入力してください</small>
+    </div>
+    <br>
+  <% end %>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div><%= t('.currently_waiting_confirmation_for_email', email: resource.unconfirmed_email) %></div>
@@ -19,28 +46,32 @@
 
   <div class="field">
     <%= f.label :password %> <i>(<%= t('.leave_blank_if_you_don_t_want_to_change_it') %>)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></em>
+    <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+    <small id="passwordHelp" class="form-text text-muted">パスワードを変更する場合は入力してください<% if @minimum_password_length %>
+    <%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></small>
     <% end %>
   </div>
+  <br>
 
   <div class="field">
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+    <small id="passwordHelp" class="form-text text-muted">パスワードを変更する場合は入力してください</small>
   </div>
+  <br>
 
   <div class="field">
     <%= f.label :current_password %> <i>(<%= t('.we_need_your_current_password_to_confirm_your_changes') %>)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
+    <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
+    <small id="passwordHelp" class="form-text text-muted">変更を実行する場合はパスワードを入力してください</small>
   </div>
+  <br>
 
   <div class="actions">
-    <%= f.submit t('.update') %>
+    <%= f.submit t('.update'), class: "btn btn-warning" %>
   </div>
 <% end %>
-
+<br>
 <h3><%= t('.cancel_my_account') %></h3>
 
 <p><%= t('.unhappy') %> <%= button_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: t('.are_you_sure') }, method: :delete %></p>

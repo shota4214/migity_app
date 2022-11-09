@@ -6,8 +6,8 @@ class QuestionsController < ApplicationController
   before_action :disease_details, only: %i[edit create]
 
   def index
-    @questions = @questions.where(resolved: true) if params[:resolved]
-    @questions = @questions.where(resolved: false) if params[:unresolved]
+    @questions = @questions.where(resolved: true).order("created_at DESC") if params[:resolved]
+    @questions = @questions.where(resolved: false).order("created_at DESC") if params[:unresolved]
   end
 
   def new
@@ -25,7 +25,6 @@ class QuestionsController < ApplicationController
         render :new
       end
     elsif @question.save
-      binding.pry
       redirect_to questions_path, notice: "Q&Aを投稿しました"
     else
       render :new
@@ -105,7 +104,7 @@ class QuestionsController < ApplicationController
   end
 
   def other_than_drafts
-    @questions = Question.where(draft: false)
+    @questions = Question.where(draft: false).order("created_at DESC")
   end
 
   def diseases
