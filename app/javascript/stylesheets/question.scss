@@ -1,0 +1,42 @@
+.question-index {
+  text-decoration: none;
+  color: black;
+}
+
+.question-index:hover {
+  text-decoration: none;
+  color: black;
+}
+
+.question-card:hover {
+  box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
+  transform: translateY(-10px);
+  transition-duration: 0.5s;
+}
+
+.card-footer {
+  background-color: white;
+}
+
+.resolved-true {
+  background-color: pink;
+}
+
+.question-index-user-name {
+  display: block;
+}
+
+.resolved-false {
+  color: white;
+  background-color: red;
+}
+
+.draft-true {
+  background-color: rgb(200, 200, 200);
+}
+
+trix-editor {
+  min-height: 20em;
+  max-height: 20em;
+  overflow-y: auto;
+}

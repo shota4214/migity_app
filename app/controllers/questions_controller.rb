@@ -6,8 +6,8 @@ class QuestionsController < ApplicationController
   before_action :disease_details, only: %i[edit create]
 
   def index
-    @questions = @questions.where(resolved: true) if params[:resolved]
-    @questions = @questions.where(resolved: false) if params[:unresolved]
+    @questions = @questions.where(resolved: true).order("created_at DESC") if params[:resolved]
+    @questions = @questions.where(resolved: false).order("created_at DESC") if params[:unresolved]
   end
 
   def new
@@ -25,7 +25,6 @@ class QuestionsController < ApplicationController
         render :new
       end
     elsif @question.save
-      binding.pry
       redirect_to questions_path, notice: "Q&Aを投稿しました"
     else
       render :new
@@ -86,12 +85,12 @@ class QuestionsController < ApplicationController
   def search
     search_words = params[:q][:title_or_content_body_cont].split(/[\p{blank}\s]+/)
     grouping_hash = search_words.reduce({}){|hash, word| hash.merge(word => { title_or_content_body_cont: word})}
-    @results = @questions.ransack({ combinator: 'and', groupings: grouping_hash, s: 'created_at desc'}).result
+    @results = @questions.ransack({ combinator: 'and', groupings: grouping_hash, s: 'created_at DESC'}).result
   end
 
   def by_disease
     disease_id = params[:format].to_i
-    @questions_by_disease = Question.where(draft: false, disease_id: disease_id)
+    @questions_by_disease = Question.where(draft: false, disease_id: disease_id).order("created_at DESC")
   end
 
   private
@@ -105,7 +104,7 @@ class QuestionsController < ApplicationController
   end
 
   def other_than_drafts
-    @questions = Question.where(draft: false)
+    @questions = Question.where(draft: false).order("created_at DESC")
   end
 
   def diseases
