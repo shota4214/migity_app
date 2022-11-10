@@ -4,6 +4,10 @@
 @import 'user.scss';
 
 // all
+a, a:hover {
+  text-decoration: none;
+}
+
 .mgr-10 {
   margin-right: 10px;
 }
@@ -16,14 +20,45 @@
   margin-bottom: 5px;
 }
 
+.bottom-mgr-50 {
+  margin-bottom: 50px;
+}
+
+.disease-index-text {
+  color: gray;
+}
+
+.disease-index-sidemenu-text:hover {
+  color: white;
+}
+
 // navbar
 .nav-item {
   margin-right: 10px;
 }
 
-.content-link {
-  font-size: 1.2rem;
+.menubar-item {
+  font-size: 1.5rem;
 }
+
+.menubar-items {
+  background-color: rgba(255, 255, 255, 0.557);
+}
+
+//jumbotron
+.jumbotron {
+  padding-top: 0px;
+}
+
+.disease-index-jumbotron-text {
+  background-color: white;
+}
+
+.disease-index-jumbotron-text:hover {
+  color: white;
+}
+
+
 
 // footer
 .footer {

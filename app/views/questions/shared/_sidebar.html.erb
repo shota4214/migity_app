@@ -4,7 +4,11 @@
     <div class="card-body">
       <p class="card-text">
         <% @question_diseases.each.with_index(1) do |disease, i| %>
-          <span class="mgr-10"><%= link_to "#{find_name(disease.first)}", by_disease_questions_path(disease.first) %><%= "(#{disease.second})" %></span>
+          <%= link_to by_disease_questions_path(disease.first) do %>
+            <span class="mgr-10 bottom-mgr-5 btn btn-outline-secondary btn-sm disease_index-sidemenu-text">
+              <%= "#{find_name(disease.first)}" %><%= "(#{disease.second})" %>
+            </span>
+          <% end %>
           <% break if i == 10 %>
         <% end %>
       </p>
