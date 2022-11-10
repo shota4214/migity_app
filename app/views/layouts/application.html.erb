@@ -49,73 +49,9 @@
       </nav>
     </header>
 
-    <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-        <h3 class="lead text-center">がん治療に特化した</h3>
-        <h1 class="display-6 text-center">専門薬剤師と一般薬剤師をつなぐ</h1>
-        <div class="lead text-center">
-          <%= search_form_for @search, url: search_questions_path do |f| %>
-            <%= f.search_field :title_or_content_body_cont, placeholder: "薬の名前 副作用" %>
-            <%= f.submit '検索' %>
-          <% end %>
-        </div>
-        <br>
-        <p class="lead text-center mgr-10">よく見られるキーワード
-          <small>
-            <% @question_diseases.each.with_index(1) do |disease, i| %>
-              <span class="mgr-10"><%= link_to "#{find_name(disease.first)}", by_disease_questions_path(disease.first) %><%= "(#{disease.second})" %></span>
-              <% break if i == 3 %>
-            <% end %>
-          </small>
-        </p>
-      </div>
-    </div>
 
-    <% if notice %>
-      <p class="alert alert-notice"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-      <p class="alert alert-error"><%= alert %></p>
-    <% end %>
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-8 col-lg-8">
-          <%= yield %>
-        </div>
-        <div class="col-xs-4 col-lg-4">
-          <div class="card">
-            <h5 class="card-header">がんの種類で調べる</h5>
-            <div class="card-body">
-              <p class="card-text">
-                <% @question_diseases.each.with_index(1) do |disease, i| %>
-                  <span class="mgr-10"><%= link_to "#{find_name(disease.first)}", by_disease_questions_path(disease.first) %><%= "(#{disease.second})" %></span>
-                  <% break if i == 10 %>
-                <% end %>
-              </p>
-            </div>
-            <div class="card-body text-right">
-              <a href="#" class="primary">がんのQ&A一覧を見る＞</a>
-            </div>
-          </div>
-          <br>
-          <div class="card">
-            <h5 class="card-header">がん専門薬剤師</h5>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">佐々木 三郎先生</li>
-              <li class="list-group-item">みつお先生</li>
-              <li class="list-group-item">山本先生</li>
-            </ul>
-            <div class="card-body text-right">
-              <a href="#" class="card-link">がん専門薬剤師一覧ページ＞</a>
-            </div>
-          </div>
-          <br>
-          <%= link_to "質問する", new_question_path, class: "btn btn-outline-primary btn-block btn-lg" %>
-          <br>
-          <%= link_to "はじめての方へ", root_path, class: "btn btn-outline-secondary btn-block btn-lg" %>
-        </div>
-      </div>
-    </div>
+    <%= yield %>
+
     <footer class="footer">
       <div class="container">
         <div class="row">
@@ -137,10 +73,3 @@
     </footer>
   </body>
 </html>
-
-<style type="text/css">
-.jumbotron {
-  background:url(<%= asset_path 'jumbotron.jpeg' %>) center no-repeat;
-  background-size: cover;
-}
-</style>

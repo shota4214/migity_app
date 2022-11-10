@@ -1,0 +1,28 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h3 class="lead text-center">がん治療に特化した</h3>
+    <h1 class="text-center">専門薬剤師と一般薬剤師をつなぐ</h1>
+    <div class="lead text-center">
+      <%= search_form_for @search, url: search_questions_path do |f| %>
+        <%= f.search_field :title_or_content_body_cont, placeholder: "薬の名前 副作用" %>
+        <%= f.submit '検索' %>
+      <% end %>
+    </div>
+    <br>
+    <p class="lead text-center mgr-10">よく見られるキーワード
+      <small>
+        <% @question_diseases.each.with_index(1) do |disease, i| %>
+          <span class="mgr-10"><%= link_to "#{find_name(disease.first)}", by_disease_questions_path(disease.first) %><%= "(#{disease.second})" %></span>
+          <% break if i == 3 %>
+        <% end %>
+      </small>
+    </p>
+  </div>
+</div>
+
+<style type="text/css">
+.jumbotron {
+  background:url(<%= asset_path 'kv.png' %>) center no-repeat;
+  background-size: cover;
+}
+</style>
