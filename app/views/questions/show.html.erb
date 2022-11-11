@@ -1,33 +1,41 @@
-<h2>Q＆A詳細</h2>
+<%= render "questions/shared/notice" %>
 
-<% if @question.draft %>
-  <p>このQ＆Aは現在下書きのため非公開です</p>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-8 col-lg-8">
+      <h2>Q＆A詳細</h2>
 
-<div class="favorite-link" id="favorite-link-<%= @question.id %>">
-  <%= render partial: 'favorites/favorite', locals: { question: @question } %>
-</div>
+      <% if @question.draft %>
+        <p>このQ＆Aは現在下書きのため非公開です</p>
+      <% end %>
 
-<p>状態：<%= resolved_text(@question) %></p>
-  <% if user_signed_in? && @question.user_id == current_user.id %>
-    <% if @question.resolved %>
-      <%= link_to "回答受付中にする", change_resolved_question_path(@question.id) %>
-    <% else %>
-      <%= link_to "解決済みにする", change_resolved_question_path(@question.id) %>
-    <% end %>
-  <% end %>
+      <div class="favorite-link" id="favorite-link-<%= @question.id %>">
+        <%= render partial: 'favorites/favorite', locals: { question: @question } %>
+      </div>
 
-<p>タイトル: <%= @question.title %></p>
-<p>病名タグ: <%= @disease.name %></p>
-<p>ステージタグ: <%= @disease_detail.content %></p>
-<p>内容: <%= @question.content %></p>
+      <p>状態：<%= resolved_text(@question) %></p>
+        <% if user_signed_in? && @question.user_id == current_user.id %>
+          <% if @question.resolved %>
+            <%= link_to "回答受付中にする", change_resolved_question_path(@question.id) %>
+          <% else %>
+            <%= link_to "解決済みにする", change_resolved_question_path(@question.id) %>
+          <% end %>
+        <% end %>
+      <p>タイトル: <%= @question.title %></p>
+      <p>病名タグ: <%= @disease.name %></p>
+      <p>ステージタグ: <%= @disease_detail.content %></p>
+      <p>内容: <%= @question.content %></p>
 
-<h2>コメント一覧</h2>
-  <div id="comments_area">
-    <%= render partial: 'comments/index', locals: { comments: @comments, question: @question } %>
+      <h2>コメント一覧</h2>
+        <div id="comments_area">
+          <%= render partial: 'comments/index', locals: { comments: @comments, question: @question } %>
+        </div>
+      <% if user_signed_in? %>
+        <%= render partial: 'comments/form', locals: { comment: @comment, question: @question } %>
+      <% else %>
+        <p>※コメントは登録後投稿できます</p>
+      <% end %>
+    </div>
+    <%= render "questions/shared/sidebar" %>
   </div>
-<% if user_signed_in? %>
-  <%= render partial: 'comments/form', locals: { comment: @comment, question: @question } %>
-<% else %>
-  <p>※コメントは登録後投稿できます</p>
-<% end %>
+</div>

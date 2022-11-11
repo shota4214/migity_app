@@ -1,0 +1,36 @@
+<div class="col-xs-4 col-lg-4">
+  <div class="card">
+    <h5 class="card-header">がんの種類で調べる</h5>
+    <div class="card-body">
+      <p class="card-text">
+        <% @question_diseases.each.with_index(1) do |disease, i| %>
+          <%= link_to by_disease_questions_path(disease.first) do %>
+            <span class="mgr-10 bottom-mgr-5 btn btn-outline-secondary btn-sm disease_index-sidemenu-text">
+              <%= "#{find_name(disease.first)}" %><%= "(#{disease.second})" %>
+            </span>
+          <% end %>
+          <% break if i == 10 %>
+        <% end %>
+      </p>
+    </div>
+    <div class="card-body text-right">
+      <a href="#" class="primary">がんのQ&A一覧を見る＞</a>
+    </div>
+  </div>
+  <br>
+  <div class="card">
+    <h5 class="card-header">がん専門薬剤師</h5>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">佐々木 三郎先生</li>
+      <li class="list-group-item">みつお先生</li>
+      <li class="list-group-item">山本先生</li>
+    </ul>
+    <div class="card-body text-right">
+      <a href="#" class="card-link">がん専門薬剤師一覧ページ＞</a>
+    </div>
+  </div>
+  <br>
+  <%= link_to "質問する", new_question_path, class: "btn btn-outline-primary btn-block btn-lg" %>
+  <br>
+  <%= link_to "はじめての方へ", root_path, class: "btn btn-outline-secondary btn-block btn-lg" %>
+</div>

@@ -90,6 +90,7 @@ class QuestionsController < ApplicationController
 
   def by_disease
     disease_id = params[:format].to_i
+    @disease = Disease.find(disease_id)
     @questions_by_disease = Question.where(draft: false, disease_id: disease_id).order("created_at DESC")
   end
 
