@@ -3,12 +3,12 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: %i[show edit update destroy change_resolved]
   before_action :other_than_drafts, only: %i[index search]
   before_action :diseases, only: %i[new edit create]
-  before_action :disease_details, only: %i[edit create]
+  before_action :question_tag_ranks, only: %i[index by_disease]
+
 
   def index
     @questions = @questions.where(resolved: true).order("created_at DESC") if params[:resolved]
     @questions = @questions.where(resolved: false).order("created_at DESC") if params[:unresolved]
-    @question_tag_ranks = Disease.find(DiseaseLabelling.group(:disease_id).order('count(disease_id) desc').pluck(:disease_id))
   end
 
   def new
@@ -36,7 +36,6 @@ class QuestionsController < ApplicationController
     @comments = @question.comments
     @comment = @question.comments.build
     @favorite = current_user.favorites.find_by(question_id: @question.id) if user_signed_in?
-    # @disease = Disease.find(@question.disease_id)
     # @disease_detail = DiseaseDetail.find(@question.disease_detail_id)
   end
 
@@ -91,7 +90,8 @@ class QuestionsController < ApplicationController
   def by_disease
     disease_id = params[:format].to_i
     @disease = Disease.find(disease_id)
-    @questions_by_disease = Question.where(draft: false, disease_id: disease_id).order("created_at DESC")
+    @questions_by_disease = @disease.questions.order("created_at DESC")
+    # @questions_by_disease = Question.where(draft: false).order("created_at DESC")
   end
 
   private
@@ -114,5 +114,9 @@ class QuestionsController < ApplicationController
 
   def disease_details
     @disease_details = DiseaseDetail.all
+  end
+
+  def question_tag_ranks
+    @question_tag_ranks = Disease.find(DiseaseLabelling.group(:disease_id).order('count(disease_id) desc').pluck(:disease_id))
   end
 end
