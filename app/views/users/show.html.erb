@@ -72,8 +72,7 @@
           <div class="container">
             <div class="row">
               <span class="col-5 card-text text-left question-index">
-                <small class="text-muted"><%= disease_text(question) %></small>
-                <small class="text-muted"><%= disease_detail_text(question) %></small>
+                <small class="text-muted"><%= question.diseases.name %></small>
               </span>
               <span class="col-4 card-text text-right">
                 <small class="text-muted"><%= question.user.name %></small>

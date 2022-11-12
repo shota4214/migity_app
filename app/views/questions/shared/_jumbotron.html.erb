@@ -1,6 +1,5 @@
 <div class="jumbotron jumbotron-fluid">
   <%= render "questions/shared/menubar" %>
-
   <div class="container">
     <h3 class="lead text-center">がん治療に特化した</h3>
     <h1 class="text-center">専門薬剤師と一般薬剤師をつなぐ</h1>
@@ -13,10 +12,10 @@
     <br>
     <p class="lead text-center mgr-10">よく見られるキーワード
       <small>
-        <% @question_diseases.each.with_index(1) do |disease, i| %>
-          <%= link_to by_disease_questions_path(disease.first) do %>
-            <span class="mgr-10 btn btn-outline-secondary btn-sm disease-index-jumbotron-text">
-              <%= "#{find_name(disease.first)}" %><%= "(#{disease.second})" %>
+        <% @question_tag_ranks.each.with_index(1) do |disease, i| %>
+          <%= link_to by_disease_questions_path(disease.id) do %>
+            <span class="btn btn-outline-secondary btn-sm disease-index-jumbotron-text">
+              <%= "#{disease.name}" %><%= "(#{disease.questions.count})" %>
             </span>
           <% end %>
           <% break if i == 3 %>

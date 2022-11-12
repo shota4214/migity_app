@@ -22,8 +22,11 @@
           <% end %>
         <% end %>
       <p>タイトル: <%= @question.title %></p>
-      <p>病名タグ: <%= @disease.name %></p>
-      <p>ステージタグ: <%= @disease_detail.content %></p>
+      <p>病名タグ: 
+        <% @question.diseases.each do |disease| %>
+          <%= disease.name%>
+        <% end %>
+      </p>
       <p>内容: <%= @question.content %></p>
 
       <h2>コメント一覧</h2>

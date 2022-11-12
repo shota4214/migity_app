@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_01_020503) do
+ActiveRecord::Schema.define(version: 2022_11_11_140034) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,15 @@ ActiveRecord::Schema.define(version: 2022_11_01_020503) do
     t.index ["disease_id"], name: "index_disease_details_on_disease_id"
   end
 
+  create_table "disease_labellings", force: :cascade do |t|
+    t.bigint "question_id", null: false
+    t.bigint "disease_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["disease_id"], name: "index_disease_labellings_on_disease_id"
+    t.index ["question_id"], name: "index_disease_labellings_on_question_id"
+  end
+
   create_table "diseases", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -86,29 +95,6 @@ ActiveRecord::Schema.define(version: 2022_11_01_020503) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["question_id"], name: "index_favorites_on_question_id"
     t.index ["user_id"], name: "index_favorites_on_user_id"
-  end
-
-  create_table "label_details", force: :cascade do |t|
-    t.string "content", null: false
-    t.bigint "label_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["label_id"], name: "index_label_details_on_label_id"
-  end
-
-  create_table "labellings", force: :cascade do |t|
-    t.bigint "question_id"
-    t.bigint "label_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["label_id"], name: "index_labellings_on_label_id"
-    t.index ["question_id"], name: "index_labellings_on_question_id"
-  end
-
-  create_table "labels", force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "notes", force: :cascade do |t|
@@ -126,14 +112,8 @@ ActiveRecord::Schema.define(version: 2022_11_01_020503) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "label_id"
-    t.bigint "label_detail_id"
-    t.bigint "disease_id"
     t.bigint "disease_detail_id"
     t.index ["disease_detail_id"], name: "index_questions_on_disease_detail_id"
-    t.index ["disease_id"], name: "index_questions_on_disease_id"
-    t.index ["label_detail_id"], name: "index_questions_on_label_detail_id"
-    t.index ["label_id"], name: "index_questions_on_label_id"
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
@@ -165,15 +145,11 @@ ActiveRecord::Schema.define(version: 2022_11_01_020503) do
   add_foreign_key "comments", "questions"
   add_foreign_key "comments", "users"
   add_foreign_key "disease_details", "diseases"
+  add_foreign_key "disease_labellings", "diseases"
+  add_foreign_key "disease_labellings", "questions"
   add_foreign_key "favorites", "questions"
   add_foreign_key "favorites", "users"
-  add_foreign_key "label_details", "labels"
-  add_foreign_key "labellings", "labels"
-  add_foreign_key "labellings", "questions"
   add_foreign_key "notes", "users"
   add_foreign_key "questions", "disease_details"
-  add_foreign_key "questions", "diseases"
-  add_foreign_key "questions", "label_details"
-  add_foreign_key "questions", "labels"
   add_foreign_key "questions", "users"
 end
