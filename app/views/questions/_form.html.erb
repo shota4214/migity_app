@@ -19,10 +19,11 @@
       </div>
 
       <div class="form-group">
-        <%= f.label :disease %>
-        <%= f.collection_select(:disease_id, @diseases, :id, :name, { include_blank: "タグを選択", prompt: false }, { class: "form-control" }) %>
+        <%= f.label :disease %><small>複数選択可能(windowsはctrl,Macはcommand押しながら選択)</small>
+        <%= f.collection_select(:disease_ids, @diseases, :id, :name, { include_blank: "タグを選択", prompt: false}, { multiple: true, class: "form-control" }) %>
       </div>
-
+<%
+=begin%>
       <div id="disease_detail_insert_point"></div>
 
       <div id="disease_detail">
@@ -47,7 +48,8 @@
           </div>
         </template>
       <% end %>
-
+<%
+=end%>
       <div class="field">
         <%= f.label :content %>
         <%= f.rich_text_area :content, placeholder: '記事の内容を入力', class: "form-control" %>
@@ -62,7 +64,7 @@
   </div>
 </div>
 
-<script>
+<%# <script>
 $(document).on('turbolinks:load', function() {
   //復活させるダミーの中カテゴリのセレクトボックス
   let default_disease_detail_select = `<div id="disease_detail"><div class="field"><div class="form-group"><disease for="question_disease_id">タグ詳細</disease><select name="disease_detail", class="form-control">
@@ -92,4 +94,4 @@ $(document).on('turbolinks:load', function() {
     };
   });
 }); 
-</script>
+</script> %>

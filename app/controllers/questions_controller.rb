@@ -8,6 +8,7 @@ class QuestionsController < ApplicationController
   def index
     @questions = @questions.where(resolved: true).order("created_at DESC") if params[:resolved]
     @questions = @questions.where(resolved: false).order("created_at DESC") if params[:unresolved]
+    @question_tag_ranks = Disease.find(DiseaseLabelling.group(:disease_id).order('count(disease_id) desc').pluck(:disease_id))
   end
 
   def new
@@ -35,8 +36,8 @@ class QuestionsController < ApplicationController
     @comments = @question.comments
     @comment = @question.comments.build
     @favorite = current_user.favorites.find_by(question_id: @question.id) if user_signed_in?
-    @disease = Disease.find(@question.disease_id)
-    @disease_detail = DiseaseDetail.find(@question.disease_detail_id)
+    # @disease = Disease.find(@question.disease_id)
+    # @disease_detail = DiseaseDetail.find(@question.disease_detail_id)
   end
 
   def edit
@@ -67,8 +68,7 @@ class QuestionsController < ApplicationController
 
   def confirm
     @question = current_user.questions.build(question_params)
-    @disease = Disease.find(params[:question][:disease_id])
-    @disease_detail = DiseaseDetail.find(params[:question][:disease_detail_id])
+    # @disease_detail = DiseaseDetail.find(params[:question][:disease_detail_id])
     render :new if @question.invalid?
   end
 
@@ -97,7 +97,7 @@ class QuestionsController < ApplicationController
   private
 
   def question_params
-    params.require(:question).permit(:title, :content, :resolved, :draft, :disease_id, :disease_detail_id, :format)
+    params.require(:question).permit(:title, :content, :resolved, :draft, :disease_detail_id, { disease_ids: [] })
   end
 
   def set_question
