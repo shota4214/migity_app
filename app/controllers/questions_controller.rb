@@ -2,8 +2,9 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create edit update destroy]
   before_action :set_question, only: %i[show edit update destroy change_resolved]
   before_action :other_than_drafts, only: %i[index search]
-  before_action :diseases, only: %i[new edit create]
-  before_action :question_tag_ranks, only: %i[index by_disease]
+  before_action :diseases, only: %i[new edit create confirm]
+  before_action :question_tag_ranks, only: %i[index show by_disease]
+  before_action :half_width_to_full_width, only: %i[update confirm]
 
 
   def index
@@ -45,14 +46,14 @@ class QuestionsController < ApplicationController
   def update
     if params[:draft]
       @question.update(draft: true)
-      if @question.update(question_params)
+      if @question.update(@new_question_params)
         redirect_to questions_path, notice: "Q&Aを編集し下書き保存しました"
       else
         render :edit
       end
     else
       @question.update(draft: false)
-      if @question.update(question_params)
+      if @question.update(@new_question_params)
         redirect_to questions_path, notice: "Q&Aを編集しました"
       else
         render :edit
@@ -66,7 +67,7 @@ class QuestionsController < ApplicationController
   end
 
   def confirm
-    @question = current_user.questions.build(question_params)
+    @question = current_user.questions.build(@new_question_params)
     # @disease_detail = DiseaseDetail.find(params[:question][:disease_detail_id])
     render :new if @question.invalid?
   end
@@ -118,5 +119,11 @@ class QuestionsController < ApplicationController
 
   def question_tag_ranks
     @question_tag_ranks = Disease.find(DiseaseLabelling.group(:disease_id).order('count(disease_id) desc').pluck(:disease_id))
+  end
+
+  def half_width_to_full_width
+    @new_question_params = question_params
+    @new_question_params[:title] = @new_question_params[:title].gsub(/[\uFF61-\uFF9F]+/) { |str| str.unicode_normalize(:nfkc) }
+    @new_question_params[:content] = @new_question_params[:content].gsub(/[\uFF61-\uFF9F]+/) { |str| str.unicode_normalize(:nfkc) }
   end
 end

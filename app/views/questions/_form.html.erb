@@ -1,27 +1,52 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-12">
-    <%= form_with(model: @question, local: true, url: choose_new_or_edit ) do |f| %>
-      <% if @question.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= @question.errors.count %>件のエラーがあります。</h2>
-        <ul>
-        <% @question.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
-      <% end %>
+  <%= form_with(model: @question, local: true, url: choose_new_or_edit ) do |f| %>
+    <div class="row">
+      <div class="col-md-8">
+          <% if request.path_info == new_question_path || request.path_info == confirm_questions_path %>
+            <h3 class="text-center">質問する</h3>
+          <% else %>
+            <h3 class="text-center">質問を編集する</h3>
+            <% if @question.draft? %>
+              <h2><%= "このQ＆Aは現在下書きのため非公開です" %></h2>
+            <% end %>
+          <% end %>
+          <% if @question.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= @question.errors.count %>件のエラーがあります。</h2>
+              <ul>
+              <% @question.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+        <div class="form-group">
+          <%= f.label :title %>
+          <%= f.text_field :title, placeholder: '質問タイトル', class: "form-control" %>
+        </div>
 
-      <div class="form-group">
-        <%= f.label :title %>
-        <%= f.text_field :title, placeholder: 'タイトルを入力', class: "form-control" %>
-      </div>
+        <div class="field">
+          <%= f.label :content %>
+          <%= f.rich_text_area :content, placeholder: '内容', class: "form-control" %>
+        </div><br>
 
-      <div class="form-group">
-        <%= f.label :disease %><small>複数選択可能(windowsはctrl,Macはcommand押しながら選択)</small>
-        <%= f.collection_select(:disease_ids, @diseases, :id, :name, { include_blank: "タグを選択", prompt: false}, { multiple: true, class: "form-control" }) %>
+        <div class="field text-center">
+          <%= f.submit '記事投稿', class: "btn btn-outline-primary" %>
+          <%= f.submit '下書き保存', name: 'draft', class: "btn btn-outline-secondary" %>
+        </div>
       </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :disease %><br>
+          <small>複数選択可能</small><br>
+          <small>(windowsはctrl,Macはcommand押しながら選択)</small>
+          <%= f.collection_select(:disease_ids, @diseases, :id, :name, { include_blank: "-がんの種類を選ぶ-", prompt: false}, { multiple: true, class: "form-control" }) %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
 <%
 =begin%>
       <div id="disease_detail_insert_point"></div>
@@ -50,19 +75,6 @@
       <% end %>
 <%
 =end%>
-      <div class="field">
-        <%= f.label :content %>
-        <%= f.rich_text_area :content, placeholder: '記事の内容を入力', class: "form-control" %>
-      </div><br>
-
-      <div class="field">
-        <%= f.submit '記事投稿', class: "btn btn-outline-primary" %>
-        <%= f.submit '下書き保存', name: 'draft', class: "btn btn-outline-secondary" %>
-      </div>
-      <% end %>
-    </div>
-  </div>
-</div>
 
 <%# <script>
 $(document).on('turbolinks:load', function() {
