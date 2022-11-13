@@ -3,7 +3,7 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: %i[show edit update destroy change_resolved]
   before_action :other_than_drafts, only: %i[index search]
   before_action :diseases, only: %i[new edit create confirm]
-  before_action :question_tag_ranks, only: %i[index show by_disease]
+  before_action :question_tag_ranks, only: %i[index show by_disease search]
   before_action :half_width_to_full_width, only: %i[update confirm]
 
 

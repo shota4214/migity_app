@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
-  resources :users, only: %i[show]
+  resources :users, only: %i[show index]
   resources :notes
   resources :questions do
     resources :comments do
