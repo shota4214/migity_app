@@ -12,10 +12,10 @@
 
   <div class="field">
     <%= form.label :content %>
-    <%= form.text_area :content %>
-  </div>
+    <%= form.text_area :content, class: "form-control", placeholder: "コメント" %>
+  </div><br>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "コメント", class: "btn btn-primary" %>
   </div>
 <% end %>

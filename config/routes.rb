@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   resources :users, only: %i[show]
   resources :notes
   resources :questions do
-    resources :comments
+    resources :comments do
+      get :choose_answer
+    end
     collection do
       post :confirm
       get :search

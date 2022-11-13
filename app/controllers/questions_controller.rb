@@ -37,6 +37,7 @@ class QuestionsController < ApplicationController
     @comments = @question.comments
     @comment = @question.comments.build
     @favorite = current_user.favorites.find_by(question_id: @question.id) if user_signed_in?
+    @best_answer = Comment.find_by(question_id: @question.id, best_answer: true)
     # @disease_detail = DiseaseDetail.find(@question.disease_detail_id)
   end
 
