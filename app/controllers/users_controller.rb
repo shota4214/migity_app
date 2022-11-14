@@ -12,6 +12,6 @@ class UsersController < ApplicationController
   end
 
   def index
-    @profession_users = User.where(pharmacist: true)
+    @profession_users = User.where(pharmacist: true).order("created_at DESC")
   end
 end
