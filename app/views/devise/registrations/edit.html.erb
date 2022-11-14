@@ -38,6 +38,13 @@
       <small id="positionHelp" class="form-text text-muted">役職等を入力してください</small>
     </div>
     <br>
+
+    <div class="field">
+      <%= f.label :introduction %><br />
+      <%= f.text_area :introduction, placeholder: "自己紹介", class: "form-control" %>
+      <small id="positionHelp" class="form-text text-muted">自己紹介を入力してください</small>
+    </div>
+    <br>
   <% end %>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

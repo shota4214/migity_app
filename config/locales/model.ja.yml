@@ -16,6 +16,7 @@ ja:
         pharmacist: 専門薬剤師
         admin: サイト管理者
         position: 役職
+        introduction: 自己紹介
       question:
         title: タイトル
         content: 内容
