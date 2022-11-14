@@ -1,4 +1,4 @@
-<h2>ノート詳細</h2>
+<p><%= link_to "学習ノート一覧に戻る", notes_path %></p>
 
-<p>タイトル：<%= @note.title %></p>
-<p>内容：<%= @note.content %></p>
+<p>タイトル：<%= link_to @note.title, edit_note_path(@note.id) %></p>
+<p>内容：<%= link_to @note.content, edit_note_path(@note.id) %></p>
