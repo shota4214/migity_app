@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_14_020610) do
+ActiveRecord::Schema.define(version: 2022_11_14_090829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,14 @@ ActiveRecord::Schema.define(version: 2022_11_14_020610) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
+  create_table "introductions", force: :cascade do |t|
+    t.text "content"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_introductions_on_user_id"
+  end
+
   create_table "notes", force: :cascade do |t|
     t.string "title", null: false
     t.bigint "user_id", null: false
@@ -138,6 +146,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_020610) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "prefectures", default: 0, null: false
+    t.text "introduction", default: "", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -151,6 +160,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_020610) do
   add_foreign_key "disease_labellings", "questions"
   add_foreign_key "favorites", "questions"
   add_foreign_key "favorites", "users"
+  add_foreign_key "introductions", "users"
   add_foreign_key "notes", "users"
   add_foreign_key "questions", "disease_details"
   add_foreign_key "questions", "users"
