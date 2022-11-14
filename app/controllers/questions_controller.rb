@@ -3,9 +3,9 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: %i[show edit update destroy change_resolved]
   before_action :other_than_drafts, only: %i[index search]
   before_action :diseases, only: %i[new edit create confirm]
-  before_action :question_tag_ranks, only: %i[index show by_disease]
+  before_action :question_tag_ranks, only: %i[index show by_disease search]
   before_action :half_width_to_full_width, only: %i[update confirm]
-
+  before_action :sidebar_profession_users, only: %i[index show by_disease search]
 
   def index
     @questions = @questions.where(resolved: true).order("created_at DESC") if params[:resolved]
@@ -37,6 +37,7 @@ class QuestionsController < ApplicationController
     @comments = @question.comments
     @comment = @question.comments.build
     @favorite = current_user.favorites.find_by(question_id: @question.id) if user_signed_in?
+    @best_answer = Comment.find_by(question_id: @question.id, best_answer: true)
     # @disease_detail = DiseaseDetail.find(@question.disease_detail_id)
   end
 
@@ -125,5 +126,10 @@ class QuestionsController < ApplicationController
     @new_question_params = question_params
     @new_question_params[:title] = @new_question_params[:title].gsub(/[\uFF61-\uFF9F]+/) { |str| str.unicode_normalize(:nfkc) }
     @new_question_params[:content] = @new_question_params[:content].gsub(/[\uFF61-\uFF9F]+/) { |str| str.unicode_normalize(:nfkc) }
+  end
+
+  def sidebar_profession_users
+    @sidebar_profession_users = User.joins(:comments).group("users.id", "comments.best_answer").having("comments.best_answer=true").order("count_all DESC").count
+    @sidebar_profession_users  = @sidebar_profession_users.map{|user, value| [User.find(user.first), value]}
   end
 end

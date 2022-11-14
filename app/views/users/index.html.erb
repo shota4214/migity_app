@@ -1,0 +1,31 @@
+<h3>専門薬剤師一覧</h3>
+
+<table>
+  <thead>
+    <tr>
+      <td>写真</td>
+      <td>名前</td>
+      <td>勤務先</td>
+      <td>住まい</td>
+      <td>回答数</td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @profession_users.each do |user| %>
+      <tr>
+        <td>
+          <% if user.image? %>
+            <%= image_tag user.image.url, class: "rounded-circle", size: "60x60" %>
+          <% else %>
+            <%= image_tag (asset_path'no_image.png'), class: "rounded-circle", size: "60x60" %>
+          <% end %>
+        </td>
+        <td><%= user.name %></td>
+        <td><%= user.pharmacy %></td>
+        <td><%= user.prefectures %></td>
+        <td><%= number_of_best_answer(user) %>回答</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

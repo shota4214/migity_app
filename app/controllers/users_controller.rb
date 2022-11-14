@@ -10,4 +10,8 @@ class UsersController < ApplicationController
       @questions = Question.where(user_id: @user, draft: false).order("created_at DESC")
     end
   end
+
+  def index
+    @profession_users = User.where(pharmacist: true).order("created_at DESC")
+  end
 end
