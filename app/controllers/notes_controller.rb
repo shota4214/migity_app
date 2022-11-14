@@ -2,9 +2,10 @@ class NotesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_note, only: %i[show edit update destroy]
   before_action :different_login_and_note_users, only: %i[show edit]
+  before_action :note_index, only: %i[index search]
   
   def index
-    @notes = current_user.notes
+    @q = @notes.ransack(params[:q])
   end
 
   def new
@@ -39,6 +40,12 @@ class NotesController < ApplicationController
     redirect_to notes_path, notice: "ノートを削除しました"
   end
 
+  def search
+    search_words = params[:q][:title_or_content_body_cont].split(/[\p{blank}\s]+/)
+    grouping_hash = search_words.reduce({}){|hash, word| hash.merge(word => {title_or_content_body_cont: word})}
+    @results = @notes.ransack({combinator: 'and', groupings: grouping_hash, s: 'updated_at DESC'}).result
+  end
+
   private
 
   def note_params
@@ -51,5 +58,9 @@ class NotesController < ApplicationController
 
   def different_login_and_note_users
     redirect_to notes_path unless current_user.id == @note.user_id
+  end
+
+  def note_index
+    @notes = current_user.notes.order(updated_at: :desc)
   end
 end

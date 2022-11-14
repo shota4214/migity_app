@@ -1,0 +1,21 @@
+<h4>学習ノート検索結果</h4>
+
+<p><%= link_to "学習ノート一覧に戻る", notes_path %></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>タイトル</th>
+      <th>内容</th>
+    </tr>
+  <thead>
+  <tbody>
+    <% @results.each do |results| %>
+      <tr>
+        <td><%= link_to results.title, note_path(results.id) %></td>
+        <td><%= link_to results.content, note_path(results.id) %></td>
+        <td><%= link_to "削除", note_path(results.id), method: :delete, data: { confirm: "本当に削除してもいいですか？" } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

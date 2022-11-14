@@ -1,4 +1,10 @@
-<h2>ノート一覧</h2>
+<p>学習ノートから調べる</p>
+<%= search_form_for @q, url: search_notes_path do |f| %>
+  <%= f.search_field :title_or_content_body_cont, placeholder: "ノート 検索" %>
+  <%= f.submit '検索' %>
+<% end %>
+
+<h4>学習ノート</h4>
 <%= link_to "新しくノートを作成する", new_note_path %>
 
 <table>
@@ -11,10 +17,8 @@
   <tbody>
     <% @notes.each do |note| %>
       <tr>
-        <td><%= note.title %></td>
-        <td><%= note.content %></td>
-        <td><%= link_to "詳細", note_path(note.id) %></td>
-        <td><%= link_to "編集", edit_note_path(note.id) %></td>
+        <td><%= link_to note.title, note_path(note.id) %></td>
+        <td><%= link_to note.content, note_path(note.id) %></td>
         <td><%= link_to "削除", note_path(note.id), method: :delete, data: { confirm: "本当に削除してもいいですか？" } %></td>
       </tr>
     <% end %>
