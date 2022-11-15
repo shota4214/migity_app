@@ -4,9 +4,13 @@ ja:
       user: ユーザー
       question: Ｑ＆Ａ
       favorite: クリップ
-      disease: タグ
+      disease: 病名
       disease_detail: タグ詳細
       comment: コメント
+      disease_labelling: Q&Aと病名関連付け
+      note: ノート
+      column: コラム
+      rich_text: アクションテキスト
     attributes:
       user:
         name: 名前
