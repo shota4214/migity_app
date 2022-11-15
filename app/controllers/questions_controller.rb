@@ -8,8 +8,8 @@ class QuestionsController < ApplicationController
   before_action :sidebar_profession_users, only: %i[index show by_disease search]
 
   def index
-    @questions = @questions.where(resolved: true).order("created_at DESC") if params[:resolved]
-    @questions = @questions.where(resolved: false).order("created_at DESC") if params[:unresolved]
+    @questions = @questions.where(resolved: true).order("created_at DESC").page(params[:page]).per(10) if params[:resolved]
+    @questions = @questions.where(resolved: false).order("created_at DESC").page(params[:page]).per(10) if params[:unresolved]
   end
 
   def new
@@ -86,13 +86,13 @@ class QuestionsController < ApplicationController
   def search
     search_words = params[:q][:title_or_content_body_cont].split(/[\p{blank}\s]+/)
     grouping_hash = search_words.reduce({}){|hash, word| hash.merge(word => { title_or_content_body_cont: word})}
-    @results = @questions.ransack({ combinator: 'and', groupings: grouping_hash, s: 'created_at DESC'}).result
+    @results = @questions.ransack({ combinator: 'and', groupings: grouping_hash, s: 'created_at DESC'}).result.page(params[:page]).per(10)
   end
 
   def by_disease
     disease_id = params[:format].to_i
     @disease = Disease.find(disease_id)
-    @questions_by_disease = @disease.questions.order("created_at DESC")
+    @questions_by_disease = @disease.questions.order("created_at DESC").page(params[:page]).per(10)
     # @questions_by_disease = Question.where(draft: false).order("created_at DESC")
   end
 
@@ -107,7 +107,7 @@ class QuestionsController < ApplicationController
   end
 
   def other_than_drafts
-    @questions = Question.where(draft: false).order("created_at DESC")
+    @questions = Question.where(draft: false).order("created_at DESC").page(params[:page]).per(10)
   end
 
   def diseases
