@@ -20,6 +20,8 @@ gem 'actiontext'
 gem 'image_processing', '~> 1.2'
 gem 'ransack'
 gem 'kaminari'
+gem 'rails_admin', '~> 3.0'
+gem 'cancancan'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
