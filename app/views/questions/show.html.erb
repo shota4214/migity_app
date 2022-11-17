@@ -32,7 +32,7 @@
                 </small>
               </div>
               <div class="col-2 text-right">
-                <strong>回答数<%= comment_count(@question) %></strong>
+                <strong>閲覧数<%= @question.impressions_count %></strong>
               </div>
               <div class="col-3 text-center">
                 <% if user_signed_in? %>
@@ -73,7 +73,7 @@
         </div>
       </div>
       <div class="card mb-3 border border-0">
-        <p>回答数<%= comment_count(@question) %>件</p>
+        <p>閲覧数<%= @question.impressions_count %></p>
           <%= render "questions/shared/best_answer" %>
         <div id="comments_area">
           <%= render partial: 'comments/index', locals: { comments: @comments, question: @question } %>
