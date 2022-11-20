@@ -1,0 +1,56 @@
+<div class="col-3">
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-3 d-flex align-items-center padding-0">
+          <% if @user.image? %>
+            <%= image_tag @user.image.url, size: "60x60", class: "rounded-circle" %>
+          <% else %>
+            <%= image_tag (asset_path'no_image.png') %>
+          <% end %>
+        </div>
+        <div class="col padding-0">
+          <p class="user-name mt-3 bottom-mgr-5"><%= @user.name %></p>
+          <p>
+            <small><%= @user.pharmacy %></small>
+            <small class="sgv-map"><%= embedded_svg("map.svg") %></small>
+            <small><%= @user.prefectures %></small>
+          </p>
+          <div class="d-flex flex-row justify-content-center align-items-center mt-3">
+            <% if @user.pharmacist? %>
+              <p><i class="fa fa-solid fa-file-powerpoint"></i><%= @user.position %></p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <% if user_signed_in? && @user.id == current_user.id %>
+        <div class="mt-2">
+          <%= link_to questions_path do %><p><%= embedded_svg("question-answer.svg") %>質問</p><% end %>
+          <%= link_to favorites_path(@user) do %><p><%= embedded_svg("clip.svg") %>クリップ</p><% end %>
+          <%= link_to  questions_path(@user) do %><p><%= embedded_svg("heart-line.svg") %>いいね</p><% end %>
+          <%= link_to  notes_path(@user) do %><p><%= embedded_svg("notebook.svg") %>学習ノート</p><% end %>
+          <%= link_to "ユーザー情報編集", edit_user_registration_path(@user), class: "btn btn-warning mgr-10"  %></p>
+        </div>
+      <% end %>
+      <%# コメントやSNSリンクが貼れる %>
+        <%# <div class="text mt-3">
+          <span>comment</span>
+        </div> %>
+        <%# <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center">
+          <span><i class="fab fa-twitter"></i></span>
+          <span><i class="fab fa-facebook-f"></i></span>
+          <span><i class="fab fa-instagram"></i></span>
+          <span><i class="fab fa-linkedin"></i></span>
+        </div> %>
+      <%# ここまで %>
+      <div class=" px-2 rounded mt-4 date ">
+        <span class="join">joined <%= @user.created_at.strftime('%Y,%m') %></span>
+      </div>
+    </div>
+    <div class="card-footer text-center">
+      <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-outline-secondary" %>
+    </div>
+  </div>
+</div>
