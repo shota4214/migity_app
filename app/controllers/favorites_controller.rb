@@ -12,6 +12,7 @@ class FavoritesController < ApplicationController
   end
 
   def index
+    @user = User.find(current_user.id)
     @favorite_questions = current_user.favorite_questions.order(created_at: :desc)
   end
 end

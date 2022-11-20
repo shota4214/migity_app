@@ -8,8 +8,13 @@ class QuestionsController < ApplicationController
   before_action :sidebar_profession_users, only: %i[index show by_disease search]
 
   def index
-    @questions = @questions.where(resolved: true).order("created_at DESC").page(params[:page]).per(10) if params[:resolved]
-    @questions = @questions.where(resolved: false).order("created_at DESC").page(params[:page]).per(10) if params[:unresolved]
+    @user = User.find(current_user.id)
+    @questions = @user.questions.all.order("created_at DESC")
+    if @user.id == current_user.id
+      @questions = @user.questions.all.order("created_at DESC")
+    else
+      @questions = Question.where(user_id: @user, draft: false).order("created_at DESC")
+    end
   end
 
   def new
