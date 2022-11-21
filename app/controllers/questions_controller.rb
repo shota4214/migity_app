@@ -27,12 +27,12 @@ class QuestionsController < ApplicationController
       render :new
     elsif params[:draft]
       if @question.update(draft: true)
-      redirect_to questions_path, notice: "Q&Aを下書き保存しました"
+      redirect_to root_path, notice: "Q&Aを下書き保存しました"
       else
         render :new
       end
     elsif @question.save
-      redirect_to questions_path, notice: "Q&Aを投稿しました"
+      redirect_to root_path, notice: "Q&Aを投稿しました"
     else
       render :new
     end
@@ -48,20 +48,23 @@ class QuestionsController < ApplicationController
   end
 
   def edit
+    if @question.user.id != current_user.id
+      redirect_to root_path, alert: "他者の質問は編集できません"
+    end
   end
 
   def update
     if params[:draft]
       @question.update(draft: true)
       if @question.update(@new_question_params)
-        redirect_to questions_path, notice: "Q&Aを編集し下書き保存しました"
+        redirect_to root_path, notice: "Q&Aを編集し下書き保存しました"
       else
         render :edit
       end
     else
       @question.update(draft: false)
       if @question.update(@new_question_params)
-        redirect_to questions_path, notice: "Q&Aを編集しました"
+        redirect_to root_path, notice: "Q&Aを編集しました"
       else
         render :edit
       end
@@ -70,7 +73,7 @@ class QuestionsController < ApplicationController
 
   def destroy
     @question.destroy
-    redirect_to questions_path, notice: "Q&Aを削除しました"
+    redirect_to root_path, notice: "Q&Aを削除しました"
   end
 
   def confirm
