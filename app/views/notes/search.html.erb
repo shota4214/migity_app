@@ -1,21 +1,25 @@
-<h4>学習ノート検索結果</h4>
+<p class="p-3"><%= link_to "学習ノート一覧に戻る", notes_path %></p>
 
-<p><%= link_to "学習ノート一覧に戻る", notes_path %></p>
+<h5 class="text-center pt-5">学習ノート検索結果</h5>
 
-<table>
-  <thead>
-    <tr>
-      <th>タイトル</th>
-      <th>内容</th>
-    </tr>
-  <thead>
-  <tbody>
-    <% @results.each do |results| %>
-      <tr>
-        <td><%= link_to results.title, note_path(results.id) %></td>
-        <td><%= link_to results.content, note_path(results.id) %></td>
-        <td><%= link_to "削除", note_path(results.id), method: :delete, data: { confirm: "本当に削除してもいいですか？" } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="container">
+  <% @results.each do |results| %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <div class="row h-100">
+          <div class="col-10">
+            <div class="card-title text-truncate">
+              <%= link_to results.title, note_path(results.id) %>
+            </div>
+            <div class="card-text text bg-light">
+              <%= link_to results.content, note_path(results.id) %>
+            </div>
+          </div>
+          <div class="col-2 d-flex align-items-center justify-content-center">
+            <%= link_to "編集", edit_note_path(results.id), class: "btn btn-outline-dark" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

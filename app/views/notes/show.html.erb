@@ -1,4 +1,18 @@
-<p><%= link_to "学習ノート一覧に戻る", notes_path %></p>
+<p class="p-3"><%= link_to "学習ノート一覧に戻る", notes_path %></p>
 
-<p>タイトル：<%= link_to @note.title, edit_note_path(@note.id) %></p>
-<p>内容：<%= link_to @note.content, edit_note_path(@note.id) %></p>
+<div class="container">
+  <div class="row d-flex justify-content-center">
+    <div class="col-8">
+      <div class="card mb-3">
+        <div class="card-body">
+          <p class="card-title">
+            <%= link_to @note.title, edit_note_path(@note.id) %>
+          </p>
+          <p class="card-text">
+            <%= link_to @note.content, edit_note_path(@note.id) %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
