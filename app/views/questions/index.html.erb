@@ -1,9 +1,6 @@
 <%= render "questions/shared/jumbotron" %>
 <%= render "questions/shared/notice" %>
 
-<%= link_to 'ノート', new_note_path, 
-:onclick=>"window.open(this.href, 'ノート', 'height=400, width=800 top=100 left=400');return false;" %>
-
 <div class="container">
   <div class="row">
     <div class="col-xs-8 col-lg-8">
@@ -76,3 +73,9 @@
     <%= render "questions/shared/sidebar" %>
   </div>
 </div>
+
+<%= link_to new_note_path, 
+:onclick=>"window.open(this.href, 'ノート', 'height=400, width=800 top=100 left=400');return false;", class: "notebook-new_btn" do %>
+  <%= embedded_svg("notebook-new.svg") %>
+  <%= embedded_svg("notebook-new_hover.svg") %>
+<% end %>

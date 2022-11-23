@@ -9,7 +9,12 @@ class NotesController < ApplicationController
   end
 
   def new
-    @note = Note.new
+    if params[:id]
+      question =  Question.find(params[:id])
+      @note = Note.new(title: question.title, content: question.content)
+    else
+      @note = Note.new
+    end
   end
 
   def create
