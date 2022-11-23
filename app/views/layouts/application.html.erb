@@ -22,30 +22,38 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav ml-auto">
+            <li class="nav-item mr-auto d-flex align-items-center">
+              <%= link_to "はじめての方へ", root_path, class: "mgr-20" %>
+            </li>
             <% if user_signed_in? %>
               <% if current_user.admin? %>
                 <li class="nav-item">
-                  <%= link_to "管理者画面", rails_admin_path, class: "btn btn-outline-warning" %>
+                  <%= link_to "管理者画面", rails_admin_path, class: "btn btn-outline-warning mgr-20" %>
                 </li>
               <% end %>
-              <li class="nav-item d-flex align-items-center">
-                <%= link_to "トップページ", root_path %>
+              <li class="nav-item mr-auto d-flex align-items-center">
+                <%= link_to root_path, class: "mgr-20" do %><%= embedded_svg("notification-off.svg") %><% end %>
               </li>
-              <li class="nav-item">
-                <%= link_to "マイページ", user_path(current_user.id), class: "btn btn-primary" %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-outline-secondary" %>
+              <li class="nav-item dropdown">
+                <a class="dropdown-list" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                  <% if current_user.image? %>
+                    <%= image_tag current_user.image.url, class: "rounded-circle mgr-20", size: "40x40" %>
+                  <% else %>
+                    <%= image_tag "no_image.png", class: "rounded-circle mgr-20", size: "40x40" %>
+                  <% end %>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <%= link_to user_path(current_user.id), class: "dropdown-item" do %><%= embedded_svg("account.svg") %>マイページ<% end %>
+                    <%= link_to user_path(current_user.id), class: "dropdown-item" do %><%= embedded_svg("edit.svg") %>プロフィール<% end %>
+                    <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %><%= embedded_svg("logout.svg") %>ログアウト<% end %>
+                  </div>
+                </a>
               </li>
             <% else %>
-              <li class="nav-item d-flex align-items-center">
-                <%= link_to "はじめての方へ", questions_path %>
+              <li class="nav-item">
+                <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-primary mgr-10" %>
               </li>
               <li class="nav-item">
-                <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-primary" %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "新規登録", new_user_registration_path, class: "btn btn-primary" %>
+                <%= link_to "新規登録", new_user_registration_path, class: "btn btn-primary mgr-10" %>
               </li>
             <% end %>
           </ul>
