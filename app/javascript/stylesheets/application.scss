@@ -19,6 +19,10 @@ a, a:hover {
   margin-left: 20px;
 }
 
+.mgr-right-20 {
+  margin-right: 20px;
+}
+
 .bottom-mgr-5 {
   margin-bottom: 5px;
 }
@@ -35,6 +39,10 @@ a, a:hover {
   color: white;
 }
 
+.padding-0 {
+  padding: 0;
+}
+
 // navbar
 .nav-item {
   margin-right: 10px;
@@ -46,6 +54,10 @@ a, a:hover {
 
 .menubar-items {
   background-color: rgba(255, 255, 255, 0.557);
+}
+
+.dropdown:hover > .dropdown-menu{
+  display: block;
 }
 
 //jumbotron
@@ -63,6 +75,12 @@ a, a:hover {
 
 .content-link {
   color: black;
+}
+
+//sgv
+.sgv-map {
+  width: 20px;
+  height: 20px;
 }
 
 // footer

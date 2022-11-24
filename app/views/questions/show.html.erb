@@ -1,43 +1,89 @@
 <%= render "questions/shared/notice" %>
 
+<br>
 <div class="container">
   <div class="row">
     <div class="col-xs-8 col-lg-8">
-      <h2>Q＆A詳細</h2>
-
-      <% if @question.draft %>
-        <p>このQ＆Aは現在下書きのため非公開です</p>
+      <% if user_signed_in? && @question.user_id == current_user.id %>
+        <% if @question.resolved %>
+          <%= link_to "回答受付中にする", change_resolved_question_path(@question.id), class: "btn btn-secondary" %>
+        <% else %>
+          <%= link_to "解決済みにする", change_resolved_question_path(@question.id), class: "btn btn-primary" %>
+        <% end %>
       <% end %>
-
-      <div class="favorite-link" id="favorite-link-<%= @question.id %>">
-        <%= render partial: 'favorites/favorite', locals: { question: @question } %>
+      <div class="card mb-3 border border-0">
+        <div class="card-header border border-0">
+          <div class="container">
+            <div class="row">
+              <div class="col-2">
+                <span>
+                  <% if @question.resolved %>
+                    <span class="resolved-true text-center bottom-mgr-5"><%= resolved_text(@question) %></span>
+                  <% else %>
+                    <span class="resolved-false text-center bottom-mgr-5"><%= resolved_text(@question) %></span>
+                  <% end %>
+                </span>
+              </div>
+              <div class="col-5">
+                <small class="text-muted">
+                  <% @question.diseases.each do |disease| %>
+                    <span class="mgr-10 bottom-mgr-5 btn btn-outline-secondary btn-sm question-index-disease"><%= disease.name %></span>
+                  <% end %>
+                </small>
+              </div>
+              <div class="col-2 text-right">
+                <strong>閲覧数<%= @question.impressions_count %></strong>
+              </div>
+              <div class="col-3 text-center">
+                <% if user_signed_in? %>
+                  <% if @question.user_id == current_user.id %>
+                    <strong>クリップ数<%= @question.favorites.count %></strong>
+                  <% else %>
+                    <div class="favorite-link" id="favorite-link-<%= @question.id %>">
+                      <%= render partial: 'favorites/favorite', locals: { question: @question } %>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-10">
+          <h5 class="card-title"><%= @question.title %></h5>
+          <p class="card-text"><%= strip_tags(@question.content.to_s).gsub(/[\n]/,"").strip %></p>
+        </div>
+        <div class="card-footer border border-0">
+          <div class="row">
+            <div class="d-grid gap-4 col mx-auto text-right">
+              <small class="text-muted">
+                <%= link_to user_path(@question.user), class: "question-user-name" do %>
+                  <% if @question.user.image? %>
+                    <%= image_tag @question.user.image.url, class: "rounded-circle", size: "20x20" %>
+                  <% else %>
+                    <%= image_tag "no_image.png", class: "rounded-circle", size: "20x20" %>
+                  <% end %>
+                  <%= "#{@question.user.name}" %>
+                <% end %>
+              </small>
+            </div>
+            <div class="d-grid gap-4 col-3 mx-auto text-center">
+              <small class="text-muted"><%= @question.created_at.strftime('%Y年%m月%d日') %></small>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <p>状態：<%= resolved_text(@question) %></p>
-        <% if user_signed_in? && @question.user_id == current_user.id %>
-          <% if @question.resolved %>
-            <%= link_to "回答受付中にする", change_resolved_question_path(@question.id) %>
-          <% else %>
-            <%= link_to "解決済みにする", change_resolved_question_path(@question.id) %>
-          <% end %>
-        <% end %>
-      <p>タイトル: <%= @question.title %></p>
-      <p>病名タグ: 
-        <% @question.diseases.each do |disease| %>
-          <%= disease.name%>
-        <% end %>
-      </p>
-      <p>内容: <%= @question.content %></p>
-
-      <h2>コメント一覧</h2>
+      <div class="card mb-3 border border-0">
+        <p>閲覧数<%= @question.impressions_count %></p>
+          <%= render "questions/shared/best_answer" %>
         <div id="comments_area">
           <%= render partial: 'comments/index', locals: { comments: @comments, question: @question } %>
         </div>
-      <% if user_signed_in? %>
-        <%= render partial: 'comments/form', locals: { comment: @comment, question: @question } %>
-      <% else %>
-        <p>※コメントは登録後投稿できます</p>
-      <% end %>
+        <% if user_signed_in? %>
+          <%= render partial: 'comments/form', locals: { comment: @comment, question: @question } %>
+        <% else %>
+          <p>※コメントは登録後投稿できます</p>
+        <% end %>
+      </div>
     </div>
     <%= render "questions/shared/sidebar" %>
   </div>

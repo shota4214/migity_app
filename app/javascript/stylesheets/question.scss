@@ -69,4 +69,20 @@ trix-editor {
 
 .notebook-new_btn:hover svg:nth-of-type(2) {
 	opacity: 100;
+
+.best-answer {
+  color: red;
+  background-color: rgba(255, 192, 203, 0.743);
+}
+
+.question-comment-header {
+  background-color: white;
+}
+
+.question-comment-body {
+  background-color: rgb(234, 234, 234);
+}
+
+.clip-text {
+  color: black;
 }

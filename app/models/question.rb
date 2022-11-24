@@ -3,6 +3,7 @@ class Question < ApplicationRecord
   # belongs_to :disease_detail
   validates :title, presence: true
   has_rich_text :content
+  is_impressionable counter_cache: true
   has_one :content, class_name: 'ActionText::RichText', as: :record
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy

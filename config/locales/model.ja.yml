@@ -4,9 +4,13 @@ ja:
       user: ユーザー
       question: Ｑ＆Ａ
       favorite: クリップ
-      disease: タグ
+      disease: 病名
       disease_detail: タグ詳細
       comment: コメント
+      disease_labelling: Q&Aと病名関連付け
+      note: ノート
+      column: コラム
+      rich_text: アクションテキスト
     attributes:
       user:
         name: 名前
@@ -16,6 +20,7 @@ ja:
         pharmacist: 専門薬剤師
         admin: サイト管理者
         position: 役職
+        introduction: 自己紹介
       question:
         title: タイトル
         content: 内容
@@ -28,4 +33,4 @@ ja:
       disease_detail:
         content: タグ詳細
       comment:
-        content: 内容
+        content: コメント入力

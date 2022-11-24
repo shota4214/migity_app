@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_question, only: %i[create edit update]
+  before_action :set_question, only: %i[create edit update choose_answer]
 
   def create
     @comment = @question.comments.build(comment_params)
@@ -44,10 +44,24 @@ class CommentsController < ApplicationController
     end
   end
 
+  def choose_answer
+    @comment = @question.comments.find(params[:comment_id])
+    find_best_answer = Comment.find_by(question_id: @question.id, best_answer: true)
+    if find_best_answer.nil?
+      @comment.update(best_answer: true)
+      redirect_to question_path(@question), notice: "ベストアンサーにしました"
+    elsif @comment.id == find_best_answer.id
+      @comment.update(best_answer: false)
+      redirect_to question_path(@question), notice: "ベストアンサーを取り消しました"
+    else
+      redirect_to question_path(@question), notice: "ベストアンサーにできるのは1件のみです"
+    end
+  end
+
   private
 
   def comment_params
-    params.require(:comment).permit(:content)
+    params.require(:comment).permit(:content, :question_id, :best_answer)
   end
 
   def set_question

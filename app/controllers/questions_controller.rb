@@ -3,13 +3,18 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: %i[show edit update destroy change_resolved]
   before_action :other_than_drafts, only: %i[index search]
   before_action :diseases, only: %i[new edit create confirm]
-  before_action :question_tag_ranks, only: %i[index show by_disease]
+  before_action :question_tag_ranks, only: %i[index show by_disease search]
   before_action :half_width_to_full_width, only: %i[update confirm]
-
+  before_action :sidebar_profession_users, only: %i[index show by_disease search]
 
   def index
-    @questions = @questions.where(resolved: true).order("created_at DESC") if params[:resolved]
-    @questions = @questions.where(resolved: false).order("created_at DESC") if params[:unresolved]
+    @user = User.find(current_user.id)
+    @questions = @user.questions.all.order("created_at DESC")
+    if @user.id == current_user.id
+      @questions = @user.questions.all.order("created_at DESC")
+    else
+      @questions = Question.where(user_id: @user, draft: false).order("created_at DESC")
+    end
   end
 
   def new
@@ -22,12 +27,12 @@ class QuestionsController < ApplicationController
       render :new
     elsif params[:draft]
       if @question.update(draft: true)
-      redirect_to questions_path, notice: "Q&Aを下書き保存しました"
+      redirect_to root_path, notice: "Q&Aを下書き保存しました"
       else
         render :new
       end
     elsif @question.save
-      redirect_to questions_path, notice: "Q&Aを投稿しました"
+      redirect_to root_path, notice: "Q&Aを投稿しました"
     else
       render :new
     end
@@ -37,24 +42,29 @@ class QuestionsController < ApplicationController
     @comments = @question.comments
     @comment = @question.comments.build
     @favorite = current_user.favorites.find_by(question_id: @question.id) if user_signed_in?
+    @best_answer = Comment.find_by(question_id: @question.id, best_answer: true)
+    impressionist(@question, nil, unique: [:ip_address])
     # @disease_detail = DiseaseDetail.find(@question.disease_detail_id)
   end
 
   def edit
+    if @question.user.id != current_user.id
+      redirect_to root_path, alert: "他者の質問は編集できません"
+    end
   end
 
   def update
     if params[:draft]
       @question.update(draft: true)
       if @question.update(@new_question_params)
-        redirect_to questions_path, notice: "Q&Aを編集し下書き保存しました"
+        redirect_to root_path, notice: "Q&Aを編集し下書き保存しました"
       else
         render :edit
       end
     else
       @question.update(draft: false)
       if @question.update(@new_question_params)
-        redirect_to questions_path, notice: "Q&Aを編集しました"
+        redirect_to root_path, notice: "Q&Aを編集しました"
       else
         render :edit
       end
@@ -63,7 +73,7 @@ class QuestionsController < ApplicationController
 
   def destroy
     @question.destroy
-    redirect_to questions_path, notice: "Q&Aを削除しました"
+    redirect_to root_path, notice: "Q&Aを削除しました"
   end
 
   def confirm
@@ -85,13 +95,13 @@ class QuestionsController < ApplicationController
   def search
     search_words = params[:q][:title_or_content_body_cont].split(/[\p{blank}\s]+/)
     grouping_hash = search_words.reduce({}){|hash, word| hash.merge(word => { title_or_content_body_cont: word})}
-    @results = @questions.ransack({ combinator: 'and', groupings: grouping_hash, s: 'created_at DESC'}).result
+    @results = @questions.ransack({ combinator: 'and', groupings: grouping_hash, s: 'created_at DESC'}).result.page(params[:page]).per(10)
   end
 
   def by_disease
     disease_id = params[:format].to_i
     @disease = Disease.find(disease_id)
-    @questions_by_disease = @disease.questions.order("created_at DESC")
+    @questions_by_disease = @disease.questions.order("created_at DESC").page(params[:page]).per(10)
     # @questions_by_disease = Question.where(draft: false).order("created_at DESC")
   end
 
@@ -106,7 +116,7 @@ class QuestionsController < ApplicationController
   end
 
   def other_than_drafts
-    @questions = Question.where(draft: false).order("created_at DESC")
+    @questions = Question.where(draft: false).order("created_at DESC").page(params[:page]).per(10)
   end
 
   def diseases
@@ -125,5 +135,10 @@ class QuestionsController < ApplicationController
     @new_question_params = question_params
     @new_question_params[:title] = @new_question_params[:title].gsub(/[\uFF61-\uFF9F]+/) { |str| str.unicode_normalize(:nfkc) }
     @new_question_params[:content] = @new_question_params[:content].gsub(/[\uFF61-\uFF9F]+/) { |str| str.unicode_normalize(:nfkc) }
+  end
+
+  def sidebar_profession_users
+    @sidebar_profession_users = User.joins(:comments).group("users.id", "comments.best_answer").having("comments.best_answer=true").order("count_all DESC").count
+    @sidebar_profession_users  = @sidebar_profession_users.map{|user, value| [User.find(user.first), value]}
   end
 end

@@ -1,17 +1,23 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
-  root "questions#index"
+  root "top#index"
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
-  resources :users, only: %i[show]
+  devise_scope :user do
+    post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
+  end
+  resources :users, only: %i[show index]
   resources :notes do
     collection do
       get :search
     end
   end
   resources :questions do
-    resources :comments
+    resources :comments do
+      get :choose_answer
+    end
     collection do
       post :confirm
       get :search
