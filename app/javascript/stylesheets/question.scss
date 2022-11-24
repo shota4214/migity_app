@@ -49,6 +49,27 @@ trix-editor {
   color: gray;
 }
 
+.notebook-new_btn {
+  overflow: hidden;
+}
+
+.notebook-new_btn svg {
+  position: fixed;
+  bottom: 0px;
+  left: 40px;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	-webkit-transition: .4s ease-in-out;
+	transition: .4s ease-in-out;
+}
+
+.notebook-new_btn svg:nth-of-type(2) {
+	opacity: 0;
+}
+
+.notebook-new_btn:hover svg:nth-of-type(2) {
+	opacity: 100;
+
 .best-answer {
   color: red;
   background-color: rgba(255, 192, 203, 0.743);

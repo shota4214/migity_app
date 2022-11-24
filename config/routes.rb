@@ -9,7 +9,11 @@ Rails.application.routes.draw do
     post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
   end
   resources :users, only: %i[show index]
-  resources :notes
+  resources :notes do
+    collection do
+      get :search
+    end
+  end
   resources :questions do
     resources :comments do
       get :choose_answer

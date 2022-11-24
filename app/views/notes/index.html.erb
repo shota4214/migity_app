@@ -1,22 +1,29 @@
-<h2>ノート一覧</h2>
-<%= link_to "新しくノートを作成する", new_note_path %>
+<%= search_form_for @q, url: search_notes_path do |f| %>
+  <div class="pt-5 text-center">
+      <%= f.search_field :title_or_content_body_cont, placeholder: "キーワードで検索" %>
+      <%= f.submit '検索' %>
+  </div>
+<% end %>
+<h5 class="text-center pt-5">学習ノート</h5>
 
-<table>
-  <thead>
-    <tr>
-      <th>タイトル</th>
-      <th>内容</th>
-    </tr>
-  <thead>
-  <tbody>
-    <% @notes.each do |note| %>
-      <tr>
-        <td><%= note.title %></td>
-        <td><%= note.content %></td>
-        <td><%= link_to "詳細", note_path(note.id) %></td>
-        <td><%= link_to "編集", edit_note_path(note.id) %></td>
-        <td><%= link_to "削除", note_path(note.id), method: :delete, data: { confirm: "本当に削除してもいいですか？" } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="container">
+  <% @notes.each do |note| %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <div class="row h-100">
+          <div class="col-10">
+            <div class="card-title text-truncate">
+              <%= link_to note.title, note_path(note.id) %>
+            </div>
+            <div class="card-text text bg-light">
+              <%= link_to note.content, note_path(note.id) %>
+            </div>
+          </div>
+          <div class="col-2 d-flex align-items-center justify-content-center">
+            <%= link_to "編集", edit_note_path(note.id), class: "btn btn-outline-dark" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
