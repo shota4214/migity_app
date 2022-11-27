@@ -116,7 +116,7 @@ class QuestionsController < ApplicationController
   end
 
   def other_than_drafts
-    @questions = Question.where(draft: false).order("created_at DESC").page(params[:page]).per(10)
+    @questions = Question.where(draft: false).order("created_at DESC").page(params[:page]).per(5)
   end
 
   def diseases

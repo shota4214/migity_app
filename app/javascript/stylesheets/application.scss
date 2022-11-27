@@ -85,7 +85,10 @@ a, a:hover {
 
 // footer
 .footer {
-  background-color: rgb(95, 95, 95);
+  height: 100px;
+  background-color: white;
   padding-top: 2rem;
   padding-bottom: 2rem;
+  margin-top: 100px;
+  border-top: solid;
 }

@@ -4,14 +4,14 @@ class TopController < ApplicationController
   before_action :sidebar_profession_users, only: %i[index show by_disease search]
 
   def index
-    @questions = @questions.where(resolved: true).order("created_at DESC").page(params[:page]).per(10) if params[:resolved]
-    @questions = @questions.where(resolved: false).order("created_at DESC").page(params[:page]).per(10) if params[:unresolved]
+    @questions = @questions.where(resolved: true).order("created_at DESC").page(params[:page]).per(5) if params[:resolved]
+    @questions = @questions.where(resolved: false).order("created_at DESC").page(params[:page]).per(5) if params[:unresolved]
   end
 
   private
 
   def other_than_drafts
-    @questions = Question.where(draft: false).order("created_at DESC").page(params[:page]).per(10)
+    @questions = Question.where(draft: false).order("created_at DESC").page(params[:page]).per(5)
   end
 
   def question_tag_ranks
