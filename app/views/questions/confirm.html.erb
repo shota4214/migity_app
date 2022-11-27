@@ -1,45 +1,50 @@
-<% if params[:draft] %>
-  <p>以下の内容で、下書き保存します</p>
-<% else %>
-  <p>以下の内容で、Q&Aを投稿します</p>
-<% end %>
-<br>
-<%= form_with(model: @question, local: true, url: questions_path ) do |f| %>
+<div class="container">
+  <%= form_with(model: @question, local: true, url: questions_path ) do |f| %>
+    <div class="row">
+      <div class="col-md-8">
+          <% if params[:draft] %>
+            <h3 class="text-center">以下の内容で、下書き保存します</h3>
+          <% else %>
+            <h3 class="text-center">以下の内容で、Q&Aを投稿します</h3>
+          <% end %>
+        <div class="form-group">
+          <%= f.label :title %>
+          <%= f.hidden_field :title %>
+          <div class="card">
+            <%= @question.title %>
+          </div>
+        </div>
 
-  <div class="field">
-    <%= f.label :title %>
-    <%= @question.title %>
-    <%= f.hidden_field :title %>
-  </div>
+        <div class="field">
+          <%= f.label :content %>
+          <%= f.hidden_field :content %>
+          <div class="card" style="height: 10rem;">
+            <%= @question.content %>
+          </div>
+        </div><br>
 
-  <div class="field">
-    <%= f.label :disease %>
-    <% @question.diseases.each do |disease| %>
-      <%= disease.name %>
-      <%= f.hidden_field :disease_ids, multiple: true, value: disease.id %>
-    <% end %>
-  </div>
-<%
-=begin%>
-  <div class="field">
-    <%= f.label :disease_detail %>
-    <%= @disease_detail.content %>
-    <%= f.hidden_field :disease_detail_id %>
-  </div>
-<%
-=end%>
-  <div class="field">
-    <%= f.label :content %>
-    <%= @question.content %>
-    <%= f.hidden_field :content %>
-  </div>
-
-  <div class="field">
-    <% if params[:draft] %>
-      <%= f.submit "下書き保存", name: "draft" %>
-    <% else %>
-      <%= f.submit "投稿する" %>
-    <% end %>
-    <%= f.submit "戻る", name: "back" %>
-  </div>
-<% end %>
+        <div class="field text-center">
+          <% if params[:draft] %>
+            <%= f.submit "下書き保存", name: "draft", class: "btn btn-outline-primary" %>
+          <% else %>
+            <%= f.submit "投稿する", class: "btn btn-outline-primary" %>
+          <% end %>
+          <%= f.submit "戻る", name: "back", class: "btn btn-outline-secondary" %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :disease %><br>
+          <small>複数選択可能</small><br>
+          <small>(windowsはctrl,Macはcommand押しながら選択)</small>
+          <div class="card" style="height: 5rem;">
+            <% @question.diseases.each do |disease| %>
+              <%= disease.name %>
+              <%= f.hidden_field :disease_ids, multiple: true, value: disease.id %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
