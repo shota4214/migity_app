@@ -43,7 +43,7 @@
                   <% end %>
                   <div class="dropdown-menu dropdown-menu-right">
                     <%= link_to user_path(current_user.id), class: "dropdown-item" do %><%= embedded_svg("account.svg") %>マイページ<% end %>
-                    <%= link_to user_path(current_user.id), class: "dropdown-item" do %><%= embedded_svg("edit.svg") %>プロフィール<% end %>
+                    <%= link_to edit_user_registration_path(current_user.id), class: "dropdown-item" do %><%= embedded_svg("edit.svg") %>プロフィール<% end %>
                     <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %><%= embedded_svg("logout.svg") %>ログアウト<% end %>
                   </div>
                 </a>
@@ -61,26 +61,20 @@
       </nav>
     </header>
 
-
     <%= yield %>
-
     <footer class="footer">
       <div class="container">
         <div class="row">
-          <div class="col-md-6">
-            <p class="text-muted">Migity</p>
+          <div class="col-2 text-center text-muted">
+            <h5 class="mgr-20"><strong>ミギティー</strong></h5>
           </div>
-          <div class="col-md-6 text-right">
-            <span class="mgr-20">運営</span>
-            <span class="mgr-20">コミュニティガイドライン</span>
-            <span class="mgr-20">利用規約</span>
-            <span class="mgr-20">プライバシーポリシー</span>
+          <div class="col text-right text-muted">
+            <small class="mgr-20">利用規約</small>
+            <small class="mgr-20">プライバシーポリシー</small>
+            <small class="mgr-20">運営</small>
           </div>
         </div>
-        <div class="row">
-          <div class="col text-center">
-            <p class="text-muted">copyright.~</p>
-          </div>
+        <p class="text-center text-muted">©︎2022 Migity</p>
       </div>
     </footer>
     <%= raw Rails.application.assets_manifest.find_sources('icons.svg').first %>

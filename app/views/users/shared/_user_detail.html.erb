@@ -6,7 +6,7 @@
           <% if @user.image? %>
             <%= image_tag @user.image.url, size: "60x60", class: "rounded-circle" %>
           <% else %>
-            <%= image_tag (asset_path'no_image.png') %>
+            <%= image_tag (asset_path'no_image.png'), size: "60x60", class: "rounded-circle" %>
           <% end %>
         </div>
         <div class="col padding-0">
@@ -27,11 +27,10 @@
     <div class="card-body">
       <% if user_signed_in? && @user.id == current_user.id %>
         <div class="mt-2">
-          <%= link_to questions_path do %><p><%= embedded_svg("question-answer.svg") %>質問</p><% end %>
-          <%= link_to favorites_path(@user) do %><p><%= embedded_svg("clip.svg") %>クリップ</p><% end %>
-          <%= link_to  questions_path(@user) do %><p><%= embedded_svg("heart-line.svg") %>いいね</p><% end %>
-          <%= link_to  notes_path(@user) do %><p><%= embedded_svg("notebook.svg") %>学習ノート</p><% end %>
-          <%= link_to "ユーザー情報編集", edit_user_registration_path(@user), class: "btn btn-warning mgr-10"  %></p>
+          <%= link_to questions_path do %><p class="user-detail-menu"><%= embedded_svg("question-answer.svg") %>質問</p><% end %>
+          <%= link_to favorites_path(@user) do %><p class="user-detail-menu"><%= embedded_svg("clip.svg") %>クリップ</p><% end %>
+          <%= link_to  questions_path(@user) do %><p class="user-detail-menu"><%= embedded_svg("heart-line.svg") %>いいね</p><% end %>
+          <%= link_to  notes_path(@user) do %><p class="user-detail-menu"><%= embedded_svg("notebook.svg") %>学習ノート</p><% end %>
         </div>
       <% end %>
       <%# コメントやSNSリンクが貼れる %>
@@ -45,8 +44,8 @@
           <span><i class="fab fa-linkedin"></i></span>
         </div> %>
       <%# ここまで %>
-      <div class=" px-2 rounded mt-4 date ">
-        <span class="join">joined <%= @user.created_at.strftime('%Y,%m') %></span>
+      <div class=" px-2 rounded mt-4 date text-center">
+        <small class="join">joined <%= @user.created_at.strftime('%Y,%m') %></small>
       </div>
     </div>
     <div class="card-footer text-center">

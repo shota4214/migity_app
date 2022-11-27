@@ -7,6 +7,7 @@
 // all
 a, a:hover {
   text-decoration: none;
+  color: black;
 }
 
 .mgr-10 {
@@ -37,6 +38,10 @@ a, a:hover {
 
 .disease-index-sidemenu-text:hover {
   color: white;
+}
+
+.main-container {
+  height: 60rem;
 }
 
 .padding-0 {
@@ -85,7 +90,10 @@ a, a:hover {
 
 // footer
 .footer {
-  background-color: rgb(95, 95, 95);
+  height: 100px;
+  background-color: white;
   padding-top: 2rem;
   padding-bottom: 2rem;
+  margin-top: 200px;
+  border-top: solid;
 }

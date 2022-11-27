@@ -1,5 +1,5 @@
 <h3>ユーザー詳細</h3>
-<div class="container mb-12 d-flex justify-content-center">
+<div class="container mb-12 d-flex justify-content-center main-container">
   <div class="card p-4">
     <div class="image d-flex flex-column justify-content-center align-items-center">
       <button class="btn btn-secondary">
@@ -19,7 +19,6 @@
       </div>
       <% if user_signed_in? && @user.id == current_user.id %>
         <div class=" d-flex mt-2">
-          <%= link_to "ユーザー情報編集", edit_user_registration_path(@user), class: "btn btn-warning mgr-10" %>
           <%= link_to "質問", questions_path, class: "btn btn-primary mgr-10" %>
           <%= link_to "クリップ一覧", favorites_path(@user), class: "btn btn-primary mgr-10" %>
           <%= link_to "いいね", questions_path(@user), class: "btn btn-primary mgr-10" %>
