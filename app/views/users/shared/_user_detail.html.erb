@@ -31,7 +31,6 @@
           <%= link_to favorites_path(@user) do %><p><%= embedded_svg("clip.svg") %>クリップ</p><% end %>
           <%= link_to  questions_path(@user) do %><p><%= embedded_svg("heart-line.svg") %>いいね</p><% end %>
           <%= link_to  notes_path(@user) do %><p><%= embedded_svg("notebook.svg") %>学習ノート</p><% end %>
-          <%= link_to "ユーザー情報編集", edit_user_registration_path(@user), class: "btn btn-warning mgr-10"  %></p>
         </div>
       <% end %>
       <%# コメントやSNSリンクが貼れる %>
@@ -45,8 +44,8 @@
           <span><i class="fab fa-linkedin"></i></span>
         </div> %>
       <%# ここまで %>
-      <div class=" px-2 rounded mt-4 date ">
-        <span class="join">joined <%= @user.created_at.strftime('%Y,%m') %></span>
+      <div class=" px-2 rounded mt-4 date text-center">
+        <small class="join">joined <%= @user.created_at.strftime('%Y,%m') %></small>
       </div>
     </div>
     <div class="card-footer text-center">

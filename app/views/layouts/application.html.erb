@@ -43,7 +43,7 @@
                   <% end %>
                   <div class="dropdown-menu dropdown-menu-right">
                     <%= link_to user_path(current_user.id), class: "dropdown-item" do %><%= embedded_svg("account.svg") %>マイページ<% end %>
-                    <%= link_to user_path(current_user.id), class: "dropdown-item" do %><%= embedded_svg("edit.svg") %>プロフィール<% end %>
+                    <%= link_to edit_user_registration_path(current_user.id), class: "dropdown-item" do %><%= embedded_svg("edit.svg") %>プロフィール<% end %>
                     <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %><%= embedded_svg("logout.svg") %>ログアウト<% end %>
                   </div>
                 </a>
@@ -60,7 +60,6 @@
         </div>
       </nav>
     </header>
-
 
     <%= yield %>
   </body>
