@@ -1,7 +1,7 @@
 <%= render "questions/shared/notice" %>
 
 <br>
-<div class="container">
+<div class="container main-container">
   <div class="row">
     <div class="col-xs-8 col-lg-8">
       <% if user_signed_in? && @question.user_id == current_user.id %>

@@ -62,19 +62,21 @@
     </header>
 
     <%= yield %>
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-2 text-center text-muted">
+            <h5 class="mgr-20"><strong>ミギティー</strong></h5>
+          </div>
+          <div class="col text-right text-muted">
+            <small class="mgr-20">利用規約</small>
+            <small class="mgr-20">プライバシーポリシー</small>
+            <small class="mgr-20">運営</small>
+          </div>
+        </div>
+        <p class="text-center text-muted">©︎2022 Migity</p>
+      </div>
+    </footer>
+    <%= raw Rails.application.assets_manifest.find_sources('icons.svg').first %>
   </body>
-  <footer class="footer">
-    <div class="row">
-      <div class="col-2 text-center text-muted">
-        <h5 class="mgr-20"><strong>ミギティー</strong></h5>
-      </div>
-      <div class="col text-right text-muted">
-        <small class="mgr-20">利用規約</small>
-        <small class="mgr-20">プライバシーポリシー</small>
-        <small class="mgr-20">運営</small>
-      </div>
-    </div>
-    <p class="text-center text-muted">©︎2022 Migity</p>
-  </footer>
-  <%= raw Rails.application.assets_manifest.find_sources('icons.svg').first %>
 </html>
