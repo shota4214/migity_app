@@ -11,9 +11,9 @@
           </div>
           <div class="col-md-6 text-right">
             <span>
-              <%= link_to "すべて", questions_path, class: "btn btn-outline-secondary" %>
-              <%= link_to "解決済み", questions_path(resolved: true), class: "btn btn-outline-secondary" %>
-              <%= link_to "回答受付中", questions_path(unresolved: true), class: "btn btn-outline-secondary" %>
+              <%= link_to "すべて", root_path, class: "btn btn-outline-secondary" %>
+              <%= link_to "解決済み", root_path(resolved: true), class: "btn btn-outline-secondary" %>
+              <%= link_to "回答受付中", root_path(unresolved: true), class: "btn btn-outline-secondary" %>
             </span>
           </div>
         </div>
