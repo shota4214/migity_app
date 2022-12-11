@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_17_080359) do
+ActiveRecord::Schema.define(version: 2022_12_11_013811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,6 +132,18 @@ ActiveRecord::Schema.define(version: 2022_11_17_080359) do
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
+  create_table "pharmacist_details", force: :cascade do |t|
+    t.string "office_name", null: false
+    t.string "license", null: false
+    t.string "specialty", null: false
+    t.text "introduction", null: false
+    t.string "other_license"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_pharmacist_details_on_user_id"
+  end
+
   create_table "questions", force: :cascade do |t|
     t.string "title", null: false
     t.boolean "resolved", default: false, null: false
@@ -180,6 +192,7 @@ ActiveRecord::Schema.define(version: 2022_11_17_080359) do
   add_foreign_key "favorites", "questions"
   add_foreign_key "favorites", "users"
   add_foreign_key "notes", "users"
+  add_foreign_key "pharmacist_details", "users"
   add_foreign_key "questions", "disease_details"
   add_foreign_key "questions", "users"
 end

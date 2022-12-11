@@ -5,6 +5,12 @@
 @import 'note.scss';
 
 // all
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 a, a:hover {
   text-decoration: none;
   color: black;
@@ -38,10 +44,6 @@ a, a:hover {
 
 .disease-index-sidemenu-text:hover {
   color: white;
-}
-
-.main-container {
-  height: 60rem;
 }
 
 .padding-0 {
@@ -91,9 +93,10 @@ a, a:hover {
 // footer
 .footer {
   height: 100px;
+  width: 100%;
   background-color: white;
   padding-top: 2rem;
   padding-bottom: 2rem;
-  margin-top: 200px;
+  margin-top: auto;
   border-top: solid;
 }

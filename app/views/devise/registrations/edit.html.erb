@@ -35,19 +35,42 @@
         <br>
 
         <% if resource.pharmacist? %>
-          <div class="field">
-            <%= f.label :position %><br />
-            <%= f.text_field :position, placeholder: "役職", class: "form-control" %>
-            <small id="positionHelp" class="form-text text-muted">役職等を入力してください</small>
-          </div>
-          <br>
+          <%= f.fields_for :pharmacist_detail do |pharmacist_detail|%>
+            <div class="field">
+              <%= pharmacist_detail.label :office_name %><br />
+              <%= pharmacist_detail.text_field :office_name, placeholder: "勤務先", class: "form-control" %>
+              <small id="office_nameHelp" class="form-text text-muted">勤務先を入力してください</small>
+            </div>
+            <br>
 
-          <div class="field">
-            <%= f.label :introduction %><br />
-            <%= f.text_area :introduction, placeholder: "自己紹介", class: "form-control" %>
-            <small id="positionHelp" class="form-text text-muted">自己紹介を入力してください</small>
-          </div>
-          <br>
+            <div class="field">
+              <%= pharmacist_detail.label :license %><br />
+              <%= pharmacist_detail.text_field :license, placeholder: "資格", class: "form-control" %>
+              <small id="licenseHelp" class="form-text text-muted">保持資格を入力してください</small>
+            </div>
+            <br>
+
+            <div class="field">
+              <%= pharmacist_detail.label :other_license %><br />
+              <%= pharmacist_detail.text_field :other_license, placeholder: "その他資格", class: "form-control" %>
+              <small id="other_licenseHelp" class="form-text text-muted">その他の資格を入力してください</small>
+            </div>
+            <br>
+
+            <div class="field">
+              <%= pharmacist_detail.label :specialty %><br />
+              <%= pharmacist_detail.text_field :specialty, placeholder: "得意分野", class: "form-control" %>
+              <small id="specialtyHelp" class="form-text text-muted">得意分野を入力してください</small>
+            </div>
+            <br>
+
+            <div class="field">
+              <%= pharmacist_detail.label :introduction %><br />
+              <%= pharmacist_detail.text_area :introduction, placeholder: "自己紹介", class: "form-control" %>
+              <small id="introductionHelp" class="form-text text-muted">自己紹介を入力してください</small>
+            </div>
+            <br>
+          <% end %>
         <% end %>
 
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

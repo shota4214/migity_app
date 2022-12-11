@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[name pharmacy])
-    devise_parameter_sanitizer.permit(:account_update, keys: %i[name pharmacy image image_cache pharmacist admin position introduction])
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[name pharmacy image image_cache pharmacist admin position introduction pharmacist_details_attributes: %i[id office_name license specialty introduction other_license]])
   end
 
   private

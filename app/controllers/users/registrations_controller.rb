@@ -15,9 +15,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    super
+    @user = User.find(params[:format])
+    @pharmacist_detail = @user.pharmacist_details.build
+  end
 
   # PUT /resource
   # def update
