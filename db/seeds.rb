@@ -5,7 +5,7 @@ User.create!(name: "みぎたか", pharmacy: "migity", email: "migitaka@test.com
   ["やのう", "ミギー薬局", "yanou@test.com", "123456", "デザイナー", 14, false, File.open('./app/assets/images/rabbit.png')],
   ["はぎわら", "migi薬局", "hagiwara@test.com", "123456", "薬剤師", 27, false, File.open('./app/assets/images/elephant.png')],
   ["佐々木三郎", "佐々木病院", "sasaki@test.com", "123456", "がん薬物療法認定薬剤師", 13, true, File.open('./app/assets/images/sasaki.png')],
-  ["みつお", "みつお病院", "mituo@test.com", "123456", "がん薬物療法認定薬剤師", 13, true, File.open('./app/assets/images/mituo.png')],
+  ["岡田浩司", "東北医科薬科大学病院", "okada@test.com", "123456", "がん薬物療法認定薬剤師", 13, true, File.open('./app/assets/images/mituo.png')],
   ["山本", "山本病院", "yamamoto@test.com", "123456", "がん薬物療法認定薬剤師", 13, true, File.open('./app/assets/images/yamamoto.png')]
 ].each do |name, pharmacy, email, password, position, prefectures, pharmacist, image|
   User.create!(
@@ -23,14 +23,6 @@ diseases = [
 diseases.each do |disease|
   Disease.create!(name: disease)
 end
-
-# Disease.all.each do |disease|
-#   disease.disease_details.create!(content: "ステージ0" )
-#   disease.disease_details.create!(content: "ステージⅠ" )
-#   disease.disease_details.create!(content: "ステージⅡ" )
-#   disease.disease_details.create!(content: "ステージⅢ" )
-#   disease.disease_details.create!(content: "ステージⅣ" )
-# end
 
 Question.create!(
   title: "肺がんの薬使用について",
@@ -120,3 +112,15 @@ Comment.create!(user_id: 1, question_id: 4, content: "そのがんについて�
 Comment.create!(user_id: 7, question_id: 5, content: "そのがんについては…", best_answer: true)
 Comment.create!(user_id: 7, question_id: 6, content: "そのがんについては…", best_answer: true)
 Comment.create!(user_id: 8, question_id: 7, content: "そのがんについては…", best_answer: true)
+
+pharmacist_licenses = [
+  "がん専門薬剤師", "がん指導薬剤師", "医療薬学専門薬剤師", "外来がん治療専門薬剤師", "外来がん認定薬剤師"
+]
+pharmacist_licenses.each do |license|
+  License.create!(name: license)
+end 1678
+
+LicenseLabelling.create!(user_id: 1, license_id: 1)
+LicenseLabelling.create!(user_id: 6, license_id: 1, 3)
+LicenseLabelling.create!(user_id: 7, license_id: 1, 2, 3)
+LicenseLabelling.create!(user_id: 8, license_id: 1, 2, 3, 4, 5)

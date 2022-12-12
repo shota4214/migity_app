@@ -45,8 +45,8 @@
 
             <div class="field">
               <%= pharmacist_detail.label :license %><br />
-              <%= pharmacist_detail.text_field :license, placeholder: "資格", class: "form-control" %>
-              <small id="licenseHelp" class="form-text text-muted">保持資格を入力してください</small>
+              <%= pharmacist_detail.select :license, PharmacistDetail.licenses.keys, {}, { multiple: true, class: "form-control" } %>
+              <small id="licenseHelp" class="form-text text-muted">複数選択可能(windowsはctrl,Macはcommand押しながら選択)</small>
             </div>
             <br>
 
