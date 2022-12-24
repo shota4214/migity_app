@@ -44,7 +44,6 @@ class QuestionsController < ApplicationController
     @favorite = current_user.favorites.find_by(question_id: @question.id) if user_signed_in?
     @best_answer = Comment.find_by(question_id: @question.id, best_answer: true)
     impressionist(@question, nil, unique: [:ip_address])
-    # @disease_detail = DiseaseDetail.find(@question.disease_detail_id)
   end
 
   def edit
@@ -78,7 +77,6 @@ class QuestionsController < ApplicationController
 
   def confirm
     @question = current_user.questions.build(@new_question_params)
-    # @disease_detail = DiseaseDetail.find(params[:question][:disease_detail_id])
     render :new if @question.invalid?
   end
 
@@ -102,13 +100,12 @@ class QuestionsController < ApplicationController
     disease_id = params[:format].to_i
     @disease = Disease.find(disease_id)
     @questions_by_disease = @disease.questions.order("created_at DESC").page(params[:page]).per(10)
-    # @questions_by_disease = Question.where(draft: false).order("created_at DESC")
   end
 
   private
 
   def question_params
-    params.require(:question).permit(:title, :content, :resolved, :draft, :disease_detail_id, { disease_ids: [] })
+    params.require(:question).permit(:title, :content, :resolved, :draft, { disease_ids: [] })
   end
 
   def set_question

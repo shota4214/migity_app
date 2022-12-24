@@ -14,69 +14,71 @@
   </head>
 
   <body>
-    <header class="sticky-top">
-      <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <a class="mgr-10"><%= link_to 'ミギティー', root_path, data: {"turbolinks" => false} %></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item mr-auto d-flex align-items-center">
-              <%= link_to "はじめての方へ", root_path, class: "mgr-20" %>
-            </li>
-            <% if user_signed_in? %>
-              <% if current_user.admin? %>
+    <div class="wrapper">
+      <header class="sticky-top">
+        <nav class="navbar navbar-expand-md navbar-light bg-light">
+          <a class="mgr-10"><%= link_to 'ミギティー', root_path, data: {"turbolinks" => false} %></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item mr-auto d-flex align-items-center">
+                <%= link_to "はじめての方へ", root_path, class: "mgr-20" %>
+              </li>
+              <% if user_signed_in? %>
+                <% if current_user.admin? %>
+                  <li class="nav-item">
+                    <%= link_to "管理者画面", rails_admin_path, class: "btn btn-outline-warning mgr-20" %>
+                  </li>
+                <% end %>
+                <li class="nav-item mr-auto d-flex align-items-center">
+                  <%= link_to root_path, class: "mgr-20" do %><%= embedded_svg("notification-off.svg") %><% end %>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="dropdown-list" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <% if current_user.image? %>
+                      <%= image_tag current_user.image.url, class: "rounded-circle mgr-20", size: "40x40" %>
+                    <% else %>
+                      <%= image_tag "no_image.png", class: "rounded-circle mgr-20", size: "40x40" %>
+                    <% end %>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <%= link_to user_path(current_user.id), class: "dropdown-item" do %><%= embedded_svg("account.svg") %>マイページ<% end %>
+                      <%= link_to edit_user_registration_path(current_user.id), class: "dropdown-item" do %><%= embedded_svg("edit.svg") %>プロフィール<% end %>
+                      <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %><%= embedded_svg("logout.svg") %>ログアウト<% end %>
+                    </div>
+                  </a>
+                </li>
+              <% else %>
                 <li class="nav-item">
-                  <%= link_to "管理者画面", rails_admin_path, class: "btn btn-outline-warning mgr-20" %>
+                  <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-primary mgr-10" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "新規登録", new_user_registration_path, class: "btn btn-primary mgr-10" %>
                 </li>
               <% end %>
-              <li class="nav-item mr-auto d-flex align-items-center">
-                <%= link_to root_path, class: "mgr-20" do %><%= embedded_svg("notification-off.svg") %><% end %>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="dropdown-list" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                  <% if current_user.image? %>
-                    <%= image_tag current_user.image.url, class: "rounded-circle mgr-20", size: "40x40" %>
-                  <% else %>
-                    <%= image_tag "no_image.png", class: "rounded-circle mgr-20", size: "40x40" %>
-                  <% end %>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <%= link_to user_path(current_user.id), class: "dropdown-item" do %><%= embedded_svg("account.svg") %>マイページ<% end %>
-                    <%= link_to edit_user_registration_path(current_user.id), class: "dropdown-item" do %><%= embedded_svg("edit.svg") %>プロフィール<% end %>
-                    <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %><%= embedded_svg("logout.svg") %>ログアウト<% end %>
-                  </div>
-                </a>
-              </li>
-            <% else %>
-              <li class="nav-item">
-                <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-primary mgr-10" %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "新規登録", new_user_registration_path, class: "btn btn-primary mgr-10" %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </nav>
-    </header>
+            </ul>
+          </div>
+        </nav>
+      </header>
 
-    <%= yield %>
-    <footer class="footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-2 text-center text-muted">
-            <h5 class="mgr-20"><strong>ミギティー</strong></h5>
+      <%= yield %>
+      <footer class="footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-2 text-center text-muted">
+              <h5 class="mgr-20"><strong>ミギティー</strong></h5>
+            </div>
+            <div class="col text-right text-muted">
+              <small class="mgr-20">利用規約</small>
+              <small class="mgr-20">プライバシーポリシー</small>
+              <small class="mgr-20">運営</small>
+            </div>
           </div>
-          <div class="col text-right text-muted">
-            <small class="mgr-20">利用規約</small>
-            <small class="mgr-20">プライバシーポリシー</small>
-            <small class="mgr-20">運営</small>
-          </div>
+          <p class="text-center text-muted">©︎2022 Migity</p>
         </div>
-        <p class="text-center text-muted">©︎2022 Migity</p>
-      </div>
-    </footer>
-    <%= raw Rails.application.assets_manifest.find_sources('icons.svg').first %>
+      </footer>
+      <%= raw Rails.application.assets_manifest.find_sources('icons.svg').first %>
+    </div>
   </body>
 </html>

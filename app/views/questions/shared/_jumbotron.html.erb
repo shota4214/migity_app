@@ -2,7 +2,7 @@
   <%= render "questions/shared/menubar" %>
   <div class="container">
     <h3 class="lead text-center">がん治療に特化した</h3>
-    <h1 class="text-center">専門薬剤師と一般薬剤師をつなぐ</h1>
+    <h1 class="text-center">エキスパートの知見検索サービス</h1>
     <div class="lead text-center">
       <%= search_form_for @search, url: search_questions_path do |f| %>
         <%= f.search_field :title_or_content_body_cont, placeholder: "薬の名前 副作用" %>

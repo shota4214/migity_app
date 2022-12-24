@@ -1,6 +1,5 @@
 class Question < ApplicationRecord
   belongs_to :user
-  # belongs_to :disease_detail
   validates :title, presence: true
   has_rich_text :content
   is_impressionable counter_cache: true
