@@ -105,7 +105,7 @@ class QuestionsController < ApplicationController
   private
 
   def question_params
-    params.require(:question).permit(:title, :content, :resolved, :draft, :disease_detail_id, { disease_ids: [] })
+    params.require(:question).permit(:title, :content, :resolved, :draft, { disease_ids: [] })
   end
 
   def set_question

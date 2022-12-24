@@ -35,7 +35,7 @@
         <br>
 
         <% if resource.pharmacist? %>
-          <%= f.fields_for :pharmacist_detail do |pharmacist_detail|%>
+          <%= f.fields_for :pharmacist_details do |pharmacist_detail|%>
             <div class="field">
               <%= pharmacist_detail.label :office_name %><br />
               <%= pharmacist_detail.text_field :office_name, placeholder: "勤務先", class: "form-control" %>
@@ -59,8 +59,9 @@
 
             <div class="field">
               <%= pharmacist_detail.label :specialty %><br />
-              <%= pharmacist_detail.text_field :specialty, placeholder: "得意分野", class: "form-control" %>
-              <small id="specialtyHelp" class="form-text text-muted">得意分野を入力してください</small>
+              <%= pharmacist_detail.collection_select(:disease_ids, @diseases, :id, :name, { include_blank: "-がんの種類を選ぶ-", prompt: false}, { multiple: true, class: "form-control" }) %>
+              <small id="licenseHelp" class="form-text text-muted">複数選択可能(windowsはctrl,Macはcommand押しながら選択)</small>
+
             </div>
             <br>
 
