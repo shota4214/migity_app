@@ -2,7 +2,7 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
-  # before_action :configure_account_update_params, only: [:update]
+  before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   # def new
@@ -17,6 +17,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/edit
   def edit
     @diseases = Disease.all
+    @licenses = License.all
+    unless @user.pharmacist_details.present?
+      @pharmacist_details = @user.pharmacist_details.build
+    end
     super
   end
 
@@ -59,7 +63,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(:account_update, keys: [
       :name, :pharmacy, :image, :image_cache, :pharmacist, :admin, :position, :introduction, 
       pharmacist_details_attributes: [
-        :id, :office_name, :license, :specialty, :introduction, :other_license, 
+        :id, :office_name, :specialty, :introduction, :other_license, { license_ids: [] },
         { disease_ids: [] }
         ]
       ])
