@@ -14,11 +14,10 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [
       :name, :pharmacy, :image, :image_cache, :pharmacist, :admin, :position, :introduction, 
       pharmacist_details_attributes: [
-        :id, :office_name, :license, :specialty, :introduction, :other_license, 
+        :id, :office_name, :specialty, :introduction, :other_license, { license_ids: [] },
         { disease_ids: [] }
         ]
-      ]
-    )
+      ])
   end
 
   private
