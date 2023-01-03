@@ -116,11 +116,3 @@ Comment.create!(user_id: 8, question_id: 7, content: "そのがんについて�
 pharmacist_licenses = [
   "がん専門薬剤師", "がん指導薬剤師", "医療薬学専門薬剤師", "外来がん治療専門薬剤師", "外来がん認定薬剤師"
 ]
-pharmacist_licenses.each do |license|
-  License.create!(name: license)
-end 1678
-
-LicenseLabelling.create!(user_id: 1, license_id: 1)
-LicenseLabelling.create!(user_id: 6, license_id: 1, 3)
-LicenseLabelling.create!(user_id: 7, license_id: 1, 2, 3)
-LicenseLabelling.create!(user_id: 8, license_id: 1, 2, 3, 4, 5)

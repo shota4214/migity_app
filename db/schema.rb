@@ -66,14 +66,6 @@ ActiveRecord::Schema.define(version: 2022_12_12_135547) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "disease_details", force: :cascade do |t|
-    t.string "content", null: false
-    t.bigint "disease_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["disease_id"], name: "index_disease_details_on_disease_id"
-  end
-
   create_table "disease_labellings", force: :cascade do |t|
     t.bigint "question_id", null: false
     t.bigint "disease_id", null: false
@@ -150,9 +142,7 @@ ActiveRecord::Schema.define(version: 2022_12_12_135547) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "disease_detail_id"
     t.integer "impressions_count", default: 0
-    t.index ["disease_detail_id"], name: "index_questions_on_disease_detail_id"
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
@@ -194,14 +184,12 @@ ActiveRecord::Schema.define(version: 2022_12_12_135547) do
   add_foreign_key "columns", "users"
   add_foreign_key "comments", "questions"
   add_foreign_key "comments", "users"
-  add_foreign_key "disease_details", "diseases"
   add_foreign_key "disease_labellings", "diseases"
   add_foreign_key "disease_labellings", "questions"
   add_foreign_key "favorites", "questions"
   add_foreign_key "favorites", "users"
   add_foreign_key "notes", "users"
   add_foreign_key "pharmacist_details", "users"
-  add_foreign_key "questions", "disease_details"
   add_foreign_key "questions", "users"
   add_foreign_key "specialty_labellings", "diseases"
   add_foreign_key "specialty_labellings", "pharmacist_details"
