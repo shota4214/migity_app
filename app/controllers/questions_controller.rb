@@ -1,20 +1,15 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create edit update destroy]
   before_action :set_question, only: %i[show edit update destroy change_resolved]
-  before_action :other_than_drafts, only: %i[index search]
+  before_action :other_than_drafts, only: %i[index search my]
   before_action :diseases, only: %i[new edit create confirm]
-  before_action :question_tag_ranks, only: %i[index show by_disease search]
+  before_action :question_tag_ranks, only: %i[index show by_disease search my]
   before_action :half_width_to_full_width, only: %i[update confirm]
-  before_action :sidebar_profession_users, only: %i[index show by_disease search]
+  before_action :sidebar_profession_users, only: %i[index show by_disease search my]
 
   def index
-    @user = User.find(current_user.id)
-    @questions = @user.questions.all.order("created_at DESC")
-    if @user.id == current_user.id
-      @questions = @user.questions.all.order("created_at DESC")
-    else
-      @questions = Question.where(user_id: @user, draft: false).order("created_at DESC")
-    end
+    @questions = @questions.where(resolved: true).order("created_at DESC").page(params[:page]).per(5) if params[:resolved]
+    @questions = @questions.where(resolved: false).order("created_at DESC").page(params[:page]).per(5) if params[:unresolved]
   end
 
   def new
@@ -100,6 +95,16 @@ class QuestionsController < ApplicationController
     disease_id = params[:format].to_i
     @disease = Disease.find(disease_id)
     @questions_by_disease = @disease.questions.order("created_at DESC").page(params[:page]).per(10)
+  end
+
+  def my
+    @user = User.find(current_user.id)
+    @questions = @user.questions.all.order("created_at DESC")
+    if @user.id == current_user.id
+      @questions = @user.questions.all.order("created_at DESC")
+    else
+      @questions = Question.where(user_id: @user, draft: false).order("created_at DESC")
+    end
   end
 
   private

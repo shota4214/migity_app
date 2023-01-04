@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
-  root "top#top"
+  root "top#index"
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       post :confirm
       get :search
       get :by_disease
+      get :my
     end
     member do
       get :change_resolved
