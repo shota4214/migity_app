@@ -24,11 +24,13 @@
                 </div>
                 <div class="row">
                   <div class="col">
-                    <% if user.pharmacist_details[0].introduction.nil? %>
-                      <P><%= user.pharmacist_details[0].introduction %></p>
-                    <% else %>
-                      <P><%= user.pharmacist_details[0].introduction.truncate(120) %></p>
-                    <% end %>
+                      <P>
+                        <% user.pharmacist_details.each do |detail|%>
+                          <% if detail.introduction.present? %>
+                            <%= detail.introduction.truncate(120) %>
+                          <% end %>
+                        <% end %>
+                      </p>
                   </div>
                 </div>
               </div>

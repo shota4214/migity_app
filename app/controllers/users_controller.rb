@@ -21,7 +21,9 @@ class UsersController < ApplicationController
 
   def specialty_pharmacist_show
     @specialty_pharmacist = User.find(params[:id])
-    @specialty_pharmacist_detail = @specialty_pharmacist.pharmacist_details[0]
+    @specialty_pharmacist.pharmacist_details.each do |detail|
+      @specialty_pharmacist_details = detail
+    end
   end
 
   private
