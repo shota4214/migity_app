@@ -23,6 +23,7 @@
     <ul class="list-group list-group-flush">
       <% @sidebar_profession_users.each.with_index(1) do |user, i| %>
         <li class="list-group-item">
+        <%= link_to specialty_pharmacist_show_user_path(user) do %>
           <div class="row">
             <div class="col">
               <% if user.first.image? %>
@@ -40,6 +41,7 @@
               <p class="bottom-mgr-5"><%= user.second %>回答</p>
             </div>
           </div>
+        <% end %>
         </li>
         <% break if i == 3 %>
       <% end %>
