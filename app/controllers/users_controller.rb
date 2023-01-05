@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :question_tag_ranks, only: %i[index]
-  before_action :sidebar_profession_users, only: %i[index]
+  before_action :question_tag_ranks, only: %i[index specialty_pharmacist_show]
+  before_action :sidebar_profession_users, only: %i[index specialty_pharmacist_show]
 
 
 
@@ -16,7 +16,14 @@ class UsersController < ApplicationController
   end
 
   def index
-    @profession_users = User.where(pharmacist: true).order("created_at DESC").page(params[:page]).per(10)
+    @specialty_pharmacist_users = User.where(pharmacist: true).order("created_at DESC").page(params[:page]).per(10)
+  end
+
+  def specialty_pharmacist_show
+    @specialty_pharmacist = User.find(params[:id])
+    @specialty_pharmacist.pharmacist_details.each do |detail|
+      @specialty_pharmacist_details = detail
+    end
   end
 
   private

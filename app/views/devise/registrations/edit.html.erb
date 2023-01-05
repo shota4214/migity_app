@@ -45,7 +45,7 @@
 
             <div class="field">
               <%= pharmacist_detail.label :license %><br />
-              <%= pharmacist_detail.select :license, PharmacistDetail.licenses.keys, {}, { multiple: true, class: "form-control" } %>
+              <%= pharmacist_detail.collection_select(:license_ids, @licenses, :id, :name, { include_blank: "-資格の種類を選ぶ-", prompt: false}, { multiple: true, class: "form-control" }) %>
               <small id="licenseHelp" class="form-text text-muted">複数選択可能(windowsはctrl,Macはcommand押しながら選択)</small>
             </div>
             <br>

@@ -3,7 +3,7 @@ User.create!(name: "みぎたか", pharmacy: "migity", email: "migitaka@test.com
   ["すずき", "migity薬局", "suzuki@test.com", "123456", "エンジニア", 22, false, File.open('./app/assets/images/dog.png')],
   ["くりた", "ミギティー薬局", "kurita@test.com", "123456", "エンジニア", 11, false, File.open('./app/assets/images/cat.png')],
   ["やのう", "ミギー薬局", "yanou@test.com", "123456", "デザイナー", 14, false, File.open('./app/assets/images/rabbit.png')],
-  ["はぎわら", "migi薬局", "hagiwara@test.com", "123456", "薬剤師", 27, false, File.open('./app/assets/images/elephant.png')],
+  ["はぎはら", "migi薬局", "hagihara@test.com", "123456", "薬剤師", 27, false, File.open('./app/assets/images/elephant.png')],
   ["佐々木三郎", "佐々木病院", "sasaki@test.com", "123456", "がん薬物療法認定薬剤師", 13, true, File.open('./app/assets/images/sasaki.png')],
   ["岡田浩司", "東北医科薬科大学病院", "okada@test.com", "123456", "がん薬物療法認定薬剤師", 13, true, File.open('./app/assets/images/mituo.png')],
   ["山本", "山本病院", "yamamoto@test.com", "123456", "がん薬物療法認定薬剤師", 13, true, File.open('./app/assets/images/yamamoto.png')]
@@ -113,6 +113,15 @@ Comment.create!(user_id: 7, question_id: 5, content: "そのがんについて�
 Comment.create!(user_id: 7, question_id: 6, content: "そのがんについては…", best_answer: true)
 Comment.create!(user_id: 8, question_id: 7, content: "そのがんについては…", best_answer: true)
 
-pharmacist_licenses = [
-  "がん専門薬剤師", "がん指導薬剤師", "医療薬学専門薬剤師", "外来がん治療専門薬剤師", "外来がん認定薬剤師"
+licenses = [
+  "医療薬学専門薬剤師", "がん専門薬剤師", "がん指導薬剤師", "外来がん治療専門薬剤師", "外来がん認定薬剤師"
 ]
+licenses.each do |license|
+  License.create!(name: license)
+end
+
+PharmacistDetail.create!(office_name: "株式会社migity", user_id: 1, )
+PharmacistDetail.create!(office_name: "佐々木病院", user_id: 6, )
+PharmacistDetail.create!(office_name: "岡田総合病院", user_id: 7, )
+PharmacistDetail.create!(office_name: "山本病院", user_id: 8, )
+

@@ -8,7 +8,11 @@ Rails.application.routes.draw do
   devise_scope :user do
     post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
   end
-  resources :users, only: %i[show index]
+  resources :users, only: %i[show index] do
+    member do
+      get :specialty_pharmacist_show
+    end
+  end
   resources :notes do
     collection do
       get :search

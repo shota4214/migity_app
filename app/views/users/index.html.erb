@@ -4,33 +4,41 @@
   <div class="row">
     <div class="col-xs-8 col-lg-8">
       <h4 class="text-center">がん専門薬剤師一覧</h4>
-      <% @profession_users.each do |user| %>
-        <div class="card">
-          <div class="row">
-            <div class="col-2 text-right">
-              <% if user.image? %>
-                <%= image_tag user.image.url, class: "rounded-circle", size: "80x80" %>
-              <% else %>
-                <%= image_tag "no_image.png", class: "rounded-circle", size: "80x80" %>
-              <% end %>
-            </div>
-            <div class="col padding-0">
-              <div class="row">
-                <div class="col">
-                  <p class="bottom-mgr-5"><strong><%= user.name %><small>先生</small></strong></p>
-                  <p class="bottom-mgr-5"><%= user.pharmacy %><%= embedded_svg("map.svg") %><%= user.prefectures %></p>
+      <% @specialty_pharmacist_users.each do |user| %>
+        <div class="card mb-3">
+          <%= link_to specialty_pharmacist_show_user_path(user.id), class: "card-body" do %>
+            <div class="row">
+              <div class="col-2 text-right">
+                <% if user.image? %>
+                  <%= image_tag user.image.url, class: "rounded-circle mx-auto d-block", size: "80x80" %>
+                <% else %>
+                  <%= image_tag "no_image.png", class: "rounded-circle mx-auto d-block", size: "80x80" %>
+                <% end %>
+              </div>
+              <div class="col padding-0">
+                <div class="row">
+                  <div class="col">
+                    <p class="bottom-mgr-5"><strong><%= user.name %><small>先生</small></strong></p>
+                    <p class="bottom-mgr-5"><%= user.pharmacy %><%= embedded_svg("map.svg") %><%= user.prefectures %></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                      <P>
+                        <% user.pharmacist_details.each do |detail|%>
+                          <% if detail.introduction.present? %>
+                            <%= detail.introduction.truncate(120) %>
+                          <% end %>
+                        <% end %>
+                      </p>
+                  </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col">
-                  <P><%= user.introduction %></p>
-                </div>
-              </div>
             </div>
-          </div>
+          <% end %>
         </div><br>
       <% end %>
-      <%= paginate @profession_users %>
+      <%= paginate @specialty_pharmacist_users %>
     </div>
     <%= render "questions/shared/sidebar" %>
   </div>
