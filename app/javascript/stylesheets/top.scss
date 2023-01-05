@@ -1,0 +1,40 @@
+.top_main {
+  height: 120vh; 
+  background-color: #E4E4E4;
+}
+
+.application_heading {
+  height: 60vh;
+  position: relative;
+}
+
+.top_background {
+  background-size: cover;
+  height: 60vh;
+  background-image: url('../images/top_background.png');
+  filter: grayscale(100%) opacity(40%);
+  background-attachment: fixed; 
+}
+
+.application_message {
+  position: absolute;
+  top: 50%;
+  left: 200px;
+  transform: translate(0%, -50%);
+  color: #1A308E;
+}
+
+.application_overview {
+  position:absolute;
+  top: 110%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.about_zitan_medical {
+  color: #1A308E;
+}
+
+.register_button {
+  background-color: #1A308E;
+}

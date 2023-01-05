@@ -26,6 +26,7 @@ Rails.application.routes.draw do
       post :confirm
       get :search
       get :by_disease
+      get :my
     end
     member do
       get :change_resolved

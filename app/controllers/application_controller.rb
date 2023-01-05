@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
   before_action :set_search
   before_action :basic_auth
 
+  def after_sign_in_path_for(_resource)
+    questions_path
+  end
+  
   def set_search
     @search = Question.where(draft: false).ransack(params[:q])
   end

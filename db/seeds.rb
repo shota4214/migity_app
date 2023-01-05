@@ -124,3 +124,4 @@ PharmacistDetail.create!(office_name: "株式会社migity", user_id: 1, )
 PharmacistDetail.create!(office_name: "佐々木病院", user_id: 6, )
 PharmacistDetail.create!(office_name: "岡田総合病院", user_id: 7, )
 PharmacistDetail.create!(office_name: "山本病院", user_id: 8, )
+

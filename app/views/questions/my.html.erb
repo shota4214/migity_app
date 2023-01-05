@@ -1,30 +1,21 @@
-<%= render "questions/shared/jumbotron" %>
-<%= render "questions/shared/notice" %>
-
 <div class="container main-container">
   <div class="row">
-    <div class="col-xs-8 col-lg-8">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <h3>知見一覧</h3>
-          </div>
-          <div class="col-md-6 text-right">
-            <span>
-              <%= link_to "すべて", root_path, class: "btn btn-outline-secondary" %>
-              <%= link_to "解決済み", root_path(resolved: true), class: "btn btn-outline-secondary" %>
-              <%= link_to "回答受付中", root_path(unresolved: true), class: "btn btn-outline-secondary" %>
-            </span>
-          </div>
-        </div>
-      </div>
-
+    <%= render "users/shared/user_detail" %>
+    <div class="col">
+      <h4 class="text-center">投稿Q&A一覧</h4>
       <% @questions.each do |question| %>
-        <div class="card mb-3 question-card">
+        <% if question.draft %><div class="card mb-3 question-card draft-true">
+        <% else %><div class="card mb-3 question-card draft-false">
+        <% end %>
           <div class="row no-gutters">
-            <div class="col-md-2">
+            <div class="col-2">
               <div class="bd-placeholder">
                 <br>
+                <% if question.draft %>
+                  <p class="draft-true text-center bottom-mgr-5"><%= draft_text(question) %></p>
+                <% else %>
+                  <p class="draft-false text-center bottom-mgr-5"><%= draft_text(question) %></p>
+                <% end %>
                 <% if question.resolved %>
                   <p class="resolved-true text-center bottom-mgr-5"><%= resolved_text(question) %></p>
                 <% else %>
@@ -34,12 +25,18 @@
                 <p class="text-center bottom-mgr-5">クリップ数 <strong><%= question.favorites.count %></strong></p>
               </div>
             </div>
-            <div class="col-md-10">
+            <div class="col">
               <%= link_to question_path(question.id), class: "card-body question-index" do %>
                 <h5 class="card-title"><%= question.title %></h5>
                 <p class="card-text"><%= strip_tags(question.content.to_s).gsub(/[\n]/,"").strip %></p>
               <% end %>
             </div>
+            <% if @user.id == current_user.id %>
+                <div class="col-1 align-self-center">
+                  <%= link_to "編集", edit_question_path(question.id), class: "btn btn-warning btn-block" %>
+                  <%= link_to "削除", question_path(question.id), method: :delete, data: { confirm: "本当に削除してもいいですか？" }, class: "btn btn-danger btn-block" %>
+                </div>
+            <% end %>
           </div>
           <div class="card-footer">
             <div class="row">
@@ -69,9 +66,7 @@
           </div>
         </div>
       <% end %>
-      <%= paginate @questions %>
     </div>
-    <%= render "questions/shared/sidebar" %>
   </div>
 </div>
 

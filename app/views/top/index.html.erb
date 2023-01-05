@@ -1,76 +1,24 @@
-<%= render "questions/shared/jumbotron" %>
-<%= render "questions/shared/notice" %>
-
-<div class="container main-container">
-  <div class="row">
-    <div class="col-xs-8 col-lg-8">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <h3>知見一覧</h3>
-          </div>
-          <div class="col-md-6 text-right">
-            <span>
-              <%= link_to "すべて", root_path, class: "btn btn-outline-secondary" %>
-              <%= link_to "解決済み", root_path(resolved: true), class: "btn btn-outline-secondary" %>
-              <%= link_to "回答受付中", root_path(unresolved: true), class: "btn btn-outline-secondary" %>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <% @questions.each do |question| %>
-        <div class="card mb-3 question-card">
-          <div class="row no-gutters">
-            <div class="col-md-2">
-              <div class="bd-placeholder">
-                <br>
-                <% if question.resolved %>
-                  <p class="resolved-true text-center bottom-mgr-5"><%= resolved_text(question) %></p>
-                <% else %>
-                  <p class="resolved-false text-center bottom-mgr-5"><%= resolved_text(question) %></p>
-                <% end %>
-                <p class="text-center bottom-mgr-5">回答数 <strong><%= comment_count(question) %></strong></p>
-                <p class="text-center bottom-mgr-5">クリップ数 <strong><%= question.favorites.count %></strong></p>
-              </div>
-            </div>
-            <div class="col-md-10">
-              <%= link_to question_path(question.id), class: "card-body question-index" do %>
-                <h5 class="card-title"><%= question.title %></h5>
-                <p class="card-text"><%= strip_tags(question.content.to_s).gsub(/[\n]/,"").strip %></p>
-              <% end %>
-            </div>
-          </div>
-          <div class="card-footer">
-            <div class="row">
-              <div class="d-grid gap-4 col-7 mx-auto">
-                <small class="text-muted">
-                  <% question.diseases.each do |disease| %>
-                    <span class="mgr-10 bottom-mgr-5 btn btn-outline-secondary btn-sm question-index-disease"><%= disease.name %></span>
-                  <% end %>
-                  </small>
-              </div>
-              <div class="d-grid gap-4 col mx-auto text-right">
-                <small class="text-muted">
-                  <%= link_to user_path(question.user), class: "question-user-name" do %>
-                    <% if question.user.image? %>
-                      <%= image_tag question.user.image.url, class: "rounded-circle", size: "20x20" %>
-                    <% else %>
-                      <%= image_tag "no_image.png", class: "rounded-circle", size: "20x20" %>
-                    <% end %>
-                    <%= "#{question.user.name}" %>
-                  <% end %>
-                </small>
-              </div>
-              <div class="d-grid gap-4 col mx-auto text-center">
-                <small class="text-muted"><%= question.created_at.strftime('%Y年%m月%d日') %></small>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% end %>
-      <%= paginate @questions %>
+<main class="top_main">
+  <div class="application_heading">
+    <div class='top_background'>
     </div>
-    <%= render "questions/shared/sidebar" %>
+    <div class="application_message">
+      <h1 class="font-weight-bold">
+        がん治療に特化した<br>
+        薬剤師専用の検索サービス
+      </h1>
+      <p class="mt-4">エキスパートの知恵を借り、1分で最高峰の薬物知識を手に入れよう!</p>
+    </div>
+    <div class="p-5 d-inline-block bg-white application_overview">
+      <h3 class="about_zitan_medical font-weight-bold text-center">ジタンメディカルについて</h3>
+      <p>
+        ●有資格薬剤師の知見をすぐ知れるサービス。<br>
+        ●論文を1から探すことや薬物治療の疑問が1分で解決!<br>
+        ●調べ物はここですぐ済ませ、余った時間を他の仕事に!
+      </p>
+      <div class="text-right">
+        <%= link_to "ジタンメディカルに登録する", new_user_registration_path, class: "btn btn-primary mgr-10 register_button" %>
+      </div>
+    </div>
   </div>
-</div>
+</main>
