@@ -23,6 +23,7 @@ class UsersController < ApplicationController
     @specialty_pharmacist = User.find(params[:id])
     @specialty_pharmacist.pharmacist_details.each do |detail|
       @specialty_pharmacist_details = detail
+      @specialty_pharmacist_licenses = detail.licenses
     end
   end
 

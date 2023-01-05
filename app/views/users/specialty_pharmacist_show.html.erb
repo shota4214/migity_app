@@ -22,10 +22,8 @@
                     <p class="bottom-mgr-5"><strong><%= @specialty_pharmacist.name %><small> 先生</small></strong></p>
                     <p class="bottom-mgr-5"><small>勤務地：</small><%= @specialty_pharmacist.pharmacy %></p>
                     <p class="bottom-mgr-5"><small>資　格：</small>
-                      <% if @specialty_pharmacist_details.licenses.present? %>
-                        <%  @specialty_pharmacist_details.licenses.each do |license| %>
-                          <%= license.name %>
-                        <% end %>
+                      <%  @specialty_pharmacist_licenses.each do |license| %>
+                        <%= license.name %>
                       <% end %>
                     </p>
                     <p class="bottom-mgr-5"><small>その他資格：</small><%= @specialty_pharmacist_details.other_license %></p>
