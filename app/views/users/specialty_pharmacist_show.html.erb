@@ -24,7 +24,7 @@
                     <p class="bottom-mgr-5"><small>資　格：</small>
                       <% if @specialty_pharmacist_details.licenses.present? %>
                         <%  @specialty_pharmacist_details.licenses.each do |license| %>
-                            <%= license.name %>
+                          <%= license.name %>
                         <% end %>
                       <% end %>
                     </p>
