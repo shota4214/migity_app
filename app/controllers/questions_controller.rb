@@ -3,6 +3,8 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: %i[show edit update destroy change_resolved]
   before_action :other_than_drafts, only: %i[index search my]
   before_action :diseases, only: %i[new edit create confirm]
+  before_action :drugs, only: %i[new edit create confirm]
+  before_action :side_effects, only: %i[new edit create confirm]
   before_action :question_tag_ranks, only: %i[index show by_disease search my]
   before_action :half_width_to_full_width, only: %i[update confirm]
   before_action :sidebar_profession_users, only: %i[index show by_disease search my]
@@ -110,7 +112,7 @@ class QuestionsController < ApplicationController
   private
 
   def question_params
-    params.require(:question).permit(:title, :content, :resolved, :draft, { disease_ids: [] })
+    params.require(:question).permit(:title, :content, :resolved, :draft, { disease_ids: [] }, { drug_ids: [] }, { side_effect_ids: [] })
   end
 
   def set_question
@@ -125,8 +127,12 @@ class QuestionsController < ApplicationController
     @diseases = Disease.all
   end
 
-  def disease_details
-    @disease_details = DiseaseDetail.all
+  def drugs
+    @drugs = Drug.all
+  end
+
+  def side_effects
+    @side_effects = SideEffect.all
   end
 
   def question_tag_ranks

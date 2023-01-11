@@ -9,4 +9,6 @@ class Question < ApplicationRecord
   has_many :favorite_users, through: :favorites, source: :user
   has_many :disease_labellings, dependent: :destroy
   has_many :diseases, through: :disease_labellings
+  has_and_belongs_to_many :drugs
+  has_and_belongs_to_many :side_effects
 end

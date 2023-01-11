@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_01_142826) do
+ActiveRecord::Schema.define(version: 2023_01_11_113945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,19 @@ ActiveRecord::Schema.define(version: 2023_01_01_142826) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "drugs", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "drugs_questions", force: :cascade do |t|
+    t.bigint "drug_id", null: false
+    t.bigint "question_id", null: false
+    t.index ["drug_id"], name: "index_drugs_questions_on_drug_id"
+    t.index ["question_id"], name: "index_drugs_questions_on_question_id"
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -160,6 +173,19 @@ ActiveRecord::Schema.define(version: 2023_01_01_142826) do
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
+  create_table "questions_side_effects", force: :cascade do |t|
+    t.bigint "question_id", null: false
+    t.bigint "side_effect_id", null: false
+    t.index ["question_id"], name: "index_questions_side_effects_on_question_id"
+    t.index ["side_effect_id"], name: "index_questions_side_effects_on_side_effect_id"
+  end
+
+  create_table "side_effects", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "specialty_labellings", force: :cascade do |t|
     t.bigint "disease_id", null: false
     t.bigint "pharmacist_detail_id", null: false
@@ -200,6 +226,8 @@ ActiveRecord::Schema.define(version: 2023_01_01_142826) do
   add_foreign_key "comments", "users"
   add_foreign_key "disease_labellings", "diseases"
   add_foreign_key "disease_labellings", "questions"
+  add_foreign_key "drugs_questions", "drugs"
+  add_foreign_key "drugs_questions", "questions"
   add_foreign_key "favorites", "questions"
   add_foreign_key "favorites", "users"
   add_foreign_key "license_labellings", "licenses"
@@ -207,6 +235,8 @@ ActiveRecord::Schema.define(version: 2023_01_01_142826) do
   add_foreign_key "notes", "users"
   add_foreign_key "pharmacist_details", "users"
   add_foreign_key "questions", "users"
+  add_foreign_key "questions_side_effects", "questions"
+  add_foreign_key "questions_side_effects", "side_effects"
   add_foreign_key "specialty_labellings", "diseases"
   add_foreign_key "specialty_labellings", "pharmacist_details"
 end
