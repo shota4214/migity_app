@@ -1,3 +1,4 @@
 class Drug < ApplicationRecord
-  has_and_belongs_to_many :questions
+  has_many :drug_labellings, dependent: :destroy
+  has_many :questions, through: :drug_labellings
 end

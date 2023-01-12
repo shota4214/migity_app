@@ -54,7 +54,7 @@
           <%= f.label :side_effect %><br>
           <small>複数選択可能</small><br>
           <small>(windowsはctrl,Macはcommand押しながら選択)</small>
-          <%= f.collection_select(:side_effect_ids, @side_effects, :id, :name, { include_blank: "-副作用の種類を選ぶ-", prompt: false}, { multiple: true, class: "form-control" }) %>
+          <%= f.collection_select(:side_effect_ids, @side_effects, :id, :name, { include_blank: "-支持療法の種類を選ぶ-", prompt: false}, { multiple: true, class: "form-control" }) %>
         </div>
       </div>
     </div>

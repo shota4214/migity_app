@@ -1,3 +1,4 @@
 class SideEffect < ApplicationRecord
-  has_and_belongs_to_many :questions
+  has_many :side_effect_labellings, dependent: :destroy
+  has_many :questions, through: :side_effect_labellings
 end

@@ -5,9 +5,9 @@ class QuestionsController < ApplicationController
   before_action :diseases, only: %i[new edit create confirm]
   before_action :drugs, only: %i[new edit create confirm]
   before_action :side_effects, only: %i[new edit create confirm]
-  before_action :question_tag_ranks, only: %i[index show by_disease search my]
+  before_action :question_tag_ranks, only: %i[index show by_disease by_drug by_side_effect search my]
   before_action :half_width_to_full_width, only: %i[update confirm]
-  before_action :sidebar_profession_users, only: %i[index show by_disease search my]
+  before_action :sidebar_profession_users, only: %i[index show by_disease by_drug by_side_effect search my]
 
   def index
     @questions = @questions.where(resolved: true).order("created_at DESC").page(params[:page]).per(5) if params[:resolved]
@@ -99,6 +99,18 @@ class QuestionsController < ApplicationController
     @questions_by_disease = @disease.questions.order("created_at DESC").page(params[:page]).per(10)
   end
 
+  def by_drug
+    drug_id = params[:format].to_i
+    @drug = Drug.find(drug_id)
+    @questions_by_drug = @drug.questions.order("created_at DESC").page(params[:page]).per(10)
+  end
+
+  def by_side_effect
+    side_effect_id = params[:format].to_i
+    @side_effect = SideEffect.find(side_effect_id)
+    @questions_by_side_effect = @side_effect.questions.order("created_at DESC").page(params[:page]).per(10)
+  end
+
   def my
     @user = User.find(current_user.id)
     @questions = @user.questions.all.order("created_at DESC")
@@ -136,7 +148,10 @@ class QuestionsController < ApplicationController
   end
 
   def question_tag_ranks
-    @question_tag_ranks = Disease.find(DiseaseLabelling.group(:disease_id).order('count(disease_id) desc').pluck(:disease_id))
+    @question_diseases_ranks = Disease.find(DiseaseLabelling.group(:disease_id).order('count(disease_id) desc').pluck(:disease_id))
+    @question_drugs_ranks = Drug.find(DrugLabelling.group(:drug_id).order('count(drug_id) desc').pluck(:drug_id))
+    @question_side_effects_ranks = SideEffect.find(SideEffectLabelling.group(:side_effect_id).order('count(side_effect_id) desc').pluck(:side_effect_id))
+    
   end
 
   def half_width_to_full_width

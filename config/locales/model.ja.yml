@@ -13,7 +13,7 @@ ja:
       pharmacist_detail: 薬剤師詳細
       specialty_labelling: 得意分野と病名関連付け
       drug: 薬名
-      side_effect: 副作用
+      side_effect: 支持療法
     attributes:
       user:
         name: 名前
@@ -29,13 +29,15 @@ ja:
         content: 内容
         resolved: 解決済み
         draft: 下書き
-        disease: 病名
+        disease: 疾患名
+        drug: 薬の名前
+        side_effect: 支持療法
       disease:
         name: 病名
       drug:
         name: 薬名
       side_effect:
-        name: 副作用
+        name: 支持療法
       comment:
         content: コメント入力
       pharmacist_detail: 

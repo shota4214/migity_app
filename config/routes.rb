@@ -26,6 +26,8 @@ Rails.application.routes.draw do
       post :confirm
       get :search
       get :by_disease
+      get :by_drug
+      get :by_side_effect
       get :my
     end
     member do
