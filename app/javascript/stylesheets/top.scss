@@ -1,3 +1,4 @@
+// トップ画面のCSS 
 .top_main {
   height: 120vh; 
   background-color: #E4E4E4;
@@ -37,4 +38,30 @@
 
 .register_button {
   background-color: #1A308E;
+}
+
+// about画面のCSS
+.image_search {
+  background-image: url('../images/search.png');
+  height: calc(1240px / 4.5);
+  width: calc(1748px / 4.5);
+  display: inline;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.image_question {
+  background-image: url('../images/question.png');
+  height: calc(1240px / 4.5);
+  width: calc(1748px / 4.5);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.image_take_notes {
+  background-image: url('../images/take_notes.png');
+  height: calc(1240px / 4.5);
+  width: calc(1748px / 4.5);
+  background-size: contain;
+  background-repeat: no-repeat;
 }

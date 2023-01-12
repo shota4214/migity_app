@@ -141,8 +141,8 @@ ActiveRecord::Schema.define(version: 2023_01_01_142826) do
 
   create_table "pharmacist_details", force: :cascade do |t|
     t.string "office_name", null: false
-    t.string "other_license", default: "", null: false
-    t.text "introduction", default: "", null: false
+    t.string "other_license"
+    t.text "introduction"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
