@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_01_142826) do
+ActiveRecord::Schema.define(version: 2023_01_12_124516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,21 @@ ActiveRecord::Schema.define(version: 2023_01_01_142826) do
   end
 
   create_table "diseases", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "drug_labellings", force: :cascade do |t|
+    t.bigint "question_id", null: false
+    t.bigint "drug_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["drug_id"], name: "index_drug_labellings_on_drug_id"
+    t.index ["question_id"], name: "index_drug_labellings_on_question_id"
+  end
+
+  create_table "drugs", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -160,6 +175,21 @@ ActiveRecord::Schema.define(version: 2023_01_01_142826) do
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
+  create_table "side_effect_labellings", force: :cascade do |t|
+    t.bigint "question_id", null: false
+    t.bigint "side_effect_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_id"], name: "index_side_effect_labellings_on_question_id"
+    t.index ["side_effect_id"], name: "index_side_effect_labellings_on_side_effect_id"
+  end
+
+  create_table "side_effects", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "specialty_labellings", force: :cascade do |t|
     t.bigint "disease_id", null: false
     t.bigint "pharmacist_detail_id", null: false
@@ -200,6 +230,8 @@ ActiveRecord::Schema.define(version: 2023_01_01_142826) do
   add_foreign_key "comments", "users"
   add_foreign_key "disease_labellings", "diseases"
   add_foreign_key "disease_labellings", "questions"
+  add_foreign_key "drug_labellings", "drugs"
+  add_foreign_key "drug_labellings", "questions"
   add_foreign_key "favorites", "questions"
   add_foreign_key "favorites", "users"
   add_foreign_key "license_labellings", "licenses"
@@ -207,6 +239,8 @@ ActiveRecord::Schema.define(version: 2023_01_01_142826) do
   add_foreign_key "notes", "users"
   add_foreign_key "pharmacist_details", "users"
   add_foreign_key "questions", "users"
+  add_foreign_key "side_effect_labellings", "questions"
+  add_foreign_key "side_effect_labellings", "side_effects"
   add_foreign_key "specialty_labellings", "diseases"
   add_foreign_key "specialty_labellings", "pharmacist_details"
 end

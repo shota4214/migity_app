@@ -12,6 +12,8 @@ ja:
       rich_text: アクションテキスト
       pharmacist_detail: 薬剤師詳細
       specialty_labelling: 得意分野と病名関連付け
+      drug: 薬名
+      side_effect: 支持療法
     attributes:
       user:
         name: 名前
@@ -27,9 +29,15 @@ ja:
         content: 内容
         resolved: 解決済み
         draft: 下書き
-        disease: タグ
+        disease: 疾患名
+        drug: 薬の名前
+        side_effect: 支持療法
       disease:
-        name: タグ
+        name: 病名
+      drug:
+        name: 薬名
+      side_effect:
+        name: 支持療法
       comment:
         content: コメント入力
       pharmacist_detail: 
@@ -37,4 +45,3 @@ ja:
         license: 保有資格
         other_license: その他資格
         introduction: 自己紹介
-      

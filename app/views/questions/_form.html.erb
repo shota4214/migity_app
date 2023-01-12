@@ -42,6 +42,20 @@
           <small>(windowsはctrl,Macはcommand押しながら選択)</small>
           <%= f.collection_select(:disease_ids, @diseases, :id, :name, { include_blank: "-がんの種類を選ぶ-", prompt: false}, { multiple: true, class: "form-control" }) %>
         </div>
+
+        <div class="form-group">
+          <%= f.label :drug %><br>
+          <small>複数選択可能</small><br>
+          <small>(windowsはctrl,Macはcommand押しながら選択)</small>
+          <%= f.collection_select(:drug_ids, @drugs, :id, :name, { include_blank: "-薬の種類を選ぶ-", prompt: false}, { multiple: true, class: "form-control" }) %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :side_effect %><br>
+          <small>複数選択可能</small><br>
+          <small>(windowsはctrl,Macはcommand押しながら選択)</small>
+          <%= f.collection_select(:side_effect_ids, @side_effects, :id, :name, { include_blank: "-支持療法の種類を選ぶ-", prompt: false}, { multiple: true, class: "form-control" }) %>
+        </div>
       </div>
     </div>
   <% end %>

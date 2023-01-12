@@ -12,7 +12,7 @@
     <br>
     <p class="lead text-center mgr-10">よく見られるキーワード
       <small>
-        <% @question_tag_ranks.each.with_index(1) do |disease, i| %>
+        <% @question_diseases_ranks.each.with_index(1) do |disease, i| %>
           <%= link_to by_disease_questions_path(disease.id) do %>
             <span class="btn btn-outline-secondary btn-sm disease-index-jumbotron-text">
               <%= "#{disease.name}" %><%= "(#{disease.questions.count})" %>

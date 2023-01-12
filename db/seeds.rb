@@ -13,12 +13,7 @@ User.create!(name: "みぎたか", pharmacy: "migity", email: "migitaka@test.com
 end
 
 diseases = [
-  "脳腫瘍", "頭頸部癌", "唾液線がん", "甲状腺がん", "肺がん",
-  "乳がん", "小細胞肺がん", "中皮腫", "膵臓がん", "胃がん",
-  "GIST", "小腸がん", "大腸がん", "食道がん", "腎臓がん",
-  "腎盂・尿管がん", "膀胱がん", "前立腺がん", "子宮頸がん",
-  "卵巣がん", "子宮肉腫", "悪性リンパ腫", "白血病", "慢性リンパ性白血病",
-  "多発性骨髄腫", "皮膚がん", "メラノーマ", "肉腫", "原発不明がん"
+  "大腸癌", "肺がん", "肺癌", "乳癌"
 ]
 diseases.each do |disease|
   Disease.create!(name: disease)
@@ -74,19 +69,19 @@ Question.create!(
   user_id: 1,
 )
 
-DiseaseLabelling.create!(question_id: 1, disease_id: 5)
-DiseaseLabelling.create!(question_id: 1, disease_id: 10)
-DiseaseLabelling.create!(question_id: 2, disease_id: 10)
-DiseaseLabelling.create!(question_id: 3, disease_id: 9)
-DiseaseLabelling.create!(question_id: 3, disease_id: 11)
-DiseaseLabelling.create!(question_id: 4, disease_id: 14)
-DiseaseLabelling.create!(question_id: 4, disease_id: 15)
-DiseaseLabelling.create!(question_id: 4, disease_id: 16)
-DiseaseLabelling.create!(question_id: 5, disease_id: 27)
-DiseaseLabelling.create!(question_id: 6, disease_id: 13)
-DiseaseLabelling.create!(question_id: 6, disease_id: 14)
-DiseaseLabelling.create!(question_id: 6, disease_id: 15)
-DiseaseLabelling.create!(question_id: 7, disease_id: 24)
+DiseaseLabelling.create!(question_id: 1, disease_id: 1)
+DiseaseLabelling.create!(question_id: 1, disease_id: 2)
+DiseaseLabelling.create!(question_id: 2, disease_id: 3)
+DiseaseLabelling.create!(question_id: 3, disease_id: 4)
+DiseaseLabelling.create!(question_id: 3, disease_id: 1)
+DiseaseLabelling.create!(question_id: 4, disease_id: 1)
+DiseaseLabelling.create!(question_id: 4, disease_id: 4)
+DiseaseLabelling.create!(question_id: 4, disease_id: 3)
+DiseaseLabelling.create!(question_id: 5, disease_id: 2)
+DiseaseLabelling.create!(question_id: 6, disease_id: 3)
+DiseaseLabelling.create!(question_id: 6, disease_id: 4)
+DiseaseLabelling.create!(question_id: 6, disease_id: 1)
+DiseaseLabelling.create!(question_id: 7, disease_id: 2)
 
 Favorite.create!(user_id: 2, question_id: 1)
 Favorite.create!(user_id: 3, question_id: 1)
@@ -125,3 +120,67 @@ PharmacistDetail.create!(office_name: "佐々木病院", user_id: 6, )
 PharmacistDetail.create!(office_name: "岡田総合病院", user_id: 7, )
 PharmacistDetail.create!(office_name: "山本病院", user_id: 8, )
 
+drugs = [
+  "ベバシズマブ", "ラムシルマブ", "アフリベルセプト", "ネシツムマブ",
+  "セツキシマブ", "パニツムマブ",
+  "レゴラフェニブ",
+  "ゲフィチニブ", "エルロチニブ", "アファチニブ", "オシメルチニブ", "ダコミチニブ",
+  "クリゾチニブ", "アレクチニブ", "セリチニブ", "ロルラチニブ", "ブリグチニブ",
+  "ダブラフィニブ", "トラメチニブ",
+  "エヌトレクチニブ", "ラロトレクチニブ",
+  "セルペルカニチブ",
+  "ソトラシブ",
+  "デノスマブ",
+  "トラスツズマブ", "ペルツズマブ", "トラスツズマブ", "エムタンシン", "ラパチニブ",
+  "オラパリブ",
+  "アベマシクリブ", "パルボシクリブ",
+  "ニ2ボルマブ", "ペムブロリズマブ", "アテゾリズマブ", "デュルバルマブ", "イピリムマブ"
+]
+drugs.each do |drug|
+  Drug.create!(name: drug)
+end
+
+DrugLabelling.create!(question_id: 1, drug_id: 1)
+DrugLabelling.create!(question_id: 1, drug_id: 2)
+DrugLabelling.create!(question_id: 1, drug_id: 3)
+DrugLabelling.create!(question_id: 2, drug_id: 5)
+DrugLabelling.create!(question_id: 3, drug_id: 5)
+DrugLabelling.create!(question_id: 4, drug_id: 5)
+DrugLabelling.create!(question_id: 5, drug_id: 7)
+DrugLabelling.create!(question_id: 5, drug_id: 9)
+DrugLabelling.create!(question_id: 6, drug_id: 13)
+DrugLabelling.create!(question_id: 7, drug_id: 18)
+
+side_effects = [
+  "血管外漏出", "血管障害",
+  "過敏症", "アナフィラキシー", "インフュージョンリアクション",
+  "骨髄抑制", "感染", "FNなど",
+  "悪心嘔吐", "食欲不振",
+  "口内炎",
+  "下痢", "便秘",
+  "腎障害", "膀胱障害", "蛋白尿", "腫瘍崩壊症候群",
+  "肝障害",
+  "心毒性",
+  "血圧上昇", "血栓症",
+  "末梢神経障害",
+  "中枢神経障害", "聴覚障害", "白質脳症", "肝性脳症", "せん妄", "うつ",
+  "倦怠感", "筋肉痛", "関節痛",
+  "間質性肺炎",
+  "皮膚障害", "手足症候群",
+  "脱毛",
+  "浮腫"
+]
+side_effects.each do |side_effect|
+  SideEffect.create!(name: side_effect)
+end
+
+SideEffectLabelling.create!(question_id: 1, side_effect_id: 3)
+SideEffectLabelling.create!(question_id: 1, side_effect_id: 4)
+SideEffectLabelling.create!(question_id: 1, side_effect_id: 5)
+SideEffectLabelling.create!(question_id: 2, side_effect_id: 14)
+SideEffectLabelling.create!(question_id: 3, side_effect_id: 12)
+SideEffectLabelling.create!(question_id: 4, side_effect_id: 7)
+SideEffectLabelling.create!(question_id: 5, side_effect_id: 9)
+SideEffectLabelling.create!(question_id: 6, side_effect_id: 11)
+SideEffectLabelling.create!(question_id: 6, side_effect_id: 13)
+SideEffectLabelling.create!(question_id: 7, side_effect_id: 16)
