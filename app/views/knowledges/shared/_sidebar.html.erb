@@ -4,10 +4,10 @@
     <h5 class="card-header text-center">がんの種類で調べる</h5>
     <div class="card-body">
       <p class="card-text">
-        <% @question_diseases_ranks.each.with_index(1) do |disease, i| %>
-          <%= link_to by_disease_questions_path(disease.id) do %>
+        <% @knowledge_diseases_ranks.each.with_index(1) do |disease, i| %>
+          <%= link_to by_disease_knowledges_path(disease.id) do %>
             <span class="bottom-mgr-5 btn btn-outline-secondary btn-sm disease_index-sidemenu-text">
-              <%= "#{disease.name}" %><%= "(#{disease.questions.count})" %>
+              <%= "#{disease.name}" %><%= "(#{disease.knowledges.count})" %>
             </span>
           <% end %>
           <% break if i == 5 %>
@@ -24,10 +24,10 @@
     <h5 class="card-header text-center">薬の種類で調べる</h5>
     <div class="card-body">
       <p class="card-text">
-        <% @question_drugs_ranks.each.with_index(1) do |drug, i| %>
-          <%= link_to by_drug_questions_path(drug.id) do %>
+        <% @knowledge_drugs_ranks.each.with_index(1) do |drug, i| %>
+          <%= link_to by_drug_knowledges_path(drug.id) do %>
             <span class="bottom-mgr-5 btn btn-outline-secondary btn-sm disease_index-sidemenu-text">
-              <%= "#{drug.name}" %><%= "(#{drug.questions.count})" %>
+              <%= "#{drug.name}" %><%= "(#{drug.knowledges.count})" %>
             </span>
           <% end %>
           <% break if i == 5 %>
@@ -44,10 +44,10 @@
     <h5 class="card-header text-center">支持療法の種類で調べる</h5>
     <div class="card-body">
       <p class="card-text">
-        <% @question_side_effects_ranks.each.with_index(1) do |side_effect, i| %>
-          <%= link_to by_side_effect_questions_path(side_effect.id) do %>
+        <% @knowledge_side_effects_ranks.each.with_index(1) do |side_effect, i| %>
+          <%= link_to by_side_effect_knowledges_path(side_effect.id) do %>
             <span class="bottom-mgr-5 btn btn-outline-secondary btn-sm disease_index-sidemenu-text">
-              <%= "#{side_effect.name}" %><%= "(#{side_effect.questions.count})" %>
+              <%= "#{side_effect.name}" %><%= "(#{side_effect.knowledges.count})" %>
             </span>
           <% end %>
           <% break if i == 5 %>
@@ -93,7 +93,7 @@
     </div>
   </div>
   <br>
-  <%= link_to "質問する", new_question_path, class: "btn btn-outline-primary btn-block btn-lg" %>
+  <%= link_to "質問する", new_knowledge_path, class: "btn btn-outline-primary btn-block btn-lg" %>
   <br>
   <%= link_to "はじめての方へ", top_about_path, class: "btn btn-outline-secondary btn-block btn-lg" %>
 </div>

@@ -1,21 +1,16 @@
-<div class="container">
+<%= render "knowledges/shared/notice" %>
+
+<div class="container main-container">
   <div class="row">
-    <%= render "users/shared/user_detail" %>
-    <div class="col">
-      <h4 class="text-center">投稿Q&A一覧</h4>
-      <% @favorite_knowledges.each do |knowledge| %>
-        <% if knowledge.draft %><div class="card mb-3 knowledge-card draft-true">
-        <% else %><div class="card mb-3 knowledge-card draft-false">
-        <% end %>
+    <div class="col-xs-8 col-lg-8">
+      <h3 class="text-center"><%= @side_effect.name %>タグ一覧</h3>
+
+      <% @knowledges_by_side_effect.each do |knowledge| %>
+        <div class="card mb-3 knowledge-card">
           <div class="row no-gutters">
-            <div class="col-2">
+            <div class="col-md-2">
               <div class="bd-placeholder">
                 <br>
-                <% if knowledge.draft %>
-                  <p class="draft-true text-center bottom-mgr-5"><%= draft_text(knowledge) %></p>
-                <% else %>
-                  <p class="draft-false text-center bottom-mgr-5"><%= draft_text(knowledge) %></p>
-                <% end %>
                 <% if knowledge.resolved %>
                   <p class="resolved-true text-center bottom-mgr-5"><%= resolved_text(knowledge) %></p>
                 <% else %>
@@ -25,7 +20,7 @@
                 <p class="text-center bottom-mgr-5">クリップ数 <strong><%= knowledge.favorites.count %></strong></p>
               </div>
             </div>
-            <div class="col">
+            <div class="col-md-10">
               <%= link_to knowledge_path(knowledge.id), class: "card-body knowledge-index" do %>
                 <h5 class="card-title"><%= knowledge.title %></h5>
                 <p class="card-text"><%= strip_tags(knowledge.content.to_s).gsub(/[\n]/,"").strip %></p>
@@ -36,8 +31,8 @@
             <div class="row">
               <div class="d-grid gap-4 col-7 mx-auto">
                 <small class="text-muted">
-                  <% knowledge.diseases.each do |disease| %>
-                    <span class="mgr-10 bottom-mgr-5 btn btn-outline-secondary btn-sm knowledge-index-disease"><%= disease.name %></span>
+                  <% knowledge.side_effects.each do |side_effect| %>
+                    <span class="mgr-10 bottom-mgr-5 btn btn-outline-secondary btn-sm knowledge-index-disease"><%= side_effect.name %></span>
                   <% end %>
                   </small>
               </div>
@@ -60,6 +55,8 @@
           </div>
         </div>
       <% end %>
+      <%= paginate @knowledges_by_side_effect %>
     </div>
+    <%= render "knowledges/shared/sidebar" %>
   </div>
 </div>

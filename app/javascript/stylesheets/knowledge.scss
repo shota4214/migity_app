@@ -1,20 +1,20 @@
-.question-index {
+.knowledge-index {
   text-decoration: none;
   color: black;
 }
 
-.question-index:hover {
+.knowledge-index:hover {
   text-decoration: none;
   color: black;
 }
 
-.question-card:hover {
+.knowledge-card:hover {
   background-color: #1a2f8e62;
   border-color: #1a2f8e;
   border-width: 1px;
 }
 
-.question-index-disease {
+.knowledge-index-disease {
   font-size: 0.5rem;
 }
 
@@ -31,7 +31,7 @@
   background-color: pink;
 }
 
-.question-index-user-name {
+.knowledge-index-user-name {
   display: block;
 }
 
@@ -50,7 +50,7 @@ trix-editor {
   overflow-y: auto;
 }
 
-.question-user-name {
+.knowledge-user-name {
   color: gray;
 }
 
@@ -81,11 +81,11 @@ trix-editor {
   background-color: rgba(255, 192, 203, 0.743);
 }
 
-.question-comment-header {
+.knowledge-comment-header {
   background-color: white;
 }
 
-.question-comment-body {
+.knowledge-comment-body {
   background-color: rgb(234, 234, 234);
 }
 

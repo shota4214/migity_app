@@ -1,0 +1,96 @@
+<%= render "knowledges/shared/notice" %>
+
+<br>
+<div class="container main-container">
+  <div class="row">
+    <div class="col-xs-8 col-lg-8">
+      <% if user_signed_in? && @knowledge.user_id == current_user.id %>
+        <% if @knowledge.resolved %>
+          <%= link_to "回答受付中にする", change_resolved_knowledge_path(@knowledge.id), class: "btn btn-secondary" %>
+        <% else %>
+          <%= link_to "解決済みにする", change_resolved_knowledge_path(@knowledge.id), class: "btn btn-primary" %>
+        <% end %>
+      <% end %>
+      <div class="card mb-3 border border-0">
+        <div class="card-header border border-0">
+          <div class="container">
+            <div class="row">
+              <div class="col-2">
+                <span>
+                  <% if @knowledge.resolved %>
+                    <span class="resolved-true text-center bottom-mgr-5"><%= resolved_text(@knowledge) %></span>
+                  <% else %>
+                    <span class="resolved-false text-center bottom-mgr-5"><%= resolved_text(@knowledge) %></span>
+                  <% end %>
+                </span>
+              </div>
+              <div class="col-5">
+                <small class="text-muted">
+                  <% @knowledge.diseases.each do |disease| %>
+                    <span class="mgr-10 bottom-mgr-5 btn btn-outline-secondary btn-sm knowledge-index-disease"><%= disease.name %></span>
+                  <% end %>
+                </small>
+              </div>
+              <div class="col-2 text-right">
+                <strong>閲覧数<%= @knowledge.impressions_count %></strong>
+              </div>
+              <div class="col-3 text-center">
+                <% if user_signed_in? %>
+                  <% if @knowledge.user_id == current_user.id %>
+                    <strong>クリップ数<%= @knowledge.favorites.count %></strong>
+                  <% else %>
+                    <div class="favorite-link" id="favorite-link-<%= @knowledge.id %>">
+                      <%= render partial: 'favorites/favorite', locals: { knowledge: @knowledge } %>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-10">
+          <h5 class="card-title"><%= @knowledge.title %></h5>
+          <p class="card-text"><%= strip_tags(@knowledge.content.to_s).gsub(/[\n]/,"").strip %></p>
+        </div>
+        <div class="card-footer border border-0">
+          <div class="row">
+            <div class="d-grid gap-4 col mx-auto text-right">
+              <small class="text-muted">
+                <%= link_to user_path(@knowledge.user), class: "knowledge-user-name" do %>
+                  <% if @knowledge.user.image? %>
+                    <%= image_tag @knowledge.user.image.url, class: "rounded-circle", size: "20x20" %>
+                  <% else %>
+                    <%= image_tag "no_image.png", class: "rounded-circle", size: "20x20" %>
+                  <% end %>
+                  <%= "#{@knowledge.user.name}" %>
+                <% end %>
+              </small>
+            </div>
+            <div class="d-grid gap-4 col-3 mx-auto text-center">
+              <small class="text-muted"><%= @knowledge.created_at.strftime('%Y年%m月%d日') %></small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card mb-3 border border-0">
+        <p>閲覧数<%= @knowledge.impressions_count %></p>
+          <%= render "knowledges/shared/best_answer" %>
+        <div id="comments_area">
+          <%= render partial: 'comments/index', locals: { comments: @comments, knowledge: @knowledge } %>
+        </div>
+        <% if user_signed_in? %>
+          <%= render partial: 'comments/form', locals: { comment: @comment, knowledge: @knowledge } %>
+        <% else %>
+          <p>※コメントは登録後投稿できます</p>
+        <% end %>
+      </div>
+    </div>
+    <%= render "knowledges/shared/sidebar" %>
+  </div>
+</div>
+
+<%= link_to new_note_path(id: @knowledge.id), 
+:onclick=>"window.open(this.href, 'ノート', 'height=400, width=800 top=100 left=400');return false;", class: "notebook-new_btn" do %>
+  <%= embedded_svg("notebook-new.svg") %>
+  <%= embedded_svg("notebook-new_hover.svg") %>
+<% end %>

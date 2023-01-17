@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :drug_labelling do
-    question { nil }
+    knowledge { nil }
     drug { nil }
   end
 end

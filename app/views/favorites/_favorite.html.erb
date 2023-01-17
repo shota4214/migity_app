@@ -1,16 +1,16 @@
 
 <% if user_signed_in? %>
-  <% unless @question.user_id == current_user.id %>
-    <% if current_user.favorites.find_by(question_id: @question.id) %>
-      <%= link_to favorite_path(@question.id, current_user.favorites.find_by(question_id: @question.id)), method: :delete, remote: true do %>
+  <% unless @knowledge.user_id == current_user.id %>
+    <% if current_user.favorites.find_by(knowledge_id: @knowledge.id) %>
+      <%= link_to favorite_path(@knowledge.id, current_user.favorites.find_by(knowledge_id: @knowledge.id)), method: :delete, remote: true do %>
         <span class="clip-text"><%= embedded_svg("clip.svg") %>クリップ解除</span>
       <% end %>
-      <%= @question.favorites.count %>
+      <%= @knowledge.favorites.count %>
     <% else %>
-      <%= link_to favorites_path(question_id: @question.id), method: :post, remote: true do %>
+      <%= link_to favorites_path(knowledge_id: @knowledge.id), method: :post, remote: true do %>
         <span class="clip-text"><%= embedded_svg("clip.svg") %>クリップ</span>
       <% end %>
-      <%= @question.favorites.count %>
+      <%= @knowledge.favorites.count %>
     <% end %>
   <% end %>
 <% end %>

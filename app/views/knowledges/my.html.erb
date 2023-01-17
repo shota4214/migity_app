@@ -1,9 +1,9 @@
-<div class="container">
+<div class="container main-container">
   <div class="row">
     <%= render "users/shared/user_detail" %>
     <div class="col">
       <h4 class="text-center">投稿Q&A一覧</h4>
-      <% @favorite_knowledges.each do |knowledge| %>
+      <% @knowledges.each do |knowledge| %>
         <% if knowledge.draft %><div class="card mb-3 knowledge-card draft-true">
         <% else %><div class="card mb-3 knowledge-card draft-false">
         <% end %>
@@ -31,6 +31,12 @@
                 <p class="card-text"><%= strip_tags(knowledge.content.to_s).gsub(/[\n]/,"").strip %></p>
               <% end %>
             </div>
+            <% if @user.id == current_user.id %>
+                <div class="col-1 align-self-center">
+                  <%= link_to "編集", edit_knowledge_path(knowledge.id), class: "btn btn-warning btn-block" %>
+                  <%= link_to "削除", knowledge_path(knowledge.id), method: :delete, data: { confirm: "本当に削除してもいいですか？" }, class: "btn btn-danger btn-block" %>
+                </div>
+            <% end %>
           </div>
           <div class="card-footer">
             <div class="row">
@@ -63,3 +69,9 @@
     </div>
   </div>
 </div>
+
+<%= link_to new_note_path, 
+:onclick=>"window.open(this.href, 'ノート', 'height=400, width=800 top=100 left=400');return false;", class: "notebook-new_btn" do %>
+  <%= embedded_svg("notebook-new.svg") %>
+  <%= embedded_svg("notebook-new_hover.svg") %>
+<% end %>

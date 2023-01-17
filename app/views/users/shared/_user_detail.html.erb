@@ -27,9 +27,9 @@
     <div class="card-body">
       <% if user_signed_in? && @user.id == current_user.id %>
         <div class="mt-2">
-          <%= link_to my_questions_path do %><p class="user-detail-menu"><%= embedded_svg("question-answer.svg") %>質問</p><% end %>
+          <%= link_to my_knowledges_path do %><p class="user-detail-menu"><%= embedded_svg("knowledge-answer.svg") %>質問</p><% end %>
           <%= link_to favorites_path(@user) do %><p class="user-detail-menu"><%= embedded_svg("clip.svg") %>クリップ</p><% end %>
-          <%= link_to  questions_path(@user) do %><p class="user-detail-menu"><%= embedded_svg("heart-line.svg") %>いいね</p><% end %>
+          <%= link_to  knowledges_path(@user) do %><p class="user-detail-menu"><%= embedded_svg("heart-line.svg") %>いいね</p><% end %>
           <%= link_to  notes_path(@user) do %><p class="user-detail-menu"><%= embedded_svg("notebook.svg") %>学習ノート</p><% end %>
         </div>
       <% end %>

@@ -1,4 +1,4 @@
-class Question < ApplicationRecord
+class Knowledge < ApplicationRecord
   belongs_to :user
   validates :title, presence: true
   has_rich_text :content

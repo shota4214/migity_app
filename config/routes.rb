@@ -19,7 +19,7 @@ Rails.application.routes.draw do
       get :search
     end
   end
-  resources :questions do
+  resources :knowledges do
     resources :comments do
       get :choose_answer
     end

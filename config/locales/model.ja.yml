@@ -2,7 +2,7 @@ ja:
   activerecord:
     models:
       user: ユーザー
-      question: Ｑ＆Ａ
+      knowledge: 知見
       favorite: クリップ
       disease: 病名
       comment: コメント
@@ -24,7 +24,7 @@ ja:
         admin: サイト管理者
         position: 役職
         introduction: 自己紹介
-      question:
+      knowledge:
         title: タイトル
         content: 内容
         resolved: 解決済み

@@ -8,9 +8,9 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :pharmacy, presence: true
 
-  has_many :questions, dependent: :destroy
+  has_many :knowledges, dependent: :destroy
   has_many :favorites, dependent: :destroy
-  has_many :favorite_questions, through: :favorites, source: :question
+  has_many :favorite_knowledges, through: :favorites, source: :knowledge
   has_many :comments, dependent: :destroy
   has_many :notes, dependent: :destroy
   has_many :pharmacist_details, dependent: :destroy

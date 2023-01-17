@@ -19,49 +19,49 @@ diseases.each do |disease|
   Disease.create!(name: disease)
 end
 
-Question.create!(
+Knowledge.create!(
   title: "肺がんの薬使用について",
   content: "オプシーボの使用方法について考えました",
   resolved: true,
   draft: false,
   user_id: 5,
 )
-Question.create!(
+Knowledge.create!(
   title: "胃がんの薬使用について",
   content: "オキサリプラチンの使用方法について考えました",
   resolved: false,
   draft: true,
   user_id: 5,
 )
-Question.create!(
+Knowledge.create!(
   title: "膵臓がんの薬使用について",
   content: "ギメラシルの使用方法について考えました",
   resolved: false,
   draft: true,
   user_id: 5,
 )
-Question.create!(
+Knowledge.create!(
   title: "食道がんの薬使用について",
   content: "ブリプラチンの使用方法について考えました",
   resolved: false,
   draft: false,
   user_id: 2,
 )
-Question.create!(
+Knowledge.create!(
   title: "皮膚がんの薬使用について",
   content: "シスプラチンの使用方法について考えました",
   resolved: false,
   draft: false,
   user_id: 3,
 )
-Question.create!(
+Knowledge.create!(
   title: "大腸がんの薬使用について",
   content: "イリノテカンの使用方法について考えました",
   resolved: false,
   draft: false,
   user_id: 4,
 )
-Question.create!(
+Knowledge.create!(
   title: "白血病の薬使用について",
   content: "ビンクリスチンの使用方法について考えました",
   resolved: false,
@@ -69,44 +69,44 @@ Question.create!(
   user_id: 1,
 )
 
-DiseaseLabelling.create!(question_id: 1, disease_id: 1)
-DiseaseLabelling.create!(question_id: 1, disease_id: 2)
-DiseaseLabelling.create!(question_id: 2, disease_id: 3)
-DiseaseLabelling.create!(question_id: 3, disease_id: 4)
-DiseaseLabelling.create!(question_id: 3, disease_id: 1)
-DiseaseLabelling.create!(question_id: 4, disease_id: 1)
-DiseaseLabelling.create!(question_id: 4, disease_id: 4)
-DiseaseLabelling.create!(question_id: 4, disease_id: 3)
-DiseaseLabelling.create!(question_id: 5, disease_id: 2)
-DiseaseLabelling.create!(question_id: 6, disease_id: 3)
-DiseaseLabelling.create!(question_id: 6, disease_id: 4)
-DiseaseLabelling.create!(question_id: 6, disease_id: 1)
-DiseaseLabelling.create!(question_id: 7, disease_id: 2)
+DiseaseLabelling.create!(knowledge_id: 1, disease_id: 1)
+DiseaseLabelling.create!(knowledge_id: 1, disease_id: 2)
+DiseaseLabelling.create!(knowledge_id: 2, disease_id: 3)
+DiseaseLabelling.create!(knowledge_id: 3, disease_id: 4)
+DiseaseLabelling.create!(knowledge_id: 3, disease_id: 1)
+DiseaseLabelling.create!(knowledge_id: 4, disease_id: 1)
+DiseaseLabelling.create!(knowledge_id: 4, disease_id: 4)
+DiseaseLabelling.create!(knowledge_id: 4, disease_id: 3)
+DiseaseLabelling.create!(knowledge_id: 5, disease_id: 2)
+DiseaseLabelling.create!(knowledge_id: 6, disease_id: 3)
+DiseaseLabelling.create!(knowledge_id: 6, disease_id: 4)
+DiseaseLabelling.create!(knowledge_id: 6, disease_id: 1)
+DiseaseLabelling.create!(knowledge_id: 7, disease_id: 2)
 
-Favorite.create!(user_id: 2, question_id: 1)
-Favorite.create!(user_id: 3, question_id: 1)
-Favorite.create!(user_id: 4, question_id: 1)
-Favorite.create!(user_id: 2, question_id: 3)
-Favorite.create!(user_id: 5, question_id: 4)
-Favorite.create!(user_id: 1, question_id: 5)
-Favorite.create!(user_id: 2, question_id: 5)
+Favorite.create!(user_id: 2, knowledge_id: 1)
+Favorite.create!(user_id: 3, knowledge_id: 1)
+Favorite.create!(user_id: 4, knowledge_id: 1)
+Favorite.create!(user_id: 2, knowledge_id: 3)
+Favorite.create!(user_id: 5, knowledge_id: 4)
+Favorite.create!(user_id: 1, knowledge_id: 5)
+Favorite.create!(user_id: 2, knowledge_id: 5)
 
-Comment.create!(user_id: 2, question_id: 5, content: "コメントさせていただきます")
-Comment.create!(user_id: 1, question_id: 5, content: "私もコメントさせていただきます")
-Comment.create!(user_id: 3, question_id: 5, content: "コメントありがとうございます")
-Comment.create!(user_id: 2, question_id: 1, content: "コメントさせていただきます")
-Comment.create!(user_id: 3, question_id: 1, content: "私もコメントさせていただきます")
-Comment.create!(user_id: 1, question_id: 1, content: "コメントありがとうございます")
-Comment.create!(user_id: 2, question_id: 2, content: "コメントさせていただきます")
-Comment.create!(user_id: 3, question_id: 2, content: "私もコメントさせていただきます")
-Comment.create!(user_id: 5, question_id: 2, content: "コメントありがとうございます")
-Comment.create!(user_id: 6, question_id: 1, content: "そのがんについては…", best_answer: true)
-Comment.create!(user_id: 6, question_id: 2, content: "そのがんについては…", best_answer: true)
-Comment.create!(user_id: 6, question_id: 3, content: "そのがんについては…", best_answer: true)
-Comment.create!(user_id: 1, question_id: 4, content: "そのがんについては…", best_answer: true)
-Comment.create!(user_id: 7, question_id: 5, content: "そのがんについては…", best_answer: true)
-Comment.create!(user_id: 7, question_id: 6, content: "そのがんについては…", best_answer: true)
-Comment.create!(user_id: 8, question_id: 7, content: "そのがんについては…", best_answer: true)
+Comment.create!(user_id: 2, knowledge_id: 5, content: "コメントさせていただきます")
+Comment.create!(user_id: 1, knowledge_id: 5, content: "私もコメントさせていただきます")
+Comment.create!(user_id: 3, knowledge_id: 5, content: "コメントありがとうございます")
+Comment.create!(user_id: 2, knowledge_id: 1, content: "コメントさせていただきます")
+Comment.create!(user_id: 3, knowledge_id: 1, content: "私もコメントさせていただきます")
+Comment.create!(user_id: 1, knowledge_id: 1, content: "コメントありがとうございます")
+Comment.create!(user_id: 2, knowledge_id: 2, content: "コメントさせていただきます")
+Comment.create!(user_id: 3, knowledge_id: 2, content: "私もコメントさせていただきます")
+Comment.create!(user_id: 5, knowledge_id: 2, content: "コメントありがとうございます")
+Comment.create!(user_id: 6, knowledge_id: 1, content: "そのがんについては…", best_answer: true)
+Comment.create!(user_id: 6, knowledge_id: 2, content: "そのがんについては…", best_answer: true)
+Comment.create!(user_id: 6, knowledge_id: 3, content: "そのがんについては…", best_answer: true)
+Comment.create!(user_id: 1, knowledge_id: 4, content: "そのがんについては…", best_answer: true)
+Comment.create!(user_id: 7, knowledge_id: 5, content: "そのがんについては…", best_answer: true)
+Comment.create!(user_id: 7, knowledge_id: 6, content: "そのがんについては…", best_answer: true)
+Comment.create!(user_id: 8, knowledge_id: 7, content: "そのがんについては…", best_answer: true)
 
 licenses = [
   "医療薬学専門薬剤師", "がん専門薬剤師", "がん指導薬剤師", "外来がん治療専門薬剤師", "外来がん認定薬剤師"
@@ -140,16 +140,16 @@ drugs.each do |drug|
   Drug.create!(name: drug)
 end
 
-DrugLabelling.create!(question_id: 1, drug_id: 1)
-DrugLabelling.create!(question_id: 1, drug_id: 2)
-DrugLabelling.create!(question_id: 1, drug_id: 3)
-DrugLabelling.create!(question_id: 2, drug_id: 5)
-DrugLabelling.create!(question_id: 3, drug_id: 5)
-DrugLabelling.create!(question_id: 4, drug_id: 5)
-DrugLabelling.create!(question_id: 5, drug_id: 7)
-DrugLabelling.create!(question_id: 5, drug_id: 9)
-DrugLabelling.create!(question_id: 6, drug_id: 13)
-DrugLabelling.create!(question_id: 7, drug_id: 18)
+DrugLabelling.create!(knowledge_id: 1, drug_id: 1)
+DrugLabelling.create!(knowledge_id: 1, drug_id: 2)
+DrugLabelling.create!(knowledge_id: 1, drug_id: 3)
+DrugLabelling.create!(knowledge_id: 2, drug_id: 5)
+DrugLabelling.create!(knowledge_id: 3, drug_id: 5)
+DrugLabelling.create!(knowledge_id: 4, drug_id: 5)
+DrugLabelling.create!(knowledge_id: 5, drug_id: 7)
+DrugLabelling.create!(knowledge_id: 5, drug_id: 9)
+DrugLabelling.create!(knowledge_id: 6, drug_id: 13)
+DrugLabelling.create!(knowledge_id: 7, drug_id: 18)
 
 side_effects = [
   "血管外漏出", "血管障害",
@@ -174,13 +174,13 @@ side_effects.each do |side_effect|
   SideEffect.create!(name: side_effect)
 end
 
-SideEffectLabelling.create!(question_id: 1, side_effect_id: 3)
-SideEffectLabelling.create!(question_id: 1, side_effect_id: 4)
-SideEffectLabelling.create!(question_id: 1, side_effect_id: 5)
-SideEffectLabelling.create!(question_id: 2, side_effect_id: 14)
-SideEffectLabelling.create!(question_id: 3, side_effect_id: 12)
-SideEffectLabelling.create!(question_id: 4, side_effect_id: 7)
-SideEffectLabelling.create!(question_id: 5, side_effect_id: 9)
-SideEffectLabelling.create!(question_id: 6, side_effect_id: 11)
-SideEffectLabelling.create!(question_id: 6, side_effect_id: 13)
-SideEffectLabelling.create!(question_id: 7, side_effect_id: 16)
+SideEffectLabelling.create!(knowledge_id: 1, side_effect_id: 3)
+SideEffectLabelling.create!(knowledge_id: 1, side_effect_id: 4)
+SideEffectLabelling.create!(knowledge_id: 1, side_effect_id: 5)
+SideEffectLabelling.create!(knowledge_id: 2, side_effect_id: 14)
+SideEffectLabelling.create!(knowledge_id: 3, side_effect_id: 12)
+SideEffectLabelling.create!(knowledge_id: 4, side_effect_id: 7)
+SideEffectLabelling.create!(knowledge_id: 5, side_effect_id: 9)
+SideEffectLabelling.create!(knowledge_id: 6, side_effect_id: 11)
+SideEffectLabelling.create!(knowledge_id: 6, side_effect_id: 13)
+SideEffectLabelling.create!(knowledge_id: 7, side_effect_id: 16)
