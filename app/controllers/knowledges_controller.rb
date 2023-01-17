@@ -7,7 +7,7 @@ class KnowledgesController < ApplicationController
   before_action :side_effects, only: %i[new edit create confirm]
   before_action :knowledge_tag_ranks, only: %i[index show by_disease by_drug by_side_effect search my]
   before_action :half_width_to_full_width, only: %i[update confirm]
-  before_action :sidebar_profession_users, only: %i[index show by_disease by_drug by_side_effect search my]
+  before_action :sidebar_profession_users, only: %i[index show by_disease by_drug by_side_effect search my tag_index]
 
   def index
     @knowledges = @knowledges.where(resolved: true).order("created_at DESC").page(params[:page]).per(5) if params[:resolved]
@@ -119,6 +119,12 @@ class KnowledgesController < ApplicationController
     else
       @knowledges = Knowledge.where(user_id: @user, draft: false).order("created_at DESC")
     end
+  end
+
+  def tag_index
+    @all_disease_tags = Disease.all
+    @all_drug_tags = Drug.all
+    @all_side_effect_tags = SideEffect.all
   end
 
   private

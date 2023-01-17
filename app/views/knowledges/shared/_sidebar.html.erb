@@ -1,63 +1,65 @@
 <div class="col-xs-4 col-lg-4">
-  <%# ---------------がんの種類で調べる------------------- %>
-  <div class="card">
-    <h5 class="card-header text-center">がんの種類で調べる</h5>
-    <div class="card-body">
-      <p class="card-text">
-        <% @knowledge_diseases_ranks.each.with_index(1) do |disease, i| %>
-          <%= link_to by_disease_knowledges_path(disease.id) do %>
-            <span class="bottom-mgr-5 btn btn-outline-secondary btn-sm disease_index-sidemenu-text">
-              <%= "#{disease.name}" %><%= "(#{disease.knowledges.count})" %>
-            </span>
+  <% unless controller.action_name == "tag_index" %>
+    <%# ---------------がんの種類で調べる------------------- %>
+    <div class="card">
+      <h5 class="card-header text-center">がんの種類で調べる</h5>
+      <div class="card-body">
+        <p class="card-text">
+          <% @knowledge_diseases_ranks.each.with_index(1) do |disease, i| %>
+            <%= link_to by_disease_knowledges_path(disease.id) do %>
+              <span class="bottom-mgr-5 btn btn-outline-secondary btn-sm disease_index-sidemenu-text">
+                <%= "#{disease.name}" %><%= "(#{disease.knowledges.count})" %>
+              </span>
+            <% end %>
+            <% break if i == 5 %>
           <% end %>
-          <% break if i == 5 %>
-        <% end %>
-      </p>
+        </p>
+      </div>
+      <div class="card-body text-right">
+        <%= link_to "がんのタグ一覧を見る＞", tag_index_knowledges_path, class: "primary" %>
+      </div>
     </div>
-    <div class="card-body text-right">
-      <a href="#" class="primary">がんの知見一覧を見る＞</a>
-    </div>
-  </div>
-  <br>
-  <%# ---------------薬の種類で調べる------------------- %>
-  <div class="card">
-    <h5 class="card-header text-center">薬の種類で調べる</h5>
-    <div class="card-body">
-      <p class="card-text">
-        <% @knowledge_drugs_ranks.each.with_index(1) do |drug, i| %>
-          <%= link_to by_drug_knowledges_path(drug.id) do %>
-            <span class="bottom-mgr-5 btn btn-outline-secondary btn-sm disease_index-sidemenu-text">
-              <%= "#{drug.name}" %><%= "(#{drug.knowledges.count})" %>
-            </span>
+    <br>
+    <%# ---------------薬の種類で調べる------------------- %>
+    <div class="card">
+      <h5 class="card-header text-center">薬の種類で調べる</h5>
+      <div class="card-body">
+        <p class="card-text">
+          <% @knowledge_drugs_ranks.each.with_index(1) do |drug, i| %>
+            <%= link_to by_drug_knowledges_path(drug.id) do %>
+              <span class="bottom-mgr-5 btn btn-outline-secondary btn-sm disease_index-sidemenu-text">
+                <%= "#{drug.name}" %><%= "(#{drug.knowledges.count})" %>
+              </span>
+            <% end %>
+            <% break if i == 5 %>
           <% end %>
-          <% break if i == 5 %>
-        <% end %>
-      </p>
+        </p>
+      </div>
+      <div class="card-body text-right">
+        <%= link_to "薬名のタグ一覧を見る＞", tag_index_knowledges_path, class: "primary" %>
+      </div>
     </div>
-    <div class="card-body text-right">
-      <a href="#" class="primary">薬の知見一覧を見る＞</a>
-    </div>
-  </div>
-  <br>
-  <%# ---------------支持療法の種類で調べる------------------- %>
-  <div class="card">
-    <h5 class="card-header text-center">支持療法の種類で調べる</h5>
-    <div class="card-body">
-      <p class="card-text">
-        <% @knowledge_side_effects_ranks.each.with_index(1) do |side_effect, i| %>
-          <%= link_to by_side_effect_knowledges_path(side_effect.id) do %>
-            <span class="bottom-mgr-5 btn btn-outline-secondary btn-sm disease_index-sidemenu-text">
-              <%= "#{side_effect.name}" %><%= "(#{side_effect.knowledges.count})" %>
-            </span>
+    <br>
+    <%# ---------------支持療法の種類で調べる------------------- %>
+    <div class="card">
+      <h5 class="card-header text-center">支持療法の種類で調べる</h5>
+      <div class="card-body">
+        <p class="card-text">
+          <% @knowledge_side_effects_ranks.each.with_index(1) do |side_effect, i| %>
+            <%= link_to by_side_effect_knowledges_path(side_effect.id) do %>
+              <span class="bottom-mgr-5 btn btn-outline-secondary btn-sm disease_index-sidemenu-text">
+                <%= "#{side_effect.name}" %><%= "(#{side_effect.knowledges.count})" %>
+              </span>
+            <% end %>
+            <% break if i == 5 %>
           <% end %>
-          <% break if i == 5 %>
-        <% end %>
-      </p>
+        </p>
+      </div>
+      <div class="card-body text-right">
+        <%= link_to "支持療法のタグ一覧を見る＞", tag_index_knowledges_path, class: "primary" %>
+      </div>
     </div>
-    <div class="card-body text-right">
-      <a href="#" class="primary">支持療法の知見一覧を見る＞</a>
-    </div>
-  </div>
+  <% end %>
   <br>
   <%# ---------------専門薬剤師一覧------------------- %>
   <div class="card">

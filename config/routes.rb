@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       get :by_drug
       get :by_side_effect
       get :my
+      get :tag_index
     end
     member do
       get :change_resolved

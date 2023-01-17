@@ -1,0 +1,57 @@
+<%= render "knowledges/shared/notice" %>
+
+<div class="container main-container">
+  <div class="row">
+    <div class="col-xs-8 col-lg-8">
+      <h4 class="text-center">がん・薬名・支持療法タグ一覧</h4>
+      <%# ---------------------がんの種類------------------------------- %>
+      <div class="card">
+        <h5 class="card-header text-center">がんの種類で調べる</h5>
+        <div class="card-body">
+          <p class="card-text">
+            <% @all_disease_tags.each do |tag| %>
+              <%= link_to by_disease_knowledges_path(tag.id) do %>
+                <span class="bottom-mgr-5 btn btn-outline-secondary btn-sm disease_index-sidemenu-text">
+                  <%= "#{tag.name}" %><%= "(#{tag.knowledges.count})" %>
+                </span>
+              <% end %>
+            <% end %>
+          </p>
+        </div>
+      </div>
+      <br>
+      <%# ---------------------薬名の種類------------------------------- %>
+      <div class="card">
+        <h5 class="card-header text-center">薬名で調べる</h5>
+        <div class="card-body">
+          <p class="card-text">
+            <% @all_drug_tags.each do |tag| %>
+              <%= link_to by_drug_knowledges_path(tag.id) do %>
+                <span class="bottom-mgr-5 btn btn-outline-secondary btn-sm disease_index-sidemenu-text">
+                  <%= "#{tag.name}" %><%= "(#{tag.knowledges.count})" %>
+                </span>
+              <% end %>
+            <% end %>
+          </p>
+        </div>
+      </div>
+      <br>
+      <%# ---------------------支持療法の種類------------------------------- %>
+      <div class="card">
+        <h5 class="card-header text-center">支持療法で調べる</h5>
+        <div class="card-body">
+          <p class="card-text">
+            <% @all_side_effect_tags.each do |tag| %>
+              <%= link_to by_side_effect_knowledges_path(tag.id) do %>
+                <span class="bottom-mgr-5 btn btn-outline-secondary btn-sm disease_index-sidemenu-text">
+                  <%= "#{tag.name}" %><%= "(#{tag.knowledges.count})" %>
+                </span>
+              <% end %>
+            <% end %>
+          </p>
+        </div>
+      </div>
+    </div>
+    <%= render "knowledges/shared/sidebar" %>
+  </div>
+</div>
