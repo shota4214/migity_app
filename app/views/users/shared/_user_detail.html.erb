@@ -17,7 +17,7 @@
             <small><%= @user.prefectures %></small>
           </p>
           <div class="d-flex flex-row justify-content-center align-items-center mt-3">
-            <% if @user.pharmacist? %>
+            <% if @user.expert? %>
               <p><i class="fa fa-solid fa-file-powerpoint"></i><%= @user.position %></p>
             <% end %>
           </div>

@@ -13,7 +13,7 @@
       <p class="user-email"><i class="fa fa-solid fa-envelope"></i><%= @user.email %></p>
       <p class="idd1"><i class="fa fa-solid fa-hospital"></i><%= @user.pharmacy %></p>
       <div class="d-flex flex-row justify-content-center align-items-center mt-3">
-        <% if @user.pharmacist? %>
+        <% if @user.expert? %>
           <p><i class="fa fa-solid fa-file-powerpoint"></i><%= @user.position %></p>
         <% end %>
       </div>

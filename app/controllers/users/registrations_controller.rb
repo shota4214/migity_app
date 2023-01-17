@@ -18,8 +18,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def edit
     @diseases = Disease.all
     @licenses = License.all
-    unless @user.pharmacist_details.present?
-      @pharmacist_details = @user.pharmacist_details.build
+    unless @user.expert_details.present?
+      @expert_details = @user.expert_details.build
     end
     super
   end
@@ -62,7 +62,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def configure_account_update_params
     devise_parameter_sanitizer.permit(:account_update, keys: [
       :name, :pharmacy, :image, :image_cache, :pharmacist, :admin, :position, :introduction, 
-      pharmacist_details_attributes: [
+      expert_details_attributes: [
         :id, :office_name, :specialty, :introduction, :other_license, { license_ids: [] },
         { disease_ids: [] }
         ]

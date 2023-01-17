@@ -1,4 +1,4 @@
 class LicenseLabelling < ApplicationRecord
   belongs_to :license
-  belongs_to :pharmacist_detail
+  belongs_to :expert_detail
 end

@@ -28,11 +28,11 @@ FactoryBot.define do
     password { "123456" }
     password_confirmation { "123456" }
   end
-  factory :pharmacist_user, class: User do
-    name { "pharmacist_name" }
-    email { "pharmacist@test.com" }
-    pharmacy { "pharmacist薬局" }
-    pharmacist { "true" }
+  factory :expert_user, class: User do
+    name { "expert_name" }
+    email { "expert@test.com" }
+    pharmacy { "expert薬局" }
+    expert { "true" }
     password { "123456" }
     password_confirmation { "123456" }
   end

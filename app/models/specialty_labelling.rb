@@ -1,4 +1,4 @@
 class SpecialtyLabelling < ApplicationRecord
   belongs_to :disease
-  belongs_to :pharmacist_detail
+  belongs_to :expert_detail
 end

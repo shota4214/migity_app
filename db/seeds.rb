@@ -1,4 +1,4 @@
-User.create!(name: "みぎたか", pharmacy: "migity", email: "migitaka@test.com", password: "123456", position: "社長", pharmacist: true, admin: true, prefectures: 22, image: File.open('./app/assets/images/bear.png'))
+User.create!(name: "みぎたか", pharmacy: "migity", email: "migitaka@test.com", password: "123456", position: "社長", expert: true, admin: true, prefectures: 22, image: File.open('./app/assets/images/bear.png'))
 [
   ["すずき", "migity薬局", "suzuki@test.com", "123456", "エンジニア", 22, false, File.open('./app/assets/images/dog.png')],
   ["くりた", "ミギティー薬局", "kurita@test.com", "123456", "エンジニア", 11, false, File.open('./app/assets/images/cat.png')],
@@ -7,9 +7,9 @@ User.create!(name: "みぎたか", pharmacy: "migity", email: "migitaka@test.com
   ["佐々木三郎", "佐々木病院", "sasaki@test.com", "123456", "がん薬物療法認定薬剤師", 13, true, File.open('./app/assets/images/sasaki.png')],
   ["岡田浩司", "東北医科薬科大学病院", "okada@test.com", "123456", "がん薬物療法認定薬剤師", 13, true, File.open('./app/assets/images/mituo.png')],
   ["山本", "山本病院", "yamamoto@test.com", "123456", "がん薬物療法認定薬剤師", 13, true, File.open('./app/assets/images/yamamoto.png')]
-].each do |name, pharmacy, email, password, position, prefectures, pharmacist, image|
+].each do |name, pharmacy, email, password, position, prefectures, expert, image|
   User.create!(
-    { name: name, pharmacy: pharmacy, email: email, password: password, position: position, prefectures: prefectures, pharmacist: pharmacist, image: image})
+    { name: name, pharmacy: pharmacy, email: email, password: password, position: position, prefectures: prefectures, expert: expert, image: image})
 end
 
 diseases = [
@@ -115,10 +115,10 @@ licenses.each do |license|
   License.create!(name: license)
 end
 
-PharmacistDetail.create!(office_name: "株式会社migity", user_id: 1, )
-PharmacistDetail.create!(office_name: "佐々木病院", user_id: 6, )
-PharmacistDetail.create!(office_name: "岡田総合病院", user_id: 7, )
-PharmacistDetail.create!(office_name: "山本病院", user_id: 8, )
+ExpertDetail.create!(office_name: "株式会社migity", user_id: 1, )
+ExpertDetail.create!(office_name: "佐々木病院", user_id: 6, )
+ExpertDetail.create!(office_name: "岡田総合病院", user_id: 7, )
+ExpertDetail.create!(office_name: "山本病院", user_id: 8, )
 
 drugs = [
   "ベバシズマブ", "ラムシルマブ", "アフリベルセプト", "ネシツムマブ",

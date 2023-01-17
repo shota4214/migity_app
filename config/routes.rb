@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
   resources :users, only: %i[show index] do
     member do
-      get :specialty_pharmacist_show
+      get :expert_show
     end
   end
   resources :notes do

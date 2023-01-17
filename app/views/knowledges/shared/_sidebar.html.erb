@@ -67,7 +67,7 @@
     <ul class="list-group list-group-flush">
       <% @sidebar_profession_users.each.with_index(1) do |user, i| %>
         <li class="list-group-item">
-        <%= link_to specialty_pharmacist_show_user_path(user) do %>
+        <%= link_to expert_show_user_path(user) do %>
           <div class="row">
             <div class="col">
               <% if user.first.image? %>

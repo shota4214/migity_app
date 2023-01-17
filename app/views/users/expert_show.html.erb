@@ -9,8 +9,8 @@
             <div class="row no-gutters">
               <div class="col-md-2">
                 <div class="bd-placeholder">
-                    <% if @specialty_pharmacist.image? %>
-                      <%= image_tag @specialty_pharmacist.image.url, class: "rounded-circle mx-auto d-block", size: "80x80" %>
+                    <% if @expert.image? %>
+                      <%= image_tag @expert.image.url, class: "rounded-circle mx-auto d-block", size: "80x80" %>
                     <% else %>
                       <%= image_tag "no_image.png", class: "rounded-circle mx-auto d-block", size: "80x80" %>
                     <% end %>
@@ -19,19 +19,19 @@
               <div class="col-md-10">
                 <div class="row">
                   <div class="col">
-                    <p class="bottom-mgr-5"><strong><%= @specialty_pharmacist.name %><small> 先生</small></strong></p>
-                    <p class="bottom-mgr-5"><small>勤務地：</small><%= @specialty_pharmacist.pharmacy %></p>
+                    <p class="bottom-mgr-5"><strong><%= @expert.name %><small> 先生</small></strong></p>
+                    <p class="bottom-mgr-5"><small>勤務地：</small><%= @expert.pharmacy %></p>
                     <p class="bottom-mgr-5"><small>資　格：</small>
-                      <% if @specialty_pharmacist_licenses.present? %>
-                        <% @specialty_pharmacist_licenses.each do |license| %>
+                      <% if @expert_licenses.present? %>
+                        <% @expert_licenses.each do |license| %>
                           <%= license.name %>
                         <% end %>
                       <% end %>
                     </p>
-                    <p class="bottom-mgr-5"><small>その他資格：</small><%= @specialty_pharmacist_details.other_license %></p>
+                    <p class="bottom-mgr-5"><small>その他資格：</small><%= @expert_details.other_license %></p>
                     <p class="bottom-mgr-5"><small>得意分野：</small>
-                      <% @specialty_pharmacist_details.diseases.each do |specialty_disease| %>
-                        <%= specialty_disease.name %>
+                      <% @expert_details.diseases.each do |expert_disease| %>
+                        <%= expert_disease.name %>
                       <% end %>
                     </p>
                   </div>
@@ -40,7 +40,7 @@
                 <div class="row">
                   <div class="col">
                     <P class="bottom-mgr-5"><small>自己紹介：</small><br>
-                      <%= @specialty_pharmacist_details.introduction %>
+                      <%= @expert_details.introduction %>
                     </p>
                   </div>
                 </div>
