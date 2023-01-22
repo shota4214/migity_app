@@ -91,6 +91,5 @@
 
 <%= link_to new_note_path(id: @knowledge.id), 
 :onclick=>"window.open(this.href, 'ノート', 'height=400, width=800 top=100 left=400');return false;", class: "notebook-new_btn" do %>
-  <%= embedded_svg("notebook-new.svg") %>
   <%= embedded_svg("notebook-new_hover.svg") %>
 <% end %>
