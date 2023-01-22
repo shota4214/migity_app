@@ -1,21 +1,21 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_question, only: %i[create edit update choose_answer]
+  before_action :set_knowledge, only: %i[create edit update choose_answer]
 
   def create
-    @comment = @question.comments.build(comment_params)
+    @comment = @knowledge.comments.build(comment_params)
     @comment.user_id = current_user.id
     respond_to do |format|
       if @comment.save
         format.js { render :index }
       else
-        format.html { redirect_to question_path(@question), notice: 'コメントできませんでした' }
+        format.html { redirect_to knowledge_path(@knowledge), notice: 'コメントできませんでした' }
       end
     end
   end
 
   def edit
-    @comment = @question.comments.find(params[:id])
+    @comment = @knowledge.comments.find(params[:id])
     respond_to do |format|
       flash.now[:notice] = 'コメントの編集中'
       format.js { render :edit }
@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
   end
 
   def update
-    @comment = @question.comments.find(params[:id])
+    @comment = @knowledge.comments.find(params[:id])
     respond_to do |format|
       if @comment.update(comment_params)
         flash.now[:notice] = 'コメントが編集されました'
@@ -45,26 +45,26 @@ class CommentsController < ApplicationController
   end
 
   def choose_answer
-    @comment = @question.comments.find(params[:comment_id])
-    find_best_answer = Comment.find_by(question_id: @question.id, best_answer: true)
+    @comment = @knowledge.comments.find(params[:comment_id])
+    find_best_answer = Comment.find_by(knowledge_id: @knowledge.id, best_answer: true)
     if find_best_answer.nil?
       @comment.update(best_answer: true)
-      redirect_to question_path(@question), notice: "ベストアンサーにしました"
+      redirect_to knowledge_path(@knowledge), notice: "ベストアンサーにしました"
     elsif @comment.id == find_best_answer.id
       @comment.update(best_answer: false)
-      redirect_to question_path(@question), notice: "ベストアンサーを取り消しました"
+      redirect_to knowledge_path(@knowledge), notice: "ベストアンサーを取り消しました"
     else
-      redirect_to question_path(@question), notice: "ベストアンサーにできるのは1件のみです"
+      redirect_to knowledge_path(@knowledge), notice: "ベストアンサーにできるのは1件のみです"
     end
   end
 
   private
 
   def comment_params
-    params.require(:comment).permit(:content, :question_id, :best_answer)
+    params.require(:comment).permit(:content, :knowledge_id, :best_answer)
   end
 
-  def set_question
-    @question = Question.find(params[:question_id])
+  def set_knowledge
+    @knowledge = Knowledge.find(params[:knowledge_id])
   end
 end

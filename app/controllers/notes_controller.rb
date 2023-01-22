@@ -10,8 +10,8 @@ class NotesController < ApplicationController
 
   def new
     if params[:id]
-      question =  Question.find(params[:id])
-      @note = Note.new(title: question.title, content: question.content)
+      knowledge =  Knowledge.find(params[:id])
+      @note = Note.new(title: knowledge.title, content: knowledge.content)
     else
       @note = Note.new
     end

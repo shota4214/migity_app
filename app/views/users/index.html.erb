@@ -1,12 +1,12 @@
-<%= render "questions/shared/notice" %>
+<%= render "knowledges/shared/notice" %>
 
 <div class="container main-container">
   <div class="row">
     <div class="col-xs-8 col-lg-8">
       <h4 class="text-center">がん専門薬剤師一覧</h4>
-      <% @specialty_pharmacist_users.each do |user| %>
+      <% @expert_users.each do |user| %>
         <div class="card mb-3">
-          <%= link_to specialty_pharmacist_show_user_path(user.id), class: "card-body" do %>
+          <%= link_to expert_show_user_path(user.id), class: "card-body" do %>
             <div class="row">
               <div class="col-2 text-right">
                 <% if user.image? %>
@@ -25,7 +25,7 @@
                 <div class="row">
                   <div class="col">
                       <P>
-                        <% user.pharmacist_details.each do |detail|%>
+                        <% user.expert_details.each do |detail|%>
                           <% if detail.introduction.present? %>
                             <%= detail.introduction.truncate(120) %>
                           <% end %>
@@ -38,8 +38,8 @@
           <% end %>
         </div><br>
       <% end %>
-      <%= paginate @specialty_pharmacist_users %>
+      <%= paginate @expert_users %>
     </div>
-    <%= render "questions/shared/sidebar" %>
+    <%= render "knowledges/shared/sidebar" %>
   </div>
 </div>

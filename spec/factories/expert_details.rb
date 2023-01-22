@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :pharmacist_detail do
+  factory :expert_detail do
     office_name { "MyString" }
     license { "MyString" }
     speciality { "MyString" }

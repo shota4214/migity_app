@@ -1,4 +1,4 @@
-class PharmacistDetail < ApplicationRecord
+class ExpertDetail < ApplicationRecord
   belongs_to :user
   has_many :specialty_labellings, dependent: :destroy
   has_many :diseases, through: :specialty_labellings

@@ -2,7 +2,7 @@ ja:
   activerecord:
     models:
       user: ユーザー
-      question: Ｑ＆Ａ
+      knowledge: 知見
       favorite: クリップ
       disease: 病名
       comment: コメント
@@ -10,7 +10,7 @@ ja:
       note: ノート
       column: コラム
       rich_text: アクションテキスト
-      pharmacist_detail: 薬剤師詳細
+      expert_detail: 専門薬剤師詳細
       specialty_labelling: 得意分野と病名関連付け
       drug: 薬名
       side_effect: 支持療法
@@ -20,11 +20,11 @@ ja:
         pharmacy: 薬局名
         email: メールアドレス
         image: 写真
-        pharmacist: 専門薬剤師
+        expert: 専門薬剤師
         admin: サイト管理者
         position: 役職
         introduction: 自己紹介
-      question:
+      knowledge:
         title: タイトル
         content: 内容
         resolved: 解決済み
@@ -40,7 +40,7 @@ ja:
         name: 支持療法
       comment:
         content: コメント入力
-      pharmacist_detail: 
+      expert_detail: 
         office_name: 勤務先
         license: 保有資格
         other_license: その他資格

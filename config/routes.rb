@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
   resources :users, only: %i[show index] do
     member do
-      get :specialty_pharmacist_show
+      get :expert_show
     end
   end
   resources :notes do
@@ -19,7 +19,7 @@ Rails.application.routes.draw do
       get :search
     end
   end
-  resources :questions do
+  resources :knowledges do
     resources :comments do
       get :choose_answer
     end
@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       get :by_drug
       get :by_side_effect
       get :my
+      get :tag_index
     end
     member do
       get :change_resolved

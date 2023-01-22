@@ -1,10 +1,10 @@
 <div class="jumbotron jumbotron-fluid">
-  <%= render "questions/shared/menubar" %>
+  <%= render "knowledges/shared/menubar" %>
   <div class="container">
     <h3 class="lead text-center">がん治療に特化した</h3>
     <h1 class="text-center">エキスパートの知見検索サービス</h1>
     <div class="lead text-center">
-      <%= search_form_for @search, url: search_questions_path do |f| %>
+      <%= search_form_for @search, url: search_knowledges_path do |f| %>
         <%= f.search_field :title_or_content_body_cont, placeholder: "薬の名前 副作用" %>
         <%= f.submit '検索' %>
       <% end %>
@@ -12,10 +12,10 @@
     <br>
     <p class="lead text-center mgr-10">よく見られるキーワード
       <small>
-        <% @question_diseases_ranks.each.with_index(1) do |disease, i| %>
-          <%= link_to by_disease_questions_path(disease.id) do %>
+        <% @knowledge_diseases_ranks.each.with_index(1) do |disease, i| %>
+          <%= link_to by_disease_knowledges_path(disease.id) do %>
             <span class="btn btn-outline-secondary btn-sm disease-index-jumbotron-text">
-              <%= "#{disease.name}" %><%= "(#{disease.questions.count})" %>
+              <%= "#{disease.name}" %><%= "(#{disease.knowledges.count})" %>
             </span>
           <% end %>
           <% break if i == 3 %>

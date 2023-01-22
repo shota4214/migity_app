@@ -1,20 +1,20 @@
 <div class="container main-container">
-  <%= form_with(model: @question, local: true, url: choose_new_or_edit ) do |f| %>
+  <%= form_with(model: @knowledge, local: true, url: choose_new_or_edit ) do |f| %>
     <div class="row">
       <div class="col-md-8">
-          <% if request.path_info == new_question_path || request.path_info == confirm_questions_path %>
+          <% if request.path_info == new_knowledge_path || request.path_info == confirm_knowledges_path %>
             <h3 class="text-center">質問する</h3>
           <% else %>
             <h3 class="text-center">質問を編集する</h3>
-            <% if @question.draft? %>
+            <% if @knowledge.draft? %>
               <h2><%= "このQ＆Aは現在下書きのため非公開です" %></h2>
             <% end %>
           <% end %>
-          <% if @question.errors.any? %>
+          <% if @knowledge.errors.any? %>
             <div id="error_explanation">
-              <h2><%= @question.errors.count %>件のエラーがあります。</h2>
+              <h2><%= @knowledge.errors.count %>件のエラーがあります。</h2>
               <ul>
-              <% @question.errors.full_messages.each do |msg| %>
+              <% @knowledge.errors.full_messages.each do |msg| %>
                 <li><%= msg %></li>
               <% end %>
               </ul>

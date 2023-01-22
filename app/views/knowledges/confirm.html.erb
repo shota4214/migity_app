@@ -1,5 +1,5 @@
 <div class="container main-container">
-  <%= form_with(model: @question, local: true, url: questions_path ) do |f| %>
+  <%= form_with(model: @knowledge, local: true, url: knowledges_path ) do |f| %>
     <div class="row">
       <div class="col-md-8">
           <% if params[:draft] %>
@@ -11,7 +11,7 @@
           <%= f.label :title %>
           <%= f.hidden_field :title %>
           <div class="card">
-            <%= @question.title %>
+            <%= @knowledge.title %>
           </div>
         </div>
 
@@ -19,7 +19,7 @@
           <%= f.label :content %>
           <%= f.hidden_field :content %>
           <div class="card" style="height: 10rem;">
-            <%= @question.content %>
+            <%= @knowledge.content %>
           </div>
         </div><br>
 
@@ -37,7 +37,7 @@
           <%= f.label :disease %><br>
           <small>複数選択可能</small><br>
           <div class="card" style="height: 5rem;">
-            <% @question.diseases.each do |disease| %>
+            <% @knowledge.diseases.each do |disease| %>
               <%= disease.name %>
               <%= f.hidden_field :disease_ids, multiple: true, value: disease.id %>
             <% end %>
@@ -47,7 +47,7 @@
           <%= f.label :drug %><br>
           <small>複数選択可能</small><br>
           <div class="card" style="height: 5rem;">
-            <% @question.drugs.each do |drug| %>
+            <% @knowledge.drugs.each do |drug| %>
               <%= drug.name %>
               <%= f.hidden_field :drug_ids, multiple: true, value: drug.id %>
             <% end %>
@@ -57,7 +57,7 @@
           <%= f.label :side_effect %><br>
           <small>複数選択可能</small><br>
           <div class="card" style="height: 5rem;">
-            <% @question.side_effects.each do |side_effect| %>
+            <% @knowledge.side_effects.each do |side_effect| %>
               <%= side_effect.name %>
               <%= f.hidden_field :side_effect_ids, multiple: true, value: side_effect.id %>
             <% end %>

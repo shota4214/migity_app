@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_12_124516) do
+ActiveRecord::Schema.define(version: 2023_01_17_132613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,22 +57,22 @@ ActiveRecord::Schema.define(version: 2023_01_12_124516) do
 
   create_table "comments", force: :cascade do |t|
     t.string "content", null: false
-    t.bigint "question_id", null: false
+    t.bigint "knowledge_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "best_answer", default: false, null: false
-    t.index ["question_id"], name: "index_comments_on_question_id"
+    t.index ["knowledge_id"], name: "index_comments_on_knowledge_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "disease_labellings", force: :cascade do |t|
-    t.bigint "question_id", null: false
+    t.bigint "knowledge_id", null: false
     t.bigint "disease_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["disease_id"], name: "index_disease_labellings_on_disease_id"
-    t.index ["question_id"], name: "index_disease_labellings_on_question_id"
+    t.index ["knowledge_id"], name: "index_disease_labellings_on_knowledge_id"
   end
 
   create_table "diseases", force: :cascade do |t|
@@ -82,12 +82,12 @@ ActiveRecord::Schema.define(version: 2023_01_12_124516) do
   end
 
   create_table "drug_labellings", force: :cascade do |t|
-    t.bigint "question_id", null: false
+    t.bigint "knowledge_id", null: false
     t.bigint "drug_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["drug_id"], name: "index_drug_labellings_on_drug_id"
-    t.index ["question_id"], name: "index_drug_labellings_on_question_id"
+    t.index ["knowledge_id"], name: "index_drug_labellings_on_knowledge_id"
   end
 
   create_table "drugs", force: :cascade do |t|
@@ -96,12 +96,22 @@ ActiveRecord::Schema.define(version: 2023_01_12_124516) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "favorites", force: :cascade do |t|
-    t.bigint "question_id", null: false
+  create_table "expert_details", force: :cascade do |t|
+    t.string "office_name", null: false
+    t.string "other_license", default: "", null: false
+    t.text "introduction", default: "", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["question_id"], name: "index_favorites_on_question_id"
+    t.index ["user_id"], name: "index_expert_details_on_user_id"
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.bigint "knowledge_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["knowledge_id"], name: "index_favorites_on_knowledge_id"
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
@@ -131,13 +141,24 @@ ActiveRecord::Schema.define(version: 2023_01_12_124516) do
     t.index ["user_id"], name: "index_impressions_on_user_id"
   end
 
-  create_table "license_labellings", force: :cascade do |t|
-    t.bigint "license_id", null: false
-    t.bigint "pharmacist_detail_id", null: false
+  create_table "knowledges", force: :cascade do |t|
+    t.string "title", null: false
+    t.boolean "resolved", default: false, null: false
+    t.boolean "draft", default: false, null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "impressions_count", default: 0
+    t.index ["user_id"], name: "index_knowledges_on_user_id"
+  end
+
+  create_table "license_labellings", force: :cascade do |t|
+    t.bigint "license_id", null: false
+    t.bigint "expert_detail_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["expert_detail_id"], name: "index_license_labellings_on_expert_detail_id"
     t.index ["license_id"], name: "index_license_labellings_on_license_id"
-    t.index ["pharmacist_detail_id"], name: "index_license_labellings_on_pharmacist_detail_id"
   end
 
   create_table "licenses", force: :cascade do |t|
@@ -154,33 +175,12 @@ ActiveRecord::Schema.define(version: 2023_01_12_124516) do
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
-  create_table "pharmacist_details", force: :cascade do |t|
-    t.string "office_name", null: false
-    t.string "other_license"
-    t.text "introduction"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_pharmacist_details_on_user_id"
-  end
-
-  create_table "questions", force: :cascade do |t|
-    t.string "title", null: false
-    t.boolean "resolved", default: false, null: false
-    t.boolean "draft", default: false, null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "impressions_count", default: 0
-    t.index ["user_id"], name: "index_questions_on_user_id"
-  end
-
   create_table "side_effect_labellings", force: :cascade do |t|
-    t.bigint "question_id", null: false
+    t.bigint "knowledge_id", null: false
     t.bigint "side_effect_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["question_id"], name: "index_side_effect_labellings_on_question_id"
+    t.index ["knowledge_id"], name: "index_side_effect_labellings_on_knowledge_id"
     t.index ["side_effect_id"], name: "index_side_effect_labellings_on_side_effect_id"
   end
 
@@ -192,18 +192,18 @@ ActiveRecord::Schema.define(version: 2023_01_12_124516) do
 
   create_table "specialty_labellings", force: :cascade do |t|
     t.bigint "disease_id", null: false
-    t.bigint "pharmacist_detail_id", null: false
+    t.bigint "expert_detail_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["disease_id"], name: "index_specialty_labellings_on_disease_id"
-    t.index ["pharmacist_detail_id"], name: "index_specialty_labellings_on_pharmacist_detail_id"
+    t.index ["expert_detail_id"], name: "index_specialty_labellings_on_expert_detail_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "pharmacy", null: false
     t.text "image"
-    t.boolean "pharmacist", default: false, null: false
+    t.boolean "expert", default: false, null: false
     t.boolean "admin", default: false, null: false
     t.string "position"
     t.string "email", default: "", null: false
@@ -226,21 +226,21 @@ ActiveRecord::Schema.define(version: 2023_01_12_124516) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "columns", "users"
-  add_foreign_key "comments", "questions"
+  add_foreign_key "comments", "knowledges"
   add_foreign_key "comments", "users"
   add_foreign_key "disease_labellings", "diseases"
-  add_foreign_key "disease_labellings", "questions"
+  add_foreign_key "disease_labellings", "knowledges"
   add_foreign_key "drug_labellings", "drugs"
-  add_foreign_key "drug_labellings", "questions"
-  add_foreign_key "favorites", "questions"
+  add_foreign_key "drug_labellings", "knowledges"
+  add_foreign_key "expert_details", "users"
+  add_foreign_key "favorites", "knowledges"
   add_foreign_key "favorites", "users"
+  add_foreign_key "knowledges", "users"
+  add_foreign_key "license_labellings", "expert_details"
   add_foreign_key "license_labellings", "licenses"
-  add_foreign_key "license_labellings", "pharmacist_details"
   add_foreign_key "notes", "users"
-  add_foreign_key "pharmacist_details", "users"
-  add_foreign_key "questions", "users"
-  add_foreign_key "side_effect_labellings", "questions"
+  add_foreign_key "side_effect_labellings", "knowledges"
   add_foreign_key "side_effect_labellings", "side_effects"
   add_foreign_key "specialty_labellings", "diseases"
-  add_foreign_key "specialty_labellings", "pharmacist_details"
+  add_foreign_key "specialty_labellings", "expert_details"
 end

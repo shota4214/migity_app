@@ -13,15 +13,15 @@
       <p class="user-email"><i class="fa fa-solid fa-envelope"></i><%= @user.email %></p>
       <p class="idd1"><i class="fa fa-solid fa-hospital"></i><%= @user.pharmacy %></p>
       <div class="d-flex flex-row justify-content-center align-items-center mt-3">
-        <% if @user.pharmacist? %>
+        <% if @user.expert? %>
           <p><i class="fa fa-solid fa-file-powerpoint"></i><%= @user.position %></p>
         <% end %>
       </div>
       <% if user_signed_in? && @user.id == current_user.id %>
         <div class=" d-flex mt-2">
-          <%= link_to "質問", my_questions_path, class: "btn btn-primary mgr-10" %>
+          <%= link_to "質問", my_knowledges_path, class: "btn btn-primary mgr-10" %>
           <%= link_to "クリップ一覧", favorites_path(@user), class: "btn btn-primary mgr-10" %>
-          <%= link_to "いいね", questions_path(@user), class: "btn btn-primary mgr-10" %>
+          <%= link_to "いいね", knowledges_path(@user), class: "btn btn-primary mgr-10" %>
           <%= link_to "学習ノート", notes_path(@user), class: "btn btn-primary mgr-10" %>
         </div>
       <% end %>

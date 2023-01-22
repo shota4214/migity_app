@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   end
   
   def set_search
-    @search = Question.where(draft: false).ransack(params[:q])
+    @search = Knowledge.where(draft: false).ransack(params[:q])
   end
 
   protected

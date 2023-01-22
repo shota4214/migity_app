@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :specialty_labelling do
     disease { nil }
-    pharmacist_detail { nil }
+    expert_detail { nil }
   end
 end

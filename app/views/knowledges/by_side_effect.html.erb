@@ -1,0 +1,62 @@
+<%= render "knowledges/shared/notice" %>
+
+<div class="container main-container">
+  <div class="row">
+    <div class="col-xs-8 col-lg-8">
+      <h3 class="text-center"><%= @side_effect.name %>タグ一覧</h3>
+
+      <% @knowledges_by_side_effect.each do |knowledge| %>
+        <div class="card mb-3 knowledge-card">
+          <div class="row no-gutters">
+            <div class="col-md-2">
+              <div class="bd-placeholder">
+                <br>
+                <% if knowledge.resolved %>
+                  <p class="resolved-true text-center bottom-mgr-5"><%= resolved_text(knowledge) %></p>
+                <% else %>
+                  <p class="resolved-false text-center bottom-mgr-5"><%= resolved_text(knowledge) %></p>
+                <% end %>
+                <p class="text-center bottom-mgr-5">回答数 <strong><%= comment_count(knowledge) %></strong></p>
+                <p class="text-center bottom-mgr-5">クリップ数 <strong><%= knowledge.favorites.count %></strong></p>
+              </div>
+            </div>
+            <div class="col-md-10">
+              <%= link_to knowledge_path(knowledge.id), class: "card-body knowledge-index" do %>
+                <h5 class="card-title"><%= knowledge.title %></h5>
+                <p class="card-text"><%= strip_tags(knowledge.content.to_s).gsub(/[\n]/,"").strip %></p>
+              <% end %>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="row">
+              <div class="d-grid gap-4 col-7 mx-auto">
+                <small class="text-muted">
+                  <% knowledge.side_effects.each do |side_effect| %>
+                    <span class="mgr-10 bottom-mgr-5 btn btn-outline-secondary btn-sm knowledge-index-disease"><%= side_effect.name %></span>
+                  <% end %>
+                  </small>
+              </div>
+              <div class="d-grid gap-4 col mx-auto text-right">
+                <small class="text-muted">
+                  <%= link_to user_path(knowledge.user), class: "knowledge-user-name" do %>
+                    <% if knowledge.user.image? %>
+                      <%= image_tag knowledge.user.image.url, class: "rounded-circle", size: "20x20" %>
+                    <% else %>
+                      <%= image_tag "no_image.png", class: "rounded-circle", size: "20x20" %>
+                    <% end %>
+                    <%= "#{knowledge.user.name}" %>
+                  <% end %>
+                </small>
+              </div>
+              <div class="d-grid gap-4 col mx-auto text-center">
+                <small class="text-muted"><%= knowledge.created_at.strftime('%Y年%m月%d日') %></small>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <%= paginate @knowledges_by_side_effect %>
+    </div>
+    <%= render "knowledges/shared/sidebar" %>
+  </div>
+</div>

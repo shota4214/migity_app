@@ -1,4 +1,4 @@
 class SideEffectLabelling < ApplicationRecord
-  belongs_to :question
+  belongs_to :knowledge
   belongs_to :side_effect
 end
