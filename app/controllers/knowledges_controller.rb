@@ -24,12 +24,12 @@ class KnowledgesController < ApplicationController
       render :new
     elsif params[:draft]
       if @knowledge.update(draft: true)
-      redirect_to root_path, notice: "Q&Aを下書き保存しました"
+      redirect_to knowledges_path, notice: "Q&Aを下書き保存しました"
       else
         render :new
       end
     elsif @knowledge.save
-      redirect_to root_path, notice: "Q&Aを投稿しました"
+      redirect_to knowledges_path, notice: "Q&Aを投稿しました"
     else
       render :new
     end
