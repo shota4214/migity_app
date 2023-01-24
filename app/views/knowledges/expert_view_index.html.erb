@@ -1,4 +1,3 @@
-<%= render "knowledges/shared/jumbotron" %>
 <%= render "knowledges/shared/notice" %>
 
 <div class="container main-container">
@@ -7,7 +6,14 @@
       <div class="container">
         <div class="row">
           <div class="col-md-6">
-            <h3>知見一覧</h3>
+            <h3>質問投稿一覧</h3>
+          </div>
+          <div class="col-md-6 text-right">
+            <span>
+              <%= link_to "すべて", expert_view_index_knowledges_path, class: "btn btn-outline-secondary" %>
+              <%= link_to "解決済み", expert_view_index_knowledges_path(resolved: true), class: "btn btn-outline-secondary" %>
+              <%= link_to "回答受付中", expert_view_index_knowledges_path(unresolved: true), class: "btn btn-outline-secondary" %>
+            </span>
           </div>
         </div>
       </div>
@@ -18,14 +24,18 @@
             <div class="col-md-2">
               <div class="bd-placeholder">
                 <br>
-                <p class="text-center bottom-mgr-5"><small>回答数 <%= comment_count(knowledge) %></small></p>
-                <p class="text-center bottom-mgr-5"><small>保存数 <%= knowledge.favorites.count %></small></p>
-                <p class="text-center bottom-mgr-5"><small>閲覧数 <%= knowledge.impressions_count %></small></p>
+                <% if knowledge.resolved %>
+                  <p class="resolved-true text-center bottom-mgr-5"><small><%= resolved_text(knowledge) %></small></p>
+                <% else %>
+                  <p class="resolved-false text-center bottom-mgr-5"><small><%= resolved_text(knowledge) %></small></p>
+                <% end %>
+                <p class="text-center bottom-mgr-5"><small>回答数<%= comment_count(knowledge) %></small></p>
+                <p class="text-center bottom-mgr-5"><small>保存数<%= knowledge.favorites.count %></small></p>
               </div>
             </div>
             <div class="col-md-10">
               <%= link_to knowledge_path(knowledge.id), class: "card-body knowledge-index" do %>
-                <h4 class="card-title"><strong><%= knowledge.title %></strong></h4>
+                <h5 class="card-title"><%= knowledge.title %></h5>
                 <p class="card-text"><%= strip_tags(knowledge.content.to_s).gsub(/[\n]/,"").strip %></p>
               <% end %>
             </div>
