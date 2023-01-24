@@ -32,18 +32,12 @@
                 </small>
               </div>
               <div class="col-2 text-right">
-                <strong>閲覧数<%= @knowledge.impressions_count %></strong>
+                <small>閲覧数<%= @knowledge.impressions_count %></small>
               </div>
               <div class="col-3 text-center">
-                <% if user_signed_in? %>
-                  <% if @knowledge.user_id == current_user.id %>
-                    <strong>クリップ数<%= @knowledge.favorites.count %></strong>
-                  <% else %>
-                    <div class="favorite-link" id="favorite-link-<%= @knowledge.id %>">
-                      <%= render partial: 'favorites/favorite', locals: { knowledge: @knowledge } %>
-                    </div>
-                  <% end %>
-                <% end %>
+                <div class="favorite-link" id="favorite-link-<%= @knowledge.id %>">
+                  <%= render partial: 'favorites/favorite', locals: { knowledge: @knowledge } %>
+                </div>
               </div>
             </div>
           </div>
@@ -73,15 +67,12 @@
         </div>
       </div>
       <div class="card mb-3 border border-0">
-        <p>閲覧数<%= @knowledge.impressions_count %></p>
-          <%= render "knowledges/shared/best_answer" %>
+        <%= render "knowledges/shared/best_answer" %>
         <div id="comments_area">
           <%= render partial: 'comments/index', locals: { comments: @comments, knowledge: @knowledge } %>
         </div>
-        <% if user_signed_in? %>
+        <% if current_user.expert? %>
           <%= render partial: 'comments/form', locals: { comment: @comment, knowledge: @knowledge } %>
-        <% else %>
-          <p>※コメントは登録後投稿できます</p>
         <% end %>
       </div>
     </div>

@@ -1,13 +1,13 @@
 class KnowledgesController < ApplicationController
-  before_action :authenticate_user!, only: %i[new create edit update destroy]
+  before_action :authenticate_user!, only: %i[new create edit update destroy show]
   before_action :set_knowledge, only: %i[show edit update destroy change_resolved]
-  before_action :other_than_drafts, only: %i[index search my]
+  before_action :other_than_drafts, only: %i[index search my expert_view_index]
   before_action :diseases, only: %i[new edit create confirm]
   before_action :drugs, only: %i[new edit create confirm]
   before_action :side_effects, only: %i[new edit create confirm]
-  before_action :knowledge_tag_ranks, only: %i[index show by_disease by_drug by_side_effect search my]
+  before_action :knowledge_tag_ranks, only: %i[index show by_disease by_drug by_side_effect search my expert_view_index]
   before_action :half_width_to_full_width, only: %i[update confirm]
-  before_action :sidebar_profession_users, only: %i[index show by_disease by_drug by_side_effect search my tag_index]
+  before_action :sidebar_profession_users, only: %i[index show by_disease by_drug by_side_effect search my tag_index expert_view_index]
 
   def index
     @knowledges = @knowledges.where(resolved: true).order("created_at DESC").page(params[:page]).per(5) if params[:resolved]
@@ -125,6 +125,15 @@ class KnowledgesController < ApplicationController
     @all_disease_tags = Disease.all
     @all_drug_tags = Drug.all
     @all_side_effect_tags = SideEffect.all
+  end
+
+  def expert_view_index
+    if current_user.expert?
+      @knowledges = @knowledges.where(resolved: true).order("created_at DESC").page(params[:page]).per(5) if params[:resolved]
+      @knowledges = @knowledges.where(resolved: false).order("created_at DESC").page(params[:page]).per(5) if params[:unresolved]
+    else
+      render :index
+    end
   end
 
   private

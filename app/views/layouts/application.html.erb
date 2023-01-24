@@ -43,8 +43,11 @@
                       <%= image_tag "no_image.png", class: "rounded-circle mgr-20", size: "40x40" %>
                     <% end %>
                     <div class="dropdown-menu dropdown-menu-right">
-                      <%= link_to user_path(current_user.id), class: "dropdown-item" do %><%= embedded_svg("account.svg") %>マイページ<% end %>
+                      <%= link_to my_knowledges_path(current_user.id), class: "dropdown-item" do %><%= embedded_svg("account.svg") %>マイページ<% end %>
                       <%= link_to edit_user_registration_path(current_user.id), class: "dropdown-item" do %><%= embedded_svg("edit.svg") %>プロフィール<% end %>
+                      <% if current_user.expert? %>
+                        <%= link_to expert_view_index_knowledges_path(current_user.id), class: "dropdown-item" do %><%= embedded_svg("knowledge-answer.svg") %>質問投稿一覧<% end %>
+                      <% end %>
                       <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %><%= embedded_svg("logout.svg") %>ログアウト<% end %>
                     </div>
                   </a>

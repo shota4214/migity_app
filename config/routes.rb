@@ -31,6 +31,7 @@ Rails.application.routes.draw do
       get :by_side_effect
       get :my
       get :tag_index
+      get :expert_view_index
     end
     member do
       get :change_resolved
