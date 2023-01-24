@@ -3,14 +3,14 @@
   <% unless @knowledge.user_id == current_user.id %>
     <% if current_user.favorites.find_by(knowledge_id: @knowledge.id) %>
       <%= link_to favorite_path(@knowledge.id, current_user.favorites.find_by(knowledge_id: @knowledge.id)), method: :delete, remote: true do %>
-        <span class="clip-text"><%= embedded_svg("clip.svg") %>クリップ解除</span>
+        <span class="clip-text"><small><%= embedded_svg("clip.svg") %>保存解除</small></span>
       <% end %>
       <%= @knowledge.favorites.count %>
     <% else %>
       <%= link_to favorites_path(knowledge_id: @knowledge.id), method: :post, remote: true do %>
-        <span class="clip-text"><%= embedded_svg("clip.svg") %>クリップ</span>
+        <span class="clip-text"><small><%= embedded_svg("clip.svg") %>保存</small></span>
       <% end %>
-      <%= @knowledge.favorites.count %>
+      <small><%= @knowledge.favorites.count %></small>
     <% end %>
   <% end %>
 <% end %>

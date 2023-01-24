@@ -1,5 +1,5 @@
 class KnowledgesController < ApplicationController
-  before_action :authenticate_user!, only: %i[new create edit update destroy]
+  before_action :authenticate_user!, only: %i[new create edit update destroy show]
   before_action :set_knowledge, only: %i[show edit update destroy change_resolved]
   before_action :other_than_drafts, only: %i[index search my expert_view_index]
   before_action :diseases, only: %i[new edit create confirm]
