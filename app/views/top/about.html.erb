@@ -5,14 +5,10 @@
     <h3>主な使い方</h3>
   </div>
   <div class="d-flex justify-content-center">
-    <div class="image_search m-3">
-    </div>
-    <div class="image_knowledge m-3">
-    </div>
-    <div class="image_take_notes m-3">
-    </div>
-  </div>
-  <div class="d-flex justify-content-center">
-    <%= link_to "知見検索はこちらから", knowledges_path, class: "btn btn-link" %>
-  </div>
+  <%= link_to(knowledges_path, class: 'image_search m-3') do %>
+  <% end %>
+  <%= link_to(new_knowledge_path, class: 'image_knowledge m-3') do %>
+  <% end %>
+  <%= link_to(new_note_path, class: 'image_take_notes m-3') do %>
+  <% end %>
 </main>
