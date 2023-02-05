@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_category, only: %i[show edit update destroy]
+  before_action :different_login_and_category_users, only: %i[show edit]
 
   def index
     @categories = current_user.categories
@@ -45,6 +46,14 @@ class CategoriesController < ApplicationController
   end
 
   def set_category
-    @category = Category.find(params[:id])
+    if Category.exists?(id: params[:id])
+      @category = Category.find(params[:id])
+    else
+      redirect_to categories_path
+    end
+  end
+
+  def different_login_and_category_users
+    redirect_to categories_path unless current_user.id == @category.user_id
   end
 end

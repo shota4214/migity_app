@@ -1,0 +1,21 @@
+<div class="container">
+  <% @results.each do |results| %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <div class="row h-100">
+          <div class="col-10">
+            <div class="card-title text-truncate">
+              <%= link_to results.title, note_path(results.id) %>
+            </div>
+            <div class="card-text text bg-light">
+              <%= link_to results.content, note_path(results.id) %>
+            </div>
+          </div>
+          <div class="col-2 d-flex align-items-center justify-content-center">
+            <%= link_to "編集", edit_note_path(results.id), class: "btn btn-outline-dark" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
