@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :favorite_knowledges, through: :favorites, source: :knowledge
   has_many :comments, dependent: :destroy
   has_many :notes, dependent: :destroy
+  has_many :categories, dependent: :destroy
   has_many :expert_details, dependent: :destroy
   accepts_nested_attributes_for :expert_details, allow_destroy: true
 

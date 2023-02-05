@@ -37,4 +37,5 @@ Rails.application.routes.draw do
     end
   end
   resources :favorites, only: %i[create destroy index]
+  resources :categories
 end

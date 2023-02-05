@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_17_132613) do
+ActiveRecord::Schema.define(version: 2023_01_30_162526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,14 @@ ActiveRecord::Schema.define(version: 2023_01_17_132613) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_categories_on_user_id"
   end
 
   create_table "columns", force: :cascade do |t|
@@ -98,8 +106,8 @@ ActiveRecord::Schema.define(version: 2023_01_17_132613) do
 
   create_table "expert_details", force: :cascade do |t|
     t.string "office_name", null: false
-    t.string "other_license"
-    t.text "introduction"
+    t.string "other_license", default: "", null: false
+    t.text "introduction", default: "", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -225,6 +233,7 @@ ActiveRecord::Schema.define(version: 2023_01_17_132613) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "categories", "users"
   add_foreign_key "columns", "users"
   add_foreign_key "comments", "knowledges"
   add_foreign_key "comments", "users"
