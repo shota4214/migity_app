@@ -50,6 +50,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_in_path_for(resource)
+    category_samples = ["口内炎", "悪心嘔吐", "過敏症", "インフュージョンリアクション", "アナフィキシー"]
+    category_samples.each do |category|
+      Category.create(name: category, user_id: current_user.id)
+    end
     top_about_path
   end
 

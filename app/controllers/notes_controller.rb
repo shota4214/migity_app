@@ -6,6 +6,7 @@ class NotesController < ApplicationController
   
   def index
     @q = @notes.ransack(params[:q])
+    @categories = current_user.categories
   end
 
   def new
@@ -20,7 +21,7 @@ class NotesController < ApplicationController
   def create
     @note = current_user.notes.new(note_params)
     if @note.save
-      redirect_to notes_path, notice:  "ノートを保存しました"
+      redirect_to notes_path, notice: "ノートを保存しました"
     else
       render :new
     end

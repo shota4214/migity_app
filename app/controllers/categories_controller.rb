@@ -13,7 +13,7 @@ class CategoriesController < ApplicationController
   def create
     @category = current_user.categories.new(category_params)
     if @category.save
-      redirect_to categories_path, notice: "カテゴリーを作成しました"
+      redirect_to notes_path, notice: "カテゴリーを作成しました"
     else
       render :new
     end
@@ -27,7 +27,7 @@ class CategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
-      redirect_to category_path, notice: "カテゴリーを変更しました"
+      redirect_to categories_path, notice: "カテゴリーを変更しました"
     else
       render :edit
     end
