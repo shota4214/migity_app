@@ -9,25 +9,47 @@
       </ul>
     </div>
   <% end %>
-  
-  <div class="container">
-    <div class="row d-flex justify-content-center">
-      <div class="col-8">
-        <div class="card mb-3 border border-0">
-          <div class="card-body">
-            <div class="card-title">
-              <%= f.text_field :title, placeholder: 'タイトルを入力', class: 'form-control bg-light' %>
+
+  <div class="row">
+    <div class="container col-3 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">カテゴリーを選ぶ</h5>
+          <div class="card-text">
+            <% current_user.categories.each do |category| %>
+              <p>
+                <% if action_name == "new" %>
+                  <%= f.check_box :category_ids, {multiple: true, checked: category[:checked], disabled: category[:disabled], include_hidden: false}, category[:id] %>
+                <% elsif action_name == "edit" %>
+                  <%= f.check_box :category_ids, {multiple: true, checked: @note.category_ids.include?(category.id), disabled: category[:disabled], include_hidden: false}, category[:id] %>
+                <% end %>
+                <%= category.name %>
+              </p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container col-8">
+      <div class="row d-flex justify-content-center">
+        <div class="col-12">
+          <div class="card mb-3 border border-0">
+            <div class="card-body">
+              <div class="card-title">
+                <%= f.text_field :title, placeholder: 'タイトルを入力', class: 'form-control bg-light' %>
+              </div>
+              <div class="card-text mb-2">
+                <%= f.rich_text_area :content, placeholder: '記事の内容を入力', class: 'form-control bg-light' %>
+              </div>
+              <div class="text-center">
+                <% if action_name == "edit" %>
+                  <%= link_to "削除する", note_path(@note.id), method: :delete, data: { confirm: "本当に削除してもいいですか？" } , class: "btn btn-outline-secondary"%>
+                <% end %>
+                <%= f.submit '保存する', class: "btn btn-outline-primary" %>
+              </div>
+              <p><%= link_to "学習ノート一覧に戻る", notes_path %></p>
             </div>
-            <div class="card-text mb-2">
-              <%= f.rich_text_area :content, placeholder: '記事の内容を入力', class: 'form-control bg-light' %>
-            </div>
-            <div class="text-center">
-              <% if action_name == "edit" %>
-                <%= link_to "削除する", note_path(@note.id), method: :delete, data: { confirm: "本当に削除してもいいですか？" } , class: "btn btn-outline-secondary"%>
-              <% end %>
-              <%= f.submit '保存する', class: "btn btn-outline-primary" %>
-            </div>
-            <p><%= link_to "学習ノート一覧に戻る", notes_path %></p>
           </div>
         </div>
       </div>

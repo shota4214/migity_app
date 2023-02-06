@@ -1,0 +1,15 @@
+<%= form_with(model: @category, local: true) do |f| %>
+  <%if @category.errors.any? %>
+    <div id="error_explanation">
+    <h2><%= @category.errors.count %>件エラーがあります。</h2>
+    <ul>
+      <% @category.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+    </div>
+  <% end %>
+
+  <%= f.text_field :name, placeholder: 'カテゴリー名を入力' %>
+  <%= f.submit %>
+<% end %>

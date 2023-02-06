@@ -18,6 +18,9 @@ Rails.application.routes.draw do
     collection do
       get :search
     end
+    member do
+      get :category_search
+    end
   end
   resources :knowledges do
     resources :comments do
@@ -38,4 +41,5 @@ Rails.application.routes.draw do
     end
   end
   resources :favorites, only: %i[create destroy index]
+  resources :categories
 end
