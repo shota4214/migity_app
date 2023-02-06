@@ -73,6 +73,7 @@ class KnowledgesController < ApplicationController
   end
 
   def confirm
+    # findings_have_labels(knowledge_params[:disease_ids], knowledge_params[:drug_ids], knowledge_params[:side_effect_ids])
     @knowledge = current_user.knowledges.build(@new_knowledge_params)
     render :new if @knowledge.invalid?
   end

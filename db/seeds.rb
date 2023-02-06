@@ -13,7 +13,7 @@ User.create!(name: "みぎたか", pharmacy: "migity", email: "migitaka@test.com
 end
 
 diseases = [
-  "大腸癌", "肺がん", "肺癌", "乳癌"
+  "大腸癌", "肺がん", "肺癌", "乳癌", "肝臓がん"
 ]
 diseases.each do |disease|
   Disease.create!(name: disease)

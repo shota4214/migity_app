@@ -1,6 +1,7 @@
 class Knowledge < ApplicationRecord
-  belongs_to :user
   validates :title, presence: true
+  validates :disease_ids, presence: { message: "ラベルは１つ必ず選んでください"}, if: :selected_label?
+  belongs_to :user
   has_rich_text :content
   is_impressionable counter_cache: true
   has_one :content, class_name: 'ActionText::RichText', as: :record
@@ -13,4 +14,9 @@ class Knowledge < ApplicationRecord
   has_many :drugs, through: :drug_labellings
   has_many :side_effect_labellings, dependent: :destroy
   has_many :side_effects, through: :side_effect_labellings
+
+  def selected_label?
+    drug_ids.empty? && side_effect_ids.empty?
+  end
+
 end
