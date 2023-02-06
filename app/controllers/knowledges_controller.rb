@@ -10,8 +10,7 @@ class KnowledgesController < ApplicationController
   before_action :sidebar_profession_users, only: %i[index show by_disease by_drug by_side_effect search my tag_index expert_view_index]
 
   def index
-    @knowledges = @knowledges.where(resolved: true).order("created_at DESC").page(params[:page]).per(5) if params[:resolved]
-    @knowledges = @knowledges.where(resolved: false).order("created_at DESC").page(params[:page]).per(5) if params[:unresolved]
+    @knowledges = @knowledges.joins(:comments).where(comments: {best_answer: true})
   end
 
   def new
@@ -24,12 +23,12 @@ class KnowledgesController < ApplicationController
       render :new
     elsif params[:draft]
       if @knowledge.update(draft: true)
-      redirect_to knowledges_path, notice: "Q&Aを下書き保存しました"
+      redirect_to knowledges_path, notice: "質問を下書き保存しました"
       else
         render :new
       end
     elsif @knowledge.save
-      redirect_to knowledges_path, notice: "Q&Aを投稿しました"
+      redirect_to knowledges_path, notice: "質問を投稿しました"
     else
       render :new
     end
@@ -53,14 +52,14 @@ class KnowledgesController < ApplicationController
     if params[:draft]
       @knowledge.update(draft: true)
       if @knowledge.update(@new_knowledge_params)
-        redirect_to root_path, notice: "Q&Aを編集し下書き保存しました"
+        redirect_to root_path, notice: "質問を編集し下書き保存しました"
       else
         render :edit
       end
     else
       @knowledge.update(draft: false)
       if @knowledge.update(@new_knowledge_params)
-        redirect_to root_path, notice: "Q&Aを編集しました"
+        redirect_to root_path, notice: "質問を編集しました"
       else
         render :edit
       end
@@ -69,7 +68,7 @@ class KnowledgesController < ApplicationController
 
   def destroy
     @knowledge.destroy
-    redirect_to root_path, notice: "Q&Aを削除しました"
+    redirect_to root_path, notice: "質問を削除しました"
   end
 
   def confirm
@@ -80,10 +79,10 @@ class KnowledgesController < ApplicationController
   def change_resolved
     if @knowledge.resolved
       @knowledge.update(resolved: false)
-      redirect_to knowledge_path(@knowledge), notice: "Q&Aを回答受付中に変更しました"
+      redirect_to knowledge_path(@knowledge), notice: "質問を回答受付中に変更しました"
     else
       @knowledge.update(resolved: true)
-      redirect_to knowledge_path(@knowledge), notice: "Q&Aを解決済みに変更しました"
+      redirect_to knowledge_path(@knowledge), notice: "質問を解決済みに変更しました"
     end
   end
 

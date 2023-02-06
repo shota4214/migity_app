@@ -32,6 +32,7 @@ ja:
         disease: 疾患名
         drug: 薬の名前
         side_effect: 支持療法
+        disease_ids: 疾患名・薬の名前・支持療法
       disease:
         name: 病名
       drug:
