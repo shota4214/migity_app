@@ -11,8 +11,8 @@
           <%= link_to "解決済みにする", change_resolved_knowledge_path(@knowledge.id), class: "btn btn-primary" %>
         <% end %>
       <% end %>
-      <div class="card mb-3 border border-0">
-        <div class="card-header border border-0">
+      <div class="card mb-3">
+        <div class="card-header">
           <div class="container">
             <div class="row">
               <div class="col-2">
@@ -46,7 +46,8 @@
           <h5 class="card-title"><%= @knowledge.title %></h5>
           <p class="card-text"><%= strip_tags(@knowledge.content.to_s).gsub(/[\n]/,"").strip %></p>
         </div>
-        <div class="card-footer border border-0">
+
+        <div class="card-footer">
           <div class="row">
             <div class="d-grid gap-4 col mx-auto text-right">
               <small class="text-muted">
@@ -66,15 +67,13 @@
           </div>
         </div>
       </div>
-      <div class="card mb-3 border border-0">
-        <%= render "knowledges/shared/best_answer" %>
-        <div id="comments_area">
-          <%= render partial: 'comments/index', locals: { comments: @comments, knowledge: @knowledge } %>
-        </div>
-        <% if current_user.expert? %>
-          <%= render partial: 'comments/form', locals: { comment: @comment, knowledge: @knowledge } %>
-        <% end %>
+      <%= render "knowledges/shared/best_answer" %>
+      <div id="comments_area">
+        <%= render partial: 'comments/index', locals: { comments: @comments, knowledge: @knowledge } %>
       </div>
+      <% if current_user.expert? %>
+        <%= render partial: 'comments/form', locals: { comment: @comment, knowledge: @knowledge } %>
+      <% end %>
     </div>
     <%= render "knowledges/shared/sidebar" %>
   </div>

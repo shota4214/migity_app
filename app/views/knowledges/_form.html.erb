@@ -2,7 +2,7 @@
   <%= form_with(model: @knowledge, local: true, url: choose_new_or_edit ) do |f| %>
     <div class="row">
       <div class="col-md-8">
-          <% if request.path_info == new_knowledge_path || request.path_info == confirm_knowledges_path %>
+          <% if request.path_info == new_knowledge_path || request.path_info == confirm_knowledges_path || request.path_info == knowledges_path %>
             <h3 class="text-center">質問する</h3>
           <% else %>
             <h3 class="text-center">質問を編集する</h3>
@@ -40,21 +40,21 @@
           <%= f.label :disease %><br>
           <small>複数選択可能</small><br>
           <small>(windowsはctrl,Macはcommand押しながら選択)</small>
-          <%= f.collection_select(:disease_ids, @diseases, :id, :name, { include_blank: "-該当なし-", prompt: false}, { multiple: true, class: "form-control" }) %>
+          <%= f.collection_select(:disease_ids, @diseases, :id, :name, { prompt: false}, { multiple: true, class: "form-control" }) %>
         </div>
 
         <div class="form-group">
           <%= f.label :drug %><br>
           <small>複数選択可能</small><br>
           <small>(windowsはctrl,Macはcommand押しながら選択)</small>
-          <%= f.collection_select(:drug_ids, @drugs, :id, :name, { include_blank: "-該当なし-", prompt: false}, { multiple: true, class: "form-control" }) %>
+          <%= f.collection_select(:drug_ids, @drugs, :id, :name, { prompt: false}, { multiple: true, class: "form-control" }) %>
         </div>
 
         <div class="form-group">
           <%= f.label :side_effect %><br>
           <small>複数選択可能</small><br>
           <small>(windowsはctrl,Macはcommand押しながら選択)</small>
-          <%= f.collection_select(:side_effect_ids, @side_effects, :id, :name, { include_blank: "-該当なし-", prompt: false}, { multiple: true, class: "form-control" }) %>
+          <%= f.collection_select(:side_effect_ids, @side_effects, :id, :name, { prompt: false}, { multiple: true, class: "form-control" }) %>
         </div>
       </div>
     </div>

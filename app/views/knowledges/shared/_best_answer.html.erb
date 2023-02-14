@@ -1,43 +1,45 @@
 <% unless @best_answer.nil? %>
-  <p><span class="best-answer">ベストアンサー</span></p>
-  <div class="card-header border border-0 knowledge-comment-header">
-    <div class="row">
-      <div class="col-1 mgr-right-20">
-        <% if @best_answer.user.image? %>
-          <%= image_tag @best_answer.user.image.url, class: "rounded-circle", size: "60x60" %>
-        <% else %>
-          <%= image_tag (asset_path'no_image.png'), class: "rounded-circle", size: "60x60" %>
-        <% end %>
-      </div>
-      <div class="col">
-        <p class="bottom-mgr-5"><%= @best_answer.user.name %></p>
-        <p class="bottom-mgr-5"><%= @best_answer.user.pharmacy %><span class="mgr-10"><%= embedded_svg("map.svg", class: "sgv-map") %>東京</span></p>
-      </div>
-      <div class="col-3 d-flex align-items-center">
-        <% if @knowledge.user == current_user %>
-          <%= link_to "ベストアンサー解除", knowledge_comment_choose_answer_path(@knowledge.id, @best_answer.id), class: "btn btn-outline-danger btn-sm" %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <p class="card-text knowledge-comment-body"><%= @best_answer.content %></p>
-  </div>
-  <div class="card-footer border border-0">
-    <div class="row">
-      <div class="col-2">
-      <small><%= embedded_svg("heart-line.svg") %>12</small>
-      </div>
-      <div class="col text-center">
-        <% if @best_answer.user == current_user %>
-          <%= link_to "編集", edit_knowledge_comment_path(@knowledge.id, @best_answer.id), remote: true, class: "btn btn-warning btn-sm" %>
-          <%= link_to "削除", knowledge_comment_path(@best_answer.knowledge_id, @best_answer.id), method: :delete, remote: true, data: { confirm: "コメントを削除しても良いですか？" }, class: "btn btn-danger btn-sm" %>
-        <% end %>
-      </div>
-      <div class="col-7 text-right">
-        <small><strong>回答</strong><%= @best_answer.created_at.strftime('%Y年%m月%d日 %I時%M分')%></small>
-        <small><strong>更新</strong><%= @best_answer.updated_at.strftime('%Y年%m月%d日 %I時%M分')%></small>
+  <div class="card mb-3">
+    <p><span class="best-answer">ベストアンサー</span></p>
+    <div class="card-header border border-0 knowledge-comment-header">
+      <div class="row">
+        <div class="col-1 mgr-right-20">
+          <% if @best_answer.user.image? %>
+            <%= image_tag @best_answer.user.image.url, class: "rounded-circle", size: "60x60" %>
+          <% else %>
+            <%= image_tag (asset_path'no_image.png'), class: "rounded-circle", size: "60x60" %>
+          <% end %>
+        </div>
+        <div class="col">
+          <p class="bottom-mgr-5"><%= @best_answer.user.name %></p>
+          <p class="bottom-mgr-5"><%= @best_answer.user.pharmacy %><span class="mgr-10"><%= embedded_svg("map.svg", class: "sgv-map") %>東京</span></p>
+        </div>
+        <div class="col-3 d-flex align-items-center">
+          <% if @knowledge.user == current_user %>
+            <%= link_to "ベストアンサー解除", knowledge_comment_choose_answer_path(@knowledge.id, @best_answer.id), class: "btn btn-outline-danger btn-sm" %>
+          <% end %>
+        </div>
       </div>
     </div>
-  </div><br>
+    <div class="col">
+      <p class="card-text knowledge-comment-body"><%= @best_answer.content %></p>
+    </div>
+    <div class="card-footer">
+      <div class="row">
+        <div class="col-2">
+        <small><%= embedded_svg("heart-line.svg") %>12</small>
+        </div>
+        <div class="col text-center">
+          <% if @best_answer.user == current_user %>
+            <%= link_to "編集", edit_knowledge_comment_path(@knowledge.id, @best_answer.id), remote: true, class: "btn btn-warning btn-sm" %>
+            <%= link_to "削除", knowledge_comment_path(@best_answer.knowledge_id, @best_answer.id), method: :delete, remote: true, data: { confirm: "コメントを削除しても良いですか？" }, class: "btn btn-danger btn-sm" %>
+          <% end %>
+        </div>
+        <div class="col-7 text-right">
+          <small><strong>回答</strong><%= @best_answer.created_at.strftime('%Y年%m月%d日 %I時%M分')%></small>
+          <small><strong>更新</strong><%= @best_answer.updated_at.strftime('%Y年%m月%d日 %I時%M分')%></small>
+        </div>
+      </div>
+    </div><br>
+  </div>
 <% end %>
