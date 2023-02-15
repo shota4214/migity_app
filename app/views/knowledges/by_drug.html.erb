@@ -16,8 +16,9 @@
                 <% else %>
                   <p class="resolved-false text-center bottom-mgr-5"><%= resolved_text(knowledge) %></p>
                 <% end %>
-                <p class="text-center bottom-mgr-5">回答数 <strong><%= comment_count(knowledge) %></strong></p>
-                <p class="text-center bottom-mgr-5">クリップ数 <strong><%= knowledge.favorites.count %></strong></p>
+                <p class="text-center bottom-mgr-5"><small>回答数 <%= comment_count(knowledge) %></small></p>
+                <p class="text-center bottom-mgr-5"><small>保存数 <%= knowledge.favorites.count %></small></p>
+                <p class="text-center bottom-mgr-5"><small>閲覧数 <%= knowledge.impressions_count %></small></p>
               </div>
             </div>
             <div class="col-md-10">
@@ -27,30 +28,28 @@
               <% end %>
             </div>
           </div>
-          <div class="card-footer">
-            <div class="row">
-              <div class="d-grid gap-4 col-7 mx-auto">
-                <small class="text-muted">
-                  <% knowledge.drugs.each do |drug| %>
-                    <span class="mgr-10 bottom-mgr-5 btn btn-outline-secondary btn-sm knowledge-index-disease"><%= drug.name %></span>
-                  <% end %>
-                  </small>
-              </div>
-              <div class="d-grid gap-4 col mx-auto text-right">
-                <small class="text-muted">
-                  <%= link_to user_path(knowledge.user), class: "knowledge-user-name" do %>
-                    <% if knowledge.user.image? %>
-                      <%= image_tag knowledge.user.image.url, class: "rounded-circle", size: "20x20" %>
-                    <% else %>
-                      <%= image_tag "no_image.png", class: "rounded-circle", size: "20x20" %>
-                    <% end %>
-                    <%= "#{knowledge.user.name}" %>
-                  <% end %>
+          <div class="row">
+            <div class="d-grid gap-4 col-7 mx-auto">
+              <small class="text-muted">
+                <% knowledge.drugs.each do |drug| %>
+                  <span class="mgr-10 bottom-mgr-5 btn btn-outline-secondary btn-sm knowledge-index-disease"><%= drug.name %></span>
+                <% end %>
                 </small>
-              </div>
-              <div class="d-grid gap-4 col mx-auto text-center">
-                <small class="text-muted"><%= knowledge.created_at.strftime('%Y年%m月%d日') %></small>
-              </div>
+            </div>
+            <div class="d-grid gap-4 col mx-auto text-right">
+              <small class="text-muted">
+                <%= link_to user_path(knowledge.user), class: "knowledge-user-name" do %>
+                  <% if knowledge.user.image? %>
+                    <%= image_tag knowledge.user.image.url, class: "rounded-circle", size: "20x20" %>
+                  <% else %>
+                    <%= image_tag "no_image.png", class: "rounded-circle", size: "20x20" %>
+                  <% end %>
+                  <%= "#{knowledge.user.name}" %>
+                <% end %>
+              </small>
+            </div>
+            <div class="d-grid gap-4 col mx-auto text-center">
+              <small class="text-muted"><%= knowledge.created_at.strftime('%Y年%m月%d日') %></small>
             </div>
           </div>
         </div>

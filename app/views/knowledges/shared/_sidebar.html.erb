@@ -8,7 +8,7 @@
           <% @knowledge_diseases_ranks.each.with_index(1) do |disease, i| %>
             <%= link_to by_disease_knowledges_path(disease.id) do %>
               <span class="bottom-mgr-5 btn btn-outline-secondary btn-sm disease_index-sidemenu-text">
-                <%= "#{disease.name}" %><%= "(#{disease.knowledges.count})" %>
+                <%= "#{disease.name}" %><%= "(#{knowledges_count(disease)})" %>
               </span>
             <% end %>
             <% break if i == 5 %>
@@ -28,7 +28,7 @@
           <% @knowledge_drugs_ranks.each.with_index(1) do |drug, i| %>
             <%= link_to by_drug_knowledges_path(drug.id) do %>
               <span class="bottom-mgr-5 btn btn-outline-secondary btn-sm disease_index-sidemenu-text">
-                <%= "#{drug.name}" %><%= "(#{drug.knowledges.count})" %>
+                <%= "#{drug.name}" %><%= "(#{knowledges_count(drug)})" %>
               </span>
             <% end %>
             <% break if i == 5 %>
@@ -48,7 +48,7 @@
           <% @knowledge_side_effects_ranks.each.with_index(1) do |side_effect, i| %>
             <%= link_to by_side_effect_knowledges_path(side_effect.id) do %>
               <span class="bottom-mgr-5 btn btn-outline-secondary btn-sm disease_index-sidemenu-text">
-                <%= "#{side_effect.name}" %><%= "(#{side_effect.knowledges.count})" %>
+                <%= "#{side_effect.name}" %><%= "(#{knowledges_count(side_effect)})" %>
               </span>
             <% end %>
             <% break if i == 5 %>
