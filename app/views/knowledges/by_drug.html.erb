@@ -31,8 +31,14 @@
           <div class="row">
             <div class="d-grid gap-4 col-7 mx-auto">
               <small class="text-muted">
+                <% knowledge.diseases.each do |disease| %>
+                  <span class="mgr-10 bottom-mgr-5 btn btn-outline-secondary btn-sm knowledge-index-disease"><%= disease.name %></span>
+                <% end %>
                 <% knowledge.drugs.each do |drug| %>
                   <span class="mgr-10 bottom-mgr-5 btn btn-outline-secondary btn-sm knowledge-index-disease"><%= drug.name %></span>
+                <% end %>
+                <% knowledge.side_effects.each do |side_effect| %>
+                  <span class="mgr-10 bottom-mgr-5 btn btn-outline-secondary btn-sm knowledge-index-disease"><%= side_effect.name %></span>
                 <% end %>
                 </small>
             </div>

@@ -27,8 +27,14 @@
               <div class="col-5">
                 <small class="text-muted">
                   <% @knowledge.diseases.each do |disease| %>
-                    <span class="mgr-10 bottom-mgr-5 btn btn-outline-secondary btn-sm knowledge-index-disease"><%= disease.name %></span>
-                  <% end %>
+                  <span class="mgr-10 bottom-mgr-5 btn btn-outline-secondary btn-sm knowledge-index-disease"><%= disease.name %></span>
+                <% end %>
+                <% @knowledge.drugs.each do |drug| %>
+                  <span class="mgr-10 bottom-mgr-5 btn btn-outline-secondary btn-sm knowledge-index-disease"><%= drug.name %></span>
+                <% end %>
+                <% @knowledge.side_effects.each do |side_effect| %>
+                  <span class="mgr-10 bottom-mgr-5 btn btn-outline-secondary btn-sm knowledge-index-disease"><%= side_effect.name %></span>
+                <% end %>
                 </small>
               </div>
               <div class="col-2 text-right">
