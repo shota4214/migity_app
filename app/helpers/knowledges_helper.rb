@@ -29,8 +29,7 @@ module KnowledgesHelper
     all_comment - my_comment
   end
 
-  # def disease_detail_text(knowledge)
-  #   disease_detail= DiseaseDetail.find(knowledge.disease_detail_id)
-  #   disease_detail.content
-  # end
+  def knowledges_count(labels)
+    labels.knowledges.where(resolved: true).count
+  end
 end

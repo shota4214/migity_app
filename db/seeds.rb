@@ -13,7 +13,7 @@ User.create!(name: "みぎたか", pharmacy: "migity", email: "migitaka@test.com
 end
 
 diseases = [
-  "大腸癌", "肺がん", "肺癌", "乳癌", "肝臓がん"
+  "その他", "大腸癌", "肺がん", "肺癌", "乳癌", "肝臓がん"
 ]
 diseases.each do |disease|
   Disease.create!(name: disease)
@@ -121,6 +121,7 @@ ExpertDetail.create!(office_name: "岡田総合病院", user_id: 7, )
 ExpertDetail.create!(office_name: "山本病院", user_id: 8, )
 
 drugs = [
+  "その他",
   "ベバシズマブ", "ラムシルマブ", "アフリベルセプト", "ネシツムマブ",
   "セツキシマブ", "パニツムマブ",
   "レゴラフェニブ",
@@ -152,6 +153,7 @@ DrugLabelling.create!(knowledge_id: 6, drug_id: 13)
 DrugLabelling.create!(knowledge_id: 7, drug_id: 18)
 
 side_effects = [
+  "その他",
   "血管外漏出", "血管障害",
   "過敏症", "アナフィラキシー", "インフュージョンリアクション",
   "骨髄抑制", "感染", "FNなど",
