@@ -166,7 +166,6 @@ class KnowledgesController < ApplicationController
     @knowledge_diseases_ranks = Disease.find(DiseaseLabelling.group(:disease_id).order('count(disease_id) desc').pluck(:disease_id))
     @knowledge_drugs_ranks = Drug.find(DrugLabelling.group(:drug_id).order('count(drug_id) desc').pluck(:drug_id))
     @knowledge_side_effects_ranks = SideEffect.find(SideEffectLabelling.group(:side_effect_id).order('count(side_effect_id) desc').pluck(:side_effect_id))
-    
   end
 
   def half_width_to_full_width
