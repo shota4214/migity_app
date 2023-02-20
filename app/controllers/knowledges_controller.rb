@@ -10,7 +10,7 @@ class KnowledgesController < ApplicationController
   before_action :sidebar_profession_users, only: %i[index show by_disease by_drug by_side_effect search my tag_index expert_view_index]
 
   def index
-    @knowledges = @knowledges.joins(:comments).where(comments: {best_answer: true}).where(resolved: true).order("created_at DESC").page(params[:page]).per(10)
+    @knowledges = @knowledges.where(resolved: true).order("created_at DESC").page(params[:page]).per(10)
   end
 
   def new
