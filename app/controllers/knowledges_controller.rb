@@ -10,7 +10,7 @@ class KnowledgesController < ApplicationController
   before_action :sidebar_profession_users, only: %i[index show by_disease by_drug by_side_effect search my tag_index expert_view_index]
 
   def index
-    @knowledges = @knowledges.joins(:comments).where(comments: {best_answer: true}).where(resolved: true).order("created_at DESC").page(params[:page]).per(10)
+    @knowledges = @knowledges.where(resolved: true).order("created_at DESC").page(params[:page]).per(10)
   end
 
   def new
@@ -87,7 +87,7 @@ class KnowledgesController < ApplicationController
   end
 
   def search
-    @knowledges = @knowledges.joins(:comments).where(comments: {best_answer: true}).where(resolved: true)
+    @knowledges = @knowledges.where(resolved: true)
     search_words = params[:q][:title_or_content_body_cont].split(/[\p{blank}\s]+/)
     grouping_hash = search_words.reduce({}){|hash, word| hash.merge(word => { title_or_content_body_cont: word})}
     @results = @knowledges.ransack({ combinator: 'and', groupings: grouping_hash, s: 'created_at DESC'}).result.page(params[:page]).per(10)
@@ -96,19 +96,19 @@ class KnowledgesController < ApplicationController
   def by_disease
     disease_id = params[:format].to_i
     @disease = Disease.find(disease_id)
-    @knowledges_by_disease = @disease.knowledges.joins(:comments).where(comments: {best_answer: true}).where(resolved: true).order("created_at DESC").page(params[:page]).per(10)
+    @knowledges_by_disease = @disease.knowledges.where(resolved: true).order("created_at DESC").page(params[:page]).per(10)
   end
 
   def by_drug
     drug_id = params[:format].to_i
     @drug = Drug.find(drug_id)
-    @knowledges_by_drug = @drug.knowledges.joins(:comments).where(comments: {best_answer: true}).where(resolved: true).order("created_at DESC").page(params[:page]).per(10)
+    @knowledges_by_drug = @drug.knowledges.where(resolved: true).order("created_at DESC").page(params[:page]).per(10)
   end
 
   def by_side_effect
     side_effect_id = params[:format].to_i
     @side_effect = SideEffect.find(side_effect_id)
-    @knowledges_by_side_effect = @side_effect.knowledges.joins(:comments).where(comments: {best_answer: true}).where(resolved: true).order("created_at DESC").page(params[:page]).per(10)
+    @knowledges_by_side_effect = @side_effect.knowledges.where(resolved: true).order("created_at DESC").page(params[:page]).per(10)
   end
 
   def my
