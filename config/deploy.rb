@@ -36,6 +36,15 @@ namespace :deploy do
     invoke 'unicorn:restart'
   end
 
+  # シンボリックリンクを設定
+  task :make_symlink do
+    on roles(:app) do
+      within release_path do
+        execute :ln, "-s", release_path, fetch(:deploy_to), "current"
+      end
+    end
+  end
+
   desc 'Create database'
   task :db_create do
     on roles(:db) do |host|
