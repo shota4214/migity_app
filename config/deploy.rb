@@ -37,15 +37,15 @@ namespace :deploy do
   end
 
   # シンボリックリンクを設定
-  task :make_symlink do
-    on roles(:app) do
-      within release_path do
-        execute :ln, "-s", release_path, fetch(:deploy_to), "current"
-      end
-    end
-  end
+  # task :make_symlink do
+  #   on roles(:app) do
+  #     within release_path do
+  #       execute :ln, "-s", release_path, fetch(:deploy_to), "current"
+  #     end
+  #   end
+  # end
 
-  after :published, :make_symlink
+  # after :published, :make_symlink
 
   desc 'Create database'
   task :db_create do
