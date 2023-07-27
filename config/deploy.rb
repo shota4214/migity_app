@@ -45,6 +45,8 @@ namespace :deploy do
     end
   end
 
+  after :published, :make_symlink
+
   desc 'Create database'
   task :db_create do
     on roles(:db) do |host|
