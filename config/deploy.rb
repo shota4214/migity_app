@@ -15,7 +15,7 @@ set :branch, ENV['BRANCH'] || 'main'
 set :deploy_to, '/var/www/migity'
 
 # シンボリックリンクをはるフォルダ・ファイル
-set :linked_files, %w{.env config/secrets.yml}
+set :linked_files, %w{.env config/secrets.yml Gemfile}
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets public/uploads}
 
 # 保持するバージョンの個数(※後述)
