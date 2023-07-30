@@ -31,6 +31,17 @@ set :rbenv_type, :system
 set :log_level, :debug
 
 namespace :deploy do
+  desc 'Create deploy directory'
+  task :create_deploy_dir do
+    on roles(:all) do
+      execute :mkdir, '-p', "#{fetch(:deploy_to)}/current"
+    end
+  end
+end
+
+before 'deploy:check:linked_dirs', 'deploy:create_deploy_dir'
+
+namespace :deploy do
   desc 'Restart application'
   task :restart do
     invoke 'unicorn:restart'
